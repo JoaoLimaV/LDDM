@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
-import defaultStyle from '../components/DefaultStyle';
+import DefaultStyle from '../components/DefaultStyle'
 import HeaderNavigation from '../components/HeaderNavigation';
 
 
-function Login(): React.JSX.Element {
+function Login({ navigation }: any): React.JSX.Element {
   return (
-    <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
+    <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
       <HeaderNavigation backScreen={'Home'} title='' />
 
       <View style={styles.container_input}>
-        <Text style={[styles.text_principal, defaultStyle.text_black]}>
+        <Text style={[styles.text_principal, DefaultStyle.text_black]}>
           Estamos felizes vê-lo aqui. Faça Login para entrar
         </Text>
 
@@ -20,17 +20,17 @@ function Login(): React.JSX.Element {
             keyboardType="default"
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
-            style={defaultStyle.defaul_input}
+            style={DefaultStyle.defaul_input}
           />
           <TextInput
             placeholder="Senha"
             keyboardType="default"
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
-            style={defaultStyle.defaul_input}
+            style={DefaultStyle.defaul_input}
           />
 
-          <Text style={[styles.forgot_password, defaultStyle.text_blue]}> Esqueci minha senha </Text>
+          <Text style={[styles.forgot_password, DefaultStyle.text_blue]}> Esqueci minha senha </Text>
         </View>
 
         <View style={styles.div_login_with}>
@@ -56,11 +56,15 @@ function Login(): React.JSX.Element {
       </View>
 
       <View style={styles.container_btn_login}>
-        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}>
-          <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Entrar </Text>
+        <TouchableOpacity style={[DefaultStyle.default_btn, DefaultStyle.bg_blue]}>
+          <Text style={[DefaultStyle.btn_text, DefaultStyle.text_white]}> Entrar </Text>
         </TouchableOpacity>
       </View>
-      <Text style={[styles.new_user_text, defaultStyle.text_black]}>
+      <Text style={[styles.new_user_text, DefaultStyle.text_black]}
+        onPress={() => {
+          navigation.navigate('Step1Register');
+        }}
+      >
         É novo por aqui? Cadastre-se
       </Text>
     </Pressable>

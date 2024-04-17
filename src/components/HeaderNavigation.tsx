@@ -5,13 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import defaultStyle from './DefaultStyle';
 
 interface HeaderNavigationProps {
-    backScreen: string;
+    backScreen: string ;
     title: string;
 }
 
 function HeaderNavigation({ backScreen, title }: HeaderNavigationProps) {
     const navigation = useNavigation();
-
     return (
         <View style={styles.container}>
             <TouchableOpacity
