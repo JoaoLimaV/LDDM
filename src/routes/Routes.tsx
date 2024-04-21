@@ -12,6 +12,7 @@ import Step3Register from '../screens/register/Step3Register';
 import Step4Register from '../screens/register/Step4Register';
 import Step5Register from '../screens/register/Step5Register';
 import Step6Register from '../screens/register/Step6Register';
+import Product from '../screens/Product/Product'
 
 
 const Stack: any = createNativeStackNavigator();
@@ -30,6 +31,8 @@ function Routes(): React.JSX.Element {
         <Stack.Screen name="Step4Register" component={Step4Register} options={{ headerShown: false }}/>
         <Stack.Screen name="Step5Register" component={Step5Register} options={{ headerShown: false }}/>
         <Stack.Screen name="Step6Register" component={Step6Register} options={{ headerShown: false }}/>
+
+        <Stack.Screen name="Product" component={Product} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
