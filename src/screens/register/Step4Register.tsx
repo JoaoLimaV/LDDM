@@ -129,12 +129,11 @@ const styles: any = StyleSheet.create({
         marginBottom: 5,
     },
     input: {
-        width: 75,
+        width: '20%',
         height: 75,
         borderWidth: 2,
         borderColor: '#282832',
         color: '#282832',
-        margin: 10,
         fontSize: 20,
         textAlign: 'center',
         borderRadius: 10,
