@@ -15,7 +15,7 @@ const produtos = [
   { nome: 'Omnath, Locus da Criação', preco: 'R$ 364,00' },
 ];
 
-function Main(): React.JSX.Element {
+function Main({ navigation }: any): React.JSX.Element {
   return (
     <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
 
@@ -124,7 +124,7 @@ function Main(): React.JSX.Element {
         <ScrollView style={styles.scroll_product}>
           <View style={styles.body_product}>
             {produtos.map((produto, index) => (
-              <TouchableOpacity key={index} style={styles.card_product}>
+              <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product');}}>
                 <View style={styles.card_top}>
                   <Text style={[styles.text_medium, DefaultStyle.text_black]}>1d 20h 20m 23s</Text>
                   <View style={styles.div_image}>
