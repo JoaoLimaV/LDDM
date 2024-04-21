@@ -41,8 +41,8 @@ function Step4Register({ navigation }: any): React.JSX.Element {
 
     return (
         <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
-            <HeaderNavigation backScreen={'Step2Register'} title='' />
-
+            <HeaderNavigation backScreen={'Step3Register'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
+            
             <View style={styles.container_input}>
                 <Text style={[styles.text_principal, DefaultStyle.text_black]}>
                     Verificação

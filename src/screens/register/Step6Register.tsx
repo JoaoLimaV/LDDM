@@ -11,7 +11,7 @@ function Step5Register({ navigation }: any): React.JSX.Element {
 
   return (
     <View style={DefaultStyle.main_container}>
-      <HeaderNavigation backScreen={'Step4Register'} title='' />
+      <HeaderNavigation backScreen={'Step6Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
       <Text style={[styles.text_principal, DefaultStyle.text_black]}> Termos de Uso </Text>
 

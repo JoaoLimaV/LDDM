@@ -7,7 +7,7 @@ import HeaderNavigation from '../../components/HeaderNavigation';
 function Step2Register({ navigation }: any): React.JSX.Element {
   return (
     <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
-      <HeaderNavigation backScreen={'Step1Register'} title='' />
+      <HeaderNavigation backScreen={'Step1Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
       <View style={styles.container_input}>
         <Text style={[styles.text_principal, DefaultStyle.text_black]}>

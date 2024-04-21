@@ -151,7 +151,7 @@ function Main({ navigation }: any): React.JSX.Element {
           </View>
         </ScrollView>
       </View>
-      <HeaderNavigation backScreen={'Home'} title='' />
+      <HeaderNavigation backScreen={'Home'} title='' icon={{viewBox: '', fill: '', d:''}} />
     </Pressable>
   );
 }
@@ -171,7 +171,7 @@ const styles: any = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 3,
+    borderWidth: 2.5,
     borderRadius: 10,
     borderColor: '#282832',
     paddingLeft: 7,

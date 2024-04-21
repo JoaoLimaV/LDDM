@@ -8,7 +8,7 @@ import Svg, { Path } from 'react-native-svg';
 function Step3Register({ navigation }: any): React.JSX.Element {
     return (
         <View style={DefaultStyle.main_container} >
-            <HeaderNavigation backScreen={'Step2Register'} title='' />
+            <HeaderNavigation backScreen={'Step2Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
             <View style={styles.container_input}>
                 <Text style={[styles.text_principal, DefaultStyle.text_black]}>

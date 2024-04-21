@@ -2,19 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import defaultStyle from '../../components/DefaultStyle'
 import HeaderNavigation from '../../components/HeaderNavigation'
+import svg_icon from '../../components/SvgIcons'
+
 import styles from './styles'
 import teste from './imgTeste/carta.jpg'
 
 function Product({ navigation }: any) {
   return (
     <View style={defaultStyle.main_container}>
-      <HeaderNavigation backScreen={'Home'} title="" />
-
-      <View style={styles.closure}>
-        <Text style={[defaultStyle.text_black, styles.textClosure]}>
-          Encerramento em: 0d 00h 00m 00s
-        </Text>
-      </View>
+      <HeaderNavigation backScreen={'Main'} title='Encerramento em: 1d 20h 20m 23s' icon={{viewBox: '', fill: '', d:''}} />
 
       <View style={styles.divSlide}>
         <View style={styles.divImgs}>
@@ -77,7 +73,7 @@ function Product({ navigation }: any) {
       <View style={styles.divThrow}>
         <View>
           <View><Text style={[defaultStyle.text_black, styles.throw]}>Lance Atual</Text></View>
-          <View><Text  style={[defaultStyle.text_black, styles.valueThrow]}>R$ 150,01</Text></View>
+          <View><Text style={[defaultStyle.text_black, styles.valueThrow]}>R$ 150,01</Text></View>
         </View>
 
         <View style={styles.divBtnThrow}>
@@ -88,7 +84,7 @@ function Product({ navigation }: any) {
       </View>
 
     </View>
-    
+
   )
 }
 
