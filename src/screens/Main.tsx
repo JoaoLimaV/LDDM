@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
+import svg_icon from '@components/SvgIcons';
+import Svg, { Path } from 'react-native-svg';
+
+import styles from '@styles/mainStyle'
 
 const MAX_LENGTH = 20; // Defina o comprimento máximo do nome
 
@@ -39,10 +43,9 @@ function Main({ navigation }: any): React.JSX.Element {
               style={[styles.styled_input, defaultStyle.text_black]}
             />
             <TouchableOpacity>
-              <Image
-                style={{ width: 24, height: 25 }}
-                source={require('@icons/icon_search.png')}
-              />
+              <Svg style={{ width: 24, height: 25 }} viewBox={svg_icon.search.viewBox}>
+                <Path fill={svg_icon.search.fill} d={svg_icon.search.d} />
+              </Svg>
             </TouchableOpacity>
           </View>
 
@@ -68,7 +71,7 @@ function Main({ navigation }: any): React.JSX.Element {
               style={{ width: 30, height: 25, marginBottom: 5 }}
               source={require('@icons/icon_star.png')}
             />
-            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Favoritos</Text>
+            <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Favoritos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
@@ -76,7 +79,7 @@ function Main({ navigation }: any): React.JSX.Element {
               style={{ width: 28, height: 25, marginBottom: 5 }}
               source={require('@icons/icon_arrow.png')}
             />
-            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Populares</Text>
+            <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Populares</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
@@ -84,7 +87,7 @@ function Main({ navigation }: any): React.JSX.Element {
               style={{ width: 22, height: 25, marginBottom: 5 }}
               source={require('@icons/icon_fire.png')}
             />
-            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Em Alta</Text>
+            <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Em Alta</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
@@ -92,12 +95,12 @@ function Main({ navigation }: any): React.JSX.Element {
               style={{ width: 25, height: 25, marginBottom: 5 }}
               source={require('@icons/icon_hammer.png')}
             />
-            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Leiloar</Text>
+            <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Leiloar</Text>
           </TouchableOpacity>
 
         </View>
         <View style={styles.header_product}>
-          <Text style={[styles.text_big, defaultStyle.text_black]}>Leilões em aberto:</Text>
+          <Text style={[{ fontSize: 22 }, defaultStyle.text_black]}>Leilões em aberto:</Text>
 
           <View style={styles.display_items}>
             <TouchableOpacity style={styles.items_style}>
@@ -124,9 +127,9 @@ function Main({ navigation }: any): React.JSX.Element {
         <ScrollView style={styles.scroll_product}>
           <View style={styles.body_product}>
             {produtos.map((produto, index) => (
-              <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product');}}>
+              <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product'); }}>
                 <View style={styles.card_top}>
-                  <Text style={[styles.text_medium, defaultStyle.text_black]}>1d 20h 20m 23s</Text>
+                  <Text style={[{ fontSize: 12 }, defaultStyle.text_black]}>1d 20h 20m 23s</Text>
                   <View style={styles.div_image}>
                     <Image
                       style={styles.image_product}
@@ -136,161 +139,25 @@ function Main({ navigation }: any): React.JSX.Element {
                 </View>
                 <View style={styles.desc_product}>
                   <View style={styles.desc_right}>
-                    <Text style={[styles.text_medium, defaultStyle.text_black, { marginTop: 10 }]}>
+                    <Text style={[{ fontSize: 12 }, defaultStyle.text_black, { marginTop: 10 }]}>
                       {truncateString(produto.nome, MAX_LENGTH)}
                     </Text>
-                    <Text style={[styles.text_medium, defaultStyle.text_blue]}>{produto.preco}</Text>
+                    <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>{produto.preco}</Text>
                   </View>
-                    <Image
-                      style={{ width: 30, height: 25, marginBottom: 5 }}
-                      source={require('@icons/icon_star.png')}
-                    />
+                  <Image
+                    style={{ width: 30, height: 25, marginBottom: 5 }}
+                    source={require('@icons/icon_star.png')}
+                  />
                 </View>
               </TouchableOpacity>
             ))}
           </View>
         </ScrollView>
       </View>
-      <HeaderNavigation backScreen={'Home'} title='' icon={{viewBox: '', fill: '', d:''}} />
+      <HeaderNavigation backScreen={'Home'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
     </Pressable>
   );
 }
-
-const styles: any = StyleSheet.create({
-  /*Header*/
-  header_container: {
-    paddingTop: 20
-  },
-  div_input: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  div_search: {
-    width: '80%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderWidth: 2.5,
-    borderRadius: 10,
-    borderColor: '#282832',
-    paddingLeft: 7,
-    paddingRight: 15
-  },
-  styled_input: {
-    width: '90%',
-    height: 35,
-    paddingLeft: 7,
-    paddingBottom: 3,
-    fontSize: 18
-  },
-  notification_text: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  /*Body*/
-  body_container: {
-    flexDirection: 'column',
-    marginTop: 20,
-    borderTopWidth: 2,
-    borderColor: '#282832',
-    flex: 1
-  },
-  div_nav: {
-    marginVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  btn_nav: {
-    width: '20%',
-    margin: 8,
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: '#6B63FF',
-    flexDirection: 'column',
-    paddingTop: "3%",
-    paddingBottom: '1%',
-    alignItems: 'center',
-  },
-  text_small: {
-    fontSize: 10,
-  },
-  text_medium: {
-    fontSize: 12,
-  },
-  text_big: {
-    fontSize: 22,
-  },
-  header_product: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  display_items: {
-    borderWidth: 2,
-    borderRadius: 20,
-    borderColor: '#282832',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  items_style: {
-    margin: 6,
-  },
-  scroll_product: {
-    flex: 1
-  },
-  body_product: {
-    height: 'auto',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-  },
-  card_product: {
-    marginTop: "4%",
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#D9D9D9',
-    justifyContent: 'space-between',
-  },
-  card_top: {
-    marginVertical: 10,
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  div_image: {
-    width: 140,
-    height: 140,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  image_product: {
-    width: "90%",
-    height: "90%",
-    resizeMode: "contain"
-  },
-  desc_product: {
-    borderBottomEndRadius: 10,
-    borderBottomStartRadius: 10,
-
-    width: "100%",
-    backgroundColor: "#D9D9D9",
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  desc_right: {
-    paddingBottom: 10,
-    paddingHorizontal: 10,
-  }
-});
 
 export default Main;
 

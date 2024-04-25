@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation';
 import svg_icon from '@components/SvgIcons';
 import Svg, { Path } from 'react-native-svg';
+
+import styles from '@styles/step3Style'
 
 function Step3Register({ navigation }: any): React.JSX.Element {
     return (
@@ -47,46 +49,6 @@ function Step3Register({ navigation }: any): React.JSX.Element {
         </View>
     );
 }
-
-const styles: any = StyleSheet.create({
-    container_input: {
-        flex: .85,
-        alignItems: "center",
-        justifyContent: "flex-start",
-        paddingTop: 20
-    },
-    text_principal: {
-        fontSize: 28,
-        width: '100%',
-        textAlign: 'left'
-    },
-
-    div_btn_code: {
-        width: '100%',
-        paddingTop: 30,
-    },
-
-    btn_icon: {
-        width: '100%',
-        height: 80,
-        borderRadius: 15,
-        borderWidth: 2,
-        borderColor: "#D9D9D9",
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 15,
-        paddingLeft: 15
-    },
-    icon: {
-        width: 50,
-        height: 50,
-    },
-    text_icon: {
-        paddingLeft: 5,
-        fontSize: 20
-    }
-});
 
 export default Step3Register;
 

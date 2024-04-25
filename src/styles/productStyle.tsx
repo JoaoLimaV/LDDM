@@ -1,64 +1,61 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
-
-    closure:{
+const productStyle = StyleSheet.create({
+    closure: {
         flex: 1,
-        width:"100%",
+        width: "100%",
         alignItems: 'flex-end',
         position: 'absolute',
         paddingLeft: 15,
         paddingTop: 25
     },
-
-    textClosure:{
+    textClosure: {
         fontSize: 16,
     },
-
-    divSlide:{
+    divSlide: {
         height: '60%',
         alignItems: 'center',
     },
 
-    divImgs:{
+    divImgs: {
         flexDirection: 'row',
         height: '90%',
         width: '100%',
     },
 
-    divImgPrinc:{
+    divImgPrinc: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center'
     },
 
-    imgPrinc:{
+    imgPrinc: {
         width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
 
-    img:{
+    img: {
         width: '90%',
         height: '80%',
     },
 
-    divImgSecun:{
+    divImgSecun: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
     },
 
-    imgSecun:{
+    imgSecun: {
         width: '100%',
         height: '50%',
         alignItems: 'center',
         justifyContent: 'center'
     },
 
-    divBtnSlide:{
+    divBtnSlide: {
         gap: 10,
         width: '100%',
         flexDirection: 'row',
@@ -67,23 +64,23 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
 
-    btnSlide:{
+    btnSlide: {
         width: 9,
         height: 9,
         borderRadius: 10,
     },
 
-    divDetails:{
+    divDetails: {
         alignItems: 'center',
         justifyContent: 'center',
         paddingBottom: 30,
     },
 
-    title:{
+    title: {
         fontSize: 26,
     },
 
-    divCategory:{
+    divCategory: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -91,30 +88,30 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 
-    category:{
+    category: {
         fontSize: 13,
     },
 
-    separator:{
+    separator: {
         height: 5,
         width: 5,
         borderRadius: 5,
     },
 
-    details:{
+    details: {
         fontSize: 17,
         paddingHorizontal: 5
     },
 
-    divHistoric:{
+    divHistoric: {
         paddingHorizontal: 15
     },
 
-    historic:{
+    historic: {
         fontSize: 21
     },
 
-    divThrow:{
+    divThrow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -128,41 +125,34 @@ const styles = StyleSheet.create({
         left: 0
     },
 
-    throw:{
+    throw: {
         fontSize: 17
     },
 
-    valueThrow:{
+    valueThrow: {
         fontSize: 23
     },
 
-    divRowThrow:{
-       flexDirection: 'column'  
+    divRowThrow: {
+        flexDirection: 'column'
     },
 
-    borderBtn:{
+    borderBtn: {
         borderColor: '#6B63FF',
         borderWidth: 2,
     },
-
-    divBtnThrow:{
+    divBtnThrow: {
         gap: 10
     },
-
-    divBtn:{
+    divBtn: {
         justifyContent: 'center',
     },
-
-    align:{
+    align: {
         paddingVertical: 7,
         paddingHorizontal: 10,
         textAlign: 'center',
         borderRadius: 15,
-        
     }
-
-
-   
 });
 
-export default styles
+export default productStyle

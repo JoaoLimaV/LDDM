@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation';
 
+import styles from '@styles/step1Style'
 
 function Step2Register({ navigation }: any): React.JSX.Element {
   return (
@@ -45,30 +46,6 @@ function Step2Register({ navigation }: any): React.JSX.Element {
     </Pressable>
   );
 }
-
-const styles: any = StyleSheet.create({
-  container_input: {
-    flex: .85,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    paddingTop: 20
-  },
-  text_principal: {
-    fontSize: 28,
-    width: '100%',
-    textAlign: 'left'
-  },
-  div_input: {
-    width: '100%',
-    paddingTop: 10,
-  },
-
-  container_btn_login: {
-    flex: .15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Step2Register;
 

@@ -8,6 +8,7 @@
       "@components/*" : ["./src/components/*"],
       "@images/*" : ["./assets/images/*"],
       "@screens/*" : ["./src/screens/*"],
+      "@styles/*" : ["./src/styles/*"],
     },
   }
 }

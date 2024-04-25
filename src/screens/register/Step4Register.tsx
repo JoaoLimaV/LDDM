@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation';
 
+import styles from '@styles/step4Style'
 
 function Step4Register({ navigation }: any): React.JSX.Element {
     1
@@ -101,50 +102,6 @@ function Step4Register({ navigation }: any): React.JSX.Element {
         </Pressable>
     );
 }
-
-const styles: any = StyleSheet.create({
-    container_input: {
-        flex: .85,
-        alignItems: "center",
-        justifyContent: "flex-start",
-        paddingTop: 20
-    },
-    text_principal: {
-        fontSize: 28,
-        width: '100%',
-        textAlign: 'left'
-    },
-    text_second: {
-        fontSize: 20,
-        width: '100%',
-        textAlign: 'left'
-    },
-
-    div_input: {
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 15,
-        marginBottom: 5,
-    },
-    input: {
-        width: '20%',
-        height: 75,
-        borderWidth: 2,
-        borderColor: '#282832',
-        color: '#282832',
-        fontSize: 20,
-        textAlign: 'center',
-        borderRadius: 10,
-    },
-
-    container_btn_login: {
-        flex: .15,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default Step4Register;
 

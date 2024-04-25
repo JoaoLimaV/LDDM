@@ -12,7 +12,7 @@ import Step3Register from '@screens/register/Step3Register';
 import Step4Register from '@screens/register/Step4Register';
 import Step5Register from '@screens/register/Step5Register';
 import Step6Register from '@screens/register/Step6Register';
-import Product from '@screens/Product/Product'
+import Product from '@screens/Product'
 
 
 const Stack: any = createNativeStackNavigator();

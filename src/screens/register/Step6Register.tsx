@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation';
 import { RadioButton } from 'react-native-paper';
 
-function Step5Register({ navigation }: any): React.JSX.Element {
+import styles from '@styles/step6Style'
+
+function Step6Register({ navigation }: any): React.JSX.Element {
 
   const [checked, setChecked] = React.useState('reject');
   const [isDisabled, setDisabled] = React.useState<boolean>(true);
@@ -90,58 +92,6 @@ function Step5Register({ navigation }: any): React.JSX.Element {
   );
 }
 
-const styles: any = StyleSheet.create({
-  text_principal: {
-    fontSize: 28,
-    width: '100%',
-    textAlign: 'left',
-    paddingTop: 10
-  },
-
-  scroll_view: {
-    flex: .75,
-    padding: 10
-  },
-  title_scroll: {
-    fontSize: 24
-  },
-  text_scroll: {
-    fontSize: 18,
-    textAlign: 'justify',
-    marginBottom: 5
-  },
-  container_btn_login: {
-    flex: .25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopWidth: 2,
-    borderColor: '#D9D9D9',
-    marginTop: 10,
-  },
-  div_radio_btn: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  text_radio_btn: {
-    fontSize: 14
-  },
-  div_buttons: {
-    width: '100%',
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-  btn: {
-    width: '40%',
-    borderRadius: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: 'Itim-Regular',
-  },
-});
-
-export default Step5Register;
+export default Step6Register;
 
 

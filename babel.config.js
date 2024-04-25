@@ -17,7 +17,8 @@ module.exports = {
         '@icons': './assets/images/icons',
         '@images': './assets/images',
         '@components': './src/components',
-        '@screens': './src/screens'
+        '@screens': './src/screens',
+        '@styles': './src/styles',
       }
     }]
   ]

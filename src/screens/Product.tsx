@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation'
 import svg_icon from '@components/SvgIcons'
 
-import styles from './styles'
+import styles from '@styles/productStyle'
 
 function Product({ navigation }: any) {
   return (
