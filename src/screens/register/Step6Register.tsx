@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import DefaultStyle from '../../components/DefaultStyle'
-import HeaderNavigation from '../../components/HeaderNavigation';
+import defaultStyle from '@components/DefaultStyle'
+import HeaderNavigation from '@components/HeaderNavigation';
 import { RadioButton } from 'react-native-paper';
 
 function Step5Register({ navigation }: any): React.JSX.Element {
@@ -10,36 +10,24 @@ function Step5Register({ navigation }: any): React.JSX.Element {
   const [isDisabled, setDisabled] = React.useState<boolean>(true);
 
   return (
-    <View style={DefaultStyle.main_container}>
-      <HeaderNavigation backScreen={'Step6Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
+    <View style={defaultStyle.main_container}>
+      <HeaderNavigation backScreen={'Step5Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
-      <Text style={[styles.text_principal, DefaultStyle.text_black]}> Termos de Uso </Text>
+      <Text style={[styles.text_principal, defaultStyle.text_black]}> Termos de Uso </Text>
 
       <ScrollView style={styles.scroll_view}>
-        <Text style={[styles.title_scroll, DefaultStyle.text_black]}> Uso de dados </Text>
+        <Text style={[styles.title_scroll, defaultStyle.text_black]}> Uso de dados </Text>
 
-        <Text style={[styles.text_scroll, DefaultStyle.text_black]}>
+        <Text style={[styles.text_scroll, defaultStyle.text_black]}>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
           but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
           Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </Text>
 
-        <Text style={[styles.title_scroll, DefaultStyle.text_black]}> Uso de dados </Text>
+        <Text style={[styles.title_scroll, defaultStyle.text_black]}> Uso de dados </Text>
 
-        <Text style={[styles.text_scroll, DefaultStyle.text_black]}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </Text>
-
-        <Text style={[styles.title_scroll, DefaultStyle.text_black]}> Uso de dados </Text>
-
-        <Text style={[styles.text_scroll, DefaultStyle.text_black]}>
+        <Text style={[styles.text_scroll, defaultStyle.text_black]}>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
           but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
@@ -49,9 +37,21 @@ function Step5Register({ navigation }: any): React.JSX.Element {
           Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </Text>
 
-        <Text style={[styles.title_scroll, DefaultStyle.text_black]}> Uso de dados </Text>
+        <Text style={[styles.title_scroll, defaultStyle.text_black]}> Uso de dados </Text>
 
-        <Text style={[styles.text_scroll, DefaultStyle.text_black]}>
+        <Text style={[styles.text_scroll, defaultStyle.text_black]}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </Text>
+
+        <Text style={[styles.title_scroll, defaultStyle.text_black]}> Uso de dados </Text>
+
+        <Text style={[styles.text_scroll, defaultStyle.text_black]}>
           Lorem Ipsum is simply dummy text omy text omy text omy text of the printing and typesetting industry. Lorem Ipsum hions of Lorem Ipsum.
         </Text>
       </ScrollView>
@@ -65,24 +65,24 @@ function Step5Register({ navigation }: any): React.JSX.Element {
             onPress={() => { setChecked('accept'); setDisabled(false)}}
             color={'#6B63FF'}
           />
-          <Text style={[styles.text_radio_btn, DefaultStyle.text_black]}> Declaro que li e concordo com os Termos de Uso do BidCard </Text>
+          <Text style={[styles.text_radio_btn, defaultStyle.text_black]}> Declaro que li e concordo com os Termos de Uso do BidCard </Text>
         </View>
 
         <View style={styles.div_buttons}>
-          <TouchableOpacity style={[styles.btn, DefaultStyle.bg_gray]}
+          <TouchableOpacity style={[styles.btn, defaultStyle.bg_gray]}
             onPress={() => {
               navigation.navigate('Home');
             }}
           >
-            <Text style={[DefaultStyle.btn_text, DefaultStyle.text_black]}> Rejeitar </Text>
+            <Text style={[defaultStyle.btn_text, defaultStyle.text_black]}> Rejeitar </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn, DefaultStyle.bg_blue, isDisabled && styles.disabled ]}
+          <TouchableOpacity style={[styles.btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled ]}
            onPress={() => {
             !isDisabled && navigation.navigate('Home');
            }}
           >
-            <Text style={[DefaultStyle.btn_text, DefaultStyle.text_white]}> Aceitar </Text>
+            <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Aceitar </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -140,9 +140,6 @@ const styles: any = StyleSheet.create({
     justifyContent: "center",
     fontFamily: 'Itim-Regular',
   },
-  disabled: {
-    opacity: .5
-  }
 });
 
 export default Step5Register;

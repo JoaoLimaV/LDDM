@@ -1,11 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import defaultStyle from '../../components/DefaultStyle'
-import HeaderNavigation from '../../components/HeaderNavigation'
-import svg_icon from '../../components/SvgIcons'
+import defaultStyle from '@components/DefaultStyle'
+import HeaderNavigation from '@components/HeaderNavigation'
+import svg_icon from '@components/SvgIcons'
 
 import styles from './styles'
-import teste from './imgTeste/carta.jpg'
 
 function Product({ navigation }: any) {
   return (
@@ -16,16 +15,16 @@ function Product({ navigation }: any) {
         <View style={styles.divImgs}>
           <View style={styles.divImgPrinc}>
             <View style={styles.imgPrinc}>
-              <Image source={teste} style={styles.img} />
+              <Image source={require('@images/carta.jpg')} style={styles.img} />
             </View>
           </View>
 
           <View style={styles.divImgSecun}>
             <View style={styles.imgSecun}>
-              <Image source={teste} style={styles.img} />
+              <Image source={require('@images/carta.jpg')} style={styles.img} />
             </View>
             <View style={styles.imgSecun}>
-              <Image source={teste} style={styles.img} />
+              <Image source={require('@images/carta.jpg')} style={styles.img} />
             </View>
           </View>
         </View>

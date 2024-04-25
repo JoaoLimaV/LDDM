@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
-import DefaultStyle from '../../components/DefaultStyle'
-import HeaderNavigation from '../../components/HeaderNavigation';
+import defaultStyle from '@components/DefaultStyle'
+import HeaderNavigation from '@components/HeaderNavigation';
 
 
 function Step1Register({ navigation }: any): React.JSX.Element {
   return (
-    <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
+    <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       <HeaderNavigation backScreen={'Home'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
       <View style={styles.container_input}>
-        <Text style={[styles.text_principal, DefaultStyle.text_black]}>
+        <Text style={[styles.text_principal, defaultStyle.text_black]}>
           Precisamos de algumos dados para cadastrar você em nossa plataforma
         </Text>
 
@@ -20,26 +20,26 @@ function Step1Register({ navigation }: any): React.JSX.Element {
             keyboardType="default"
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
-            style={DefaultStyle.defaul_input}
+            style={defaultStyle.defaul_input}
           />
           <TextInput
             placeholder="Data de nascimento"
             keyboardType="default"
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
-            style={DefaultStyle.defaul_input}
+            style={defaultStyle.defaul_input}
           />
 
         </View>
       </View>
 
       <View style={styles.container_btn_login}>
-        <TouchableOpacity style={[DefaultStyle.default_btn, DefaultStyle.bg_blue]}
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
           onPress={() => {
             navigation.navigate('Step2Register');
           }}
         >
-          <Text style={[DefaultStyle.btn_text, DefaultStyle.text_white]}> Avançar </Text>
+          <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Avançar </Text>
         </TouchableOpacity>
       </View>
     </Pressable>

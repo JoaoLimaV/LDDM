@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const DefaultStyle: any = StyleSheet.create({
+const defaultStyle: any = StyleSheet.create({
   main_container: {
     flex: 1,
     padding: 15,
@@ -60,7 +60,10 @@ const DefaultStyle: any = StyleSheet.create({
   },
   btn_text: {
     fontSize: 20
+  }, 
+  disabled: {
+    opacity: .5
   }
 });
 
-export default DefaultStyle;
+export default defaultStyle;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Pressable, Keyboard } from 'react-native';
-import DefaultStyle from '../../components/DefaultStyle'
-import svg_icon from '../../components/SvgIcons';
+import defaultStyle from '@components/DefaultStyle'
+import svg_icon from '@components/SvgIcons';
 
-import HeaderNavigation from '../../components/HeaderNavigation';
+import HeaderNavigation from '@components/HeaderNavigation';
 import Svg, { Path } from 'react-native-svg';
 
 function Step5Register({ navigation }: any): React.JSX.Element {
@@ -54,11 +54,11 @@ function Step5Register({ navigation }: any): React.JSX.Element {
   }
 
   return (
-    <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
+    <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       <HeaderNavigation backScreen={'Step4Register'} title='' icon={{viewBox: '', fill: '', d:''}} />
 
       <View style={styles.container_input}>
-        <Text style={[styles.text_principal, DefaultStyle.text_black]}>
+        <Text style={[styles.text_principal, defaultStyle.text_black]}>
           Faça uma senha para acessar o BidCard
         </Text>
 
@@ -109,12 +109,12 @@ function Step5Register({ navigation }: any): React.JSX.Element {
       </View>
 
       <View style={styles.container_btn_login}>
-        <TouchableOpacity style={[DefaultStyle.default_btn, DefaultStyle.bg_blue]}
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
           onPress={() => {
             navigation.navigate('Step6Register');
           }}
         >
-          <Text style={[DefaultStyle.btn_text, DefaultStyle.text_white]}> Avançar </Text>
+          <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Avançar </Text>
         </TouchableOpacity>
       </View>
     </Pressable>

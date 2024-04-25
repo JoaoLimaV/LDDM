@@ -3,16 +3,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // Page Import Here 
-import Home from '../screens/Home';
-import Login from '../screens/Login';
-import Main from '../screens/Main';
-import Step1Register from '../screens/register/Step1Register';
-import Step2Register from '../screens/register/Step2Register';
-import Step3Register from '../screens/register/Step3Register';
-import Step4Register from '../screens/register/Step4Register';
-import Step5Register from '../screens/register/Step5Register';
-import Step6Register from '../screens/register/Step6Register';
-import Product from '../screens/Product/Product'
+import Home from '@screens/Home';
+import Login from '@screens/Login';
+import Main from '@screens/Main';
+import Step1Register from '@screens/register/Step1Register';
+import Step2Register from '@screens/register/Step2Register';
+import Step3Register from '@screens/register/Step3Register';
+import Step4Register from '@screens/register/Step4Register';
+import Step5Register from '@screens/register/Step5Register';
+import Step6Register from '@screens/register/Step6Register';
+import Product from '@screens/Product/Product'
 
 
 const Stack: any = createNativeStackNavigator();

@@ -5,7 +5,7 @@ module.exports = {
       root: ["."],
       extensions: [
         '.ts',
-        '.tex',
+        '.tsx',
         '.jsx',
         '.js',
         '.json',
@@ -14,8 +14,10 @@ module.exports = {
         '.png'
       ],
       alias: {
-        '@icons2': './assets/images/icons',
-        '@components': './src/components'
+        '@icons': './assets/images/icons',
+        '@images': './assets/images',
+        '@components': './src/components',
+        '@screens': './src/screens'
       }
     }]
   ]

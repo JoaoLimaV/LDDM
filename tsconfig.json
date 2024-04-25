@@ -1,10 +1,13 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "paths": {
-      "*" : ["./*"],
-      "@icons2" : ["./assets/images/icons"],
-      "@components" : ["./src/components"]
+      "*" : ["."],
+      "@icons/*" : ["./assets/images/icons/*"],
+      "@components/*" : ["./src/components/*"],
+      "@images/*" : ["./assets/images/*"],
+      "@screens/*" : ["./src/screens/*"],
     },
   }
 }

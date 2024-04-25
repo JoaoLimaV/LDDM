@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
-import defaultStyle from './DefaultStyle';
-import svg_icon from './SvgIcons';
+import defaultStyle from '@components/DefaultStyle';
+import svg_icon from '@components/SvgIcons';
 
 interface HeaderNavigationProps {
     backScreen: string;

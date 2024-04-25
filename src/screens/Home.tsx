@@ -1,44 +1,44 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import DefaultStyle from '../components/DefaultStyle';
+import defaultStyle from "@components/DefaultStyle"
 
 function Home({ navigation }: any) {
   return (
-    <View style={DefaultStyle.main_container}>
+    <View style={defaultStyle.main_container}>
       <View style={styles.container_image}>
-        <Text style={[styles.need_help, DefaultStyle.text_black]}> Precisa de ajuda? </Text>
+        <Text style={[styles.need_help, defaultStyle.text_black]}> Precisa de ajuda? </Text>
 
         <View style={styles.divImage}>
           <Image
             style={styles.image}
-            source={require("../../assets/images/logo.png")}
+            source={require("@images/logo.png")}
           />
         </View>
       </View>
 
       <View style={styles.container_principal}>
 
-        <Text style={[styles.welcome, DefaultStyle.text_black]}>
+        <Text style={[styles.welcome, defaultStyle.text_black]}>
           Bem vindo ao {'\n'}
           BidCard
         </Text>
 
-        <Text style={[styles.lorem, DefaultStyle.text_black]}>
+        <Text style={[styles.lorem, defaultStyle.text_black]}>
           Neque porro quisquam est qui dolorem ipsum quia dolor
           sit amet, consectetur, adipisci velit...Neque porro quisquam
           est qui dolorem ipsum quia dolor  sit amet, consectetur, adipisci velit...
         </Text>
 
-        <TouchableOpacity style={[DefaultStyle.default_btn, DefaultStyle.bg_blue]}
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
           onPress={() => {
             navigation.navigate('Login');
           }}
         >
-          <Text style={[styles.btnText, DefaultStyle.text_white]}> Entre </Text>
+          <Text style={[styles.btnText, defaultStyle.text_white]}> Entre </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[DefaultStyle.default_btn, DefaultStyle.bg_gray]}>
-          <Text style={[styles.btnText, DefaultStyle.text_black]}
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_gray]}>
+          <Text style={[styles.btnText, defaultStyle.text_black]}
             onPress={() => {
               navigation.navigate('Step1Register');
             }}
@@ -48,7 +48,7 @@ function Home({ navigation }: any) {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {navigation.navigate('Main');}}>
-        <Text style={[styles.notLogin, DefaultStyle.text_black]}>
+        <Text style={[styles.notLogin, defaultStyle.text_black]}>
           Ver Produtos sem Entrar
         </Text>
         </TouchableOpacity>

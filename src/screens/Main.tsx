@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
-import DefaultStyle from '../components/DefaultStyle';
-import HeaderNavigation from '../components/HeaderNavigation';
+import defaultStyle from '@components/DefaultStyle';
+import HeaderNavigation from '@components/HeaderNavigation';
 
 const MAX_LENGTH = 20; // Defina o comprimento máximo do nome
 
@@ -17,7 +17,7 @@ const produtos = [
 
 function Main({ navigation }: any): React.JSX.Element {
   return (
-    <Pressable style={DefaultStyle.main_container} onPress={Keyboard.dismiss}>
+    <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
 
 
       <View style={styles.header_container}>
@@ -26,7 +26,7 @@ function Main({ navigation }: any): React.JSX.Element {
           <TouchableOpacity>
             <Image
               style={{ width: 30, height: 30 }}
-              source={require('@icons2/icon_menu.png')}
+              source={require('@icons/icon_menu.png')}
             />
           </TouchableOpacity>
 
@@ -36,12 +36,12 @@ function Main({ navigation }: any): React.JSX.Element {
               keyboardType='default'
               placeholderTextColor={'#282832'}
               secureTextEntry={false}
-              style={[styles.styled_input, DefaultStyle.text_black]}
+              style={[styles.styled_input, defaultStyle.text_black]}
             />
             <TouchableOpacity>
               <Image
                 style={{ width: 24, height: 25 }}
-                source={require('@icons2/icon_search.png')}
+                source={require('@icons/icon_search.png')}
               />
             </TouchableOpacity>
           </View>
@@ -49,10 +49,10 @@ function Main({ navigation }: any): React.JSX.Element {
           <TouchableOpacity>
             <Image
               style={{ width: 30, height: 32 }}
-              source={require('@icons2/icon_bell.png')}
+              source={require('@icons/icon_bell.png')}
             />
             <View style={styles.notification_text}>
-              <Text style={DefaultStyle.text_black}>99</Text>
+              <Text style={defaultStyle.text_black}>99</Text>
             </View>
           </TouchableOpacity>
 
@@ -66,56 +66,56 @@ function Main({ navigation }: any): React.JSX.Element {
           <TouchableOpacity style={styles.btn_nav}>
             <Image
               style={{ width: 30, height: 25, marginBottom: 5 }}
-              source={require('@icons2/icon_star.png')}
+              source={require('@icons/icon_star.png')}
             />
-            <Text style={[styles.text_medium, DefaultStyle.text_blue]}>Favoritos</Text>
+            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Favoritos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
             <Image
               style={{ width: 28, height: 25, marginBottom: 5 }}
-              source={require('@icons2/icon_arrow.png')}
+              source={require('@icons/icon_arrow.png')}
             />
-            <Text style={[styles.text_medium, DefaultStyle.text_blue]}>Populares</Text>
+            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Populares</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
             <Image
               style={{ width: 22, height: 25, marginBottom: 5 }}
-              source={require('@icons2/icon_fire.png')}
+              source={require('@icons/icon_fire.png')}
             />
-            <Text style={[styles.text_medium, DefaultStyle.text_blue]}>Em Alta</Text>
+            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Em Alta</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
             <Image
               style={{ width: 25, height: 25, marginBottom: 5 }}
-              source={require('@icons2/icon_hammer.png')}
+              source={require('@icons/icon_hammer.png')}
             />
-            <Text style={[styles.text_medium, DefaultStyle.text_blue]}>Leiloar</Text>
+            <Text style={[styles.text_medium, defaultStyle.text_blue]}>Leiloar</Text>
           </TouchableOpacity>
 
         </View>
         <View style={styles.header_product}>
-          <Text style={[styles.text_big, DefaultStyle.text_black]}>Leilões em aberto:</Text>
+          <Text style={[styles.text_big, defaultStyle.text_black]}>Leilões em aberto:</Text>
 
           <View style={styles.display_items}>
             <TouchableOpacity style={styles.items_style}>
               <Image
                 style={{ width: 15, height: 15 }}
-                source={require('@icons2/icon_filter.png')}
+                source={require('@icons/icon_filter.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.items_style}>
               <Image
                 style={{ width: 15, height: 15 }}
-                source={require('@icons2/icon_grid.png')}
+                source={require('@icons/icon_grid.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.items_style}>
               <Image
                 style={{ width: 15, height: 15 }}
-                source={require('@icons2/icon_list.png')}
+                source={require('@icons/icon_list.png')}
               />
             </TouchableOpacity>
           </View>
@@ -126,24 +126,24 @@ function Main({ navigation }: any): React.JSX.Element {
             {produtos.map((produto, index) => (
               <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product');}}>
                 <View style={styles.card_top}>
-                  <Text style={[styles.text_medium, DefaultStyle.text_black]}>1d 20h 20m 23s</Text>
+                  <Text style={[styles.text_medium, defaultStyle.text_black]}>1d 20h 20m 23s</Text>
                   <View style={styles.div_image}>
                     <Image
                       style={styles.image_product}
-                      source={require("../../assets/images/product.png")}
+                      source={require("@images/product.png")}
                     />
                   </View>
                 </View>
                 <View style={styles.desc_product}>
                   <View style={styles.desc_right}>
-                    <Text style={[styles.text_medium, DefaultStyle.text_black, { marginTop: 10 }]}>
+                    <Text style={[styles.text_medium, defaultStyle.text_black, { marginTop: 10 }]}>
                       {truncateString(produto.nome, MAX_LENGTH)}
                     </Text>
-                    <Text style={[styles.text_medium, DefaultStyle.text_blue]}>{produto.preco}</Text>
+                    <Text style={[styles.text_medium, defaultStyle.text_blue]}>{produto.preco}</Text>
                   </View>
                     <Image
                       style={{ width: 30, height: 25, marginBottom: 5 }}
-                      source={require('@icons2/icon_star.png')}
+                      source={require('@icons/icon_star.png')}
                     />
                 </View>
               </TouchableOpacity>
