@@ -111,48 +111,41 @@ const productStyle = StyleSheet.create({
         fontSize: 21
     },
 
-    divThrow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        position: 'absolute',
+    border:{
         borderColor: '#282832',
-        borderTopWidth: 1,
+        borderTopWidth: 1.5,
+        position: 'absolute',
         bottom: 0,
         width: '110%',
-        height: '12%',
-        right: 0,
-        left: 0
+        flexDirection: 'row',
+        justifyContent:'space-around',
+        alignItems: 'center',
+        height: 100
     },
 
-    throw: {
-        fontSize: 17
+    throw:{
+        fontSize: 20
     },
 
-    valueThrow: {
-        fontSize: 23
+    value:{
+        fontSize: 26
     },
 
-    divRowThrow: {
-        flexDirection: 'column'
+    divBtn:{
+        gap: 7
     },
 
-    borderBtn: {
+    btn:{
+        paddingVertical: 7,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 13,
         borderColor: '#6B63FF',
         borderWidth: 2,
     },
-    divBtnThrow: {
-        gap: 10
-    },
-    divBtn: {
-        justifyContent: 'center',
-    },
-    align: {
-        paddingVertical: 7,
-        paddingHorizontal: 10,
-        textAlign: 'center',
-        borderRadius: 15,
-    }
+
 });
 
 export default productStyle
