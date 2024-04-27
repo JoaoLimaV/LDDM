@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
-import svg_icon from '@components/SvgIcons';
-import Svg, { Path } from 'react-native-svg';
+import Icons from '@icons/svgs';
 
 import styles from '@styles/mainStyle'
 
@@ -27,10 +26,10 @@ function Main({ navigation }: any): React.JSX.Element {
       <View style={styles.header_container}>
 
         <View style={styles.div_input}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => { navigation.navigate('Settings');}}>
             <Image
               style={{ width: 30, height: 30 }}
-              source={require('@icons/icon_menu.png')}
+              source={require('@images/foto.png')}
             />
           </TouchableOpacity>
 
@@ -42,18 +41,14 @@ function Main({ navigation }: any): React.JSX.Element {
               secureTextEntry={false}
               style={[styles.styled_input, defaultStyle.text_black]}
             />
+            <Icons.iconSearch width={25} height={25} color={"#282832"} />
             <TouchableOpacity>
-              <Svg style={{ width: 24, height: 25 }} viewBox={svg_icon.search.viewBox}>
-                <Path fill={svg_icon.search.fill} d={svg_icon.search.d} />
-              </Svg>
+
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity>
-            <Image
-              style={{ width: 30, height: 32 }}
-              source={require('@icons/icon_bell.png')}
-            />
+            <Icons.iconNotify width={30} height={32} color={"#282832"} />
             <View style={styles.notification_text}>
               <Text style={defaultStyle.text_black}>99</Text>
             </View>
@@ -67,34 +62,30 @@ function Main({ navigation }: any): React.JSX.Element {
         <View style={styles.div_nav}>
 
           <TouchableOpacity style={styles.btn_nav}>
-            <Image
-              style={{ width: 30, height: 25, marginBottom: 5 }}
-              source={require('@icons/icon_star.png')}
-            />
+            <View style={{ marginBottom: 5 }}>
+              <Icons.iconStar width={30} height={25} color={"#6B63FF"} />
+            </View>
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Favoritos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
-            <Image
-              style={{ width: 28, height: 25, marginBottom: 5 }}
-              source={require('@icons/icon_arrow.png')}
-            />
+            <View style={{ marginBottom: 5 }}>
+              <Icons.iconTrend width={28} height={25} color={"#6B63FF"} />
+            </View>
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Populares</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
-            <Image
-              style={{ width: 22, height: 25, marginBottom: 5 }}
-              source={require('@icons/icon_fire.png')}
-            />
+            <View style={{ marginBottom: 5 }}>
+              <Icons.iconFire width={22} height={25} color={"#6B63FF"} />
+            </View>
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Em Alta</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav}>
-            <Image
-              style={{ width: 25, height: 25, marginBottom: 5 }}
-              source={require('@icons/icon_hammer.png')}
-            />
+            <View style={{ marginBottom: 5 }}>
+              <Icons.iconHammer width={25} height={25} color={"#6B63FF"} />
+            </View>
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Leiloar</Text>
           </TouchableOpacity>
 
@@ -104,22 +95,13 @@ function Main({ navigation }: any): React.JSX.Element {
 
           <View style={styles.display_items}>
             <TouchableOpacity style={styles.items_style}>
-              <Image
-                style={{ width: 15, height: 15 }}
-                source={require('@icons/icon_filter.png')}
-              />
+              <Icons.iconFilter width={15} height={15} color={"#282832"} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.items_style}>
-              <Image
-                style={{ width: 15, height: 15 }}
-                source={require('@icons/icon_grid.png')}
-              />
+              <Icons.iconGrid width={15} height={15} color={"#282832"} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.items_style}>
-              <Image
-                style={{ width: 15, height: 15 }}
-                source={require('@icons/icon_list.png')}
-              />
+              <Icons.iconList width={15} height={15} color={"#282832"} />
             </TouchableOpacity>
           </View>
         </View>
@@ -144,10 +126,7 @@ function Main({ navigation }: any): React.JSX.Element {
                     </Text>
                     <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>{produto.preco}</Text>
                   </View>
-                  <Image
-                    style={{ width: 30, height: 25, marginBottom: 5 }}
-                    source={require('@icons/icon_star.png')}
-                  />
+                  <Icons.iconStar width={30} height={25} color={"#6B63FF"} isFilled={false} />
                 </View>
               </TouchableOpacity>
             ))}

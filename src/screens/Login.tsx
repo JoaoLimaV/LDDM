@@ -38,19 +38,19 @@ function Login({ navigation }: any): React.JSX.Element {
           <TouchableOpacity style={styles.item_login_with}>
             <Image
               style={styles.image}
-              source={require('@icons/icon_google.png')}
+              source={require('@icons/iconGoogle.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item_login_with}>
             <Image
               style={{ width: 50, height: 50 }}
-              source={require("@icons/icon_linkedin.png")}
+              source={require("@icons/iconLinkedin.png")}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item_login_with}>
             <Image
               style={styles.image}
-              source={require("@icons/icon_facebook.png")}
+              source={require("@icons/iconFacebook.png")}
             />
           </TouchableOpacity>
         </View>

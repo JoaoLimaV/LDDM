@@ -4,7 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "*" : ["."],
-      "@icons/*" : ["./assets/images/icons/*"],
+      "@icons/*" : ["./assets/icons/*"],
       "@components/*" : ["./src/components/*"],
       "@images/*" : ["./assets/images/*"],
       "@screens/*" : ["./src/screens/*"],

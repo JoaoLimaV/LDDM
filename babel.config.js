@@ -14,7 +14,7 @@ module.exports = {
         '.png'
       ],
       alias: {
-        '@icons': './assets/images/icons',
+        '@icons': './assets/icons',
         '@images': './assets/images',
         '@components': './src/components',
         '@screens': './src/screens',

@@ -34,6 +34,10 @@ const defaultStyle: any = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'Itim-Regular'
   },
+  text_red: { 
+    color: '#BA090B',
+    fontFamily: 'Itim-Regular'
+  },
 
   defaul_input: {
     width: "100%",
