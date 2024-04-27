@@ -1,108 +1,83 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation';
+import svg_icon from '@components/SvgIcons';
+import Svg, { Path } from 'react-native-svg';
 
-import styles from '@styles/step4Style'
+import styles from '@styles/step3Style'
 
-function Step4Register({ navigation }: any): React.JSX.Element {
-    1
-    const input1Ref = useRef<TextInput>(null);
-    const input2Ref = useRef<TextInput>(null);
-    const input3Ref = useRef<TextInput>(null);
-    const input4Ref = useRef<TextInput>(null);
+function Step3Register({ navigation, route }: any): React.JSX.Element {
 
-    const handleChangeText = (index: number, text: string) => {
-        switch (index) {
-            case 1:
-                if (text.length === 1) {
-                    input2Ref.current!.focus();
-                }
-                break;
-            case 2:
-                if (text.length === 1) {
-                    input3Ref.current!.focus();
-                } else {
-                    input1Ref.current!.focus();
-                }
-                break;
-            case 3:
-                if (text.length === 1) {
-                    input4Ref.current!.focus();
-                } else {
-                    input2Ref.current!.focus();
-                }
-                break;
-            default:
-                if (text.length != 1) {
-                    input3Ref.current!.focus();
-                }
-        }
-    };
+    const { user_name, user_birthdate, user_email, user_phone, user_password } = route.params;
 
     return (
-        <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
-            <HeaderNavigation backScreen={'Step3Register'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
-            
-            <View style={styles.container_input}>
-                <Text style={[styles.text_principal, defaultStyle.text_black]}>
-                    Verificação
-                </Text>
+        <View style={defaultStyle.main_container} >
+            {/* Header Personalizado */}
+            <View style={styles.containerHeader}>
 
-                <Text style={[styles.text_second, defaultStyle.text_black]}>
-                    Uma código de  verificação foi enviada para você via e-mail ou  SMS. Informe o código abaixo. Após confimação sua conta será ativada.
-                </Text>
-
-                <View style={styles.div_input}>
-
-                    <TextInput
-                        ref={input1Ref}
-                        style={styles.input}
-                        maxLength={1}
-                        keyboardType="numeric"
-                        onChangeText={(text) => handleChangeText(1, text)}
-                    />
-
-                    <TextInput
-                        ref={input2Ref}
-                        style={styles.input}
-                        maxLength={1}
-                        keyboardType="numeric"
-                        onChangeText={(text) => handleChangeText(2, text)}
-                    />
-
-
-                    <TextInput
-                        ref={input3Ref}
-                        style={styles.input}
-                        maxLength={1}
-                        keyboardType="numeric"
-                        onChangeText={(text) => handleChangeText(3, text)}
-                    />
-
-                    <TextInput
-                        ref={input4Ref}
-                        style={styles.input}
-                        maxLength={1}
-                        keyboardType="numeric"
-                        onChangeText={(text) => handleChangeText(4, text)}
-                    />
-                </View>
-            </View>
-
-            <View style={styles.container_btn_login}>
-                <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
+                <TouchableOpacity
+                    style={styles.iconHeader}
                     onPress={() => {
-                        navigation.navigate('Step5Register');
+                        // @ts-ignore
+                        navigation.navigate("Step3Register", {
+                            user_name: user_name,
+                            user_birthdate: user_birthdate,
+                            user_email: user_email,
+                            user_phone: user_phone,
+                            user_password: user_password,
+                        });
                     }}
                 >
-                    <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Avançar </Text>
+                    <Svg viewBox={svg_icon.arrow_left.viewBox}>
+                        <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
+                    </Svg>
                 </TouchableOpacity>
             </View>
-        </Pressable>
+            {/* Header Personalizado */}
+
+            <View style={styles.container_input}>
+                <Text style={[styles.text_principal, defaultStyle.text_black]}>
+                    Abaixo você pode escolher se deseja receber o código de 4 digitos vai SMS ou E-MAIL.
+                </Text>
+
+                <View style={styles.div_btn_code}>
+
+                    <TouchableOpacity
+                        style={styles.btn_icon}
+                        onPress={() => {
+                            navigation.navigate('Step5Register', {
+                                user_name: user_name,
+                                user_birthdate: user_birthdate,
+                                user_email: user_email,
+                                user_phone: user_phone,
+                                user_password: user_password,
+                                verifyCode: 1234
+                            });
+                        }}
+                    >
+                        <Svg style={styles.icon} viewBox={svg_icon.email.viewBox}>
+                            <Path fill={svg_icon.email.fill} d={svg_icon.email.d} />
+                        </Svg>
+                        <Text style={[styles.text_icon, defaultStyle.text_black]}> Email </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.btn_icon, defaultStyle.disabled]}
+                        disabled
+                    >
+                        <Svg style={styles.icon} viewBox={svg_icon.sms.viewBox}>
+                            <Path fill={svg_icon.sms.fill} d={svg_icon.sms.d} />
+                        </Svg>
+                        <Text style={[styles.text_icon, defaultStyle.text_black]}> SMS </Text>
+                    </TouchableOpacity>
+
+                </View>
+            </View>
+        </View>
     );
 }
 
-export default Step4Register;
+export default Step3Register;
 
 

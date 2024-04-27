@@ -35,7 +35,17 @@ const step3Style: any = StyleSheet.create({
   text_icon: {
     paddingLeft: 5,
     fontSize: 20
-  }
+  },
+  containerHeader: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  iconHeader: {
+    width: 30,
+    height: 30
+  },
 });
 
 export default step3Style;

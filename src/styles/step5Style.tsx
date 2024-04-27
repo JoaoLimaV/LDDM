@@ -53,6 +53,16 @@ const step5Style: any = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerHeader: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  iconHeader: {
+    width: 30,
+    height: 30
+  },
 });
 
 export default step5Style;

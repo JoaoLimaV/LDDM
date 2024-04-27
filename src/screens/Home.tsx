@@ -39,20 +39,19 @@ function Home({ navigation }: any) {
           <Text style={[styles.btnText, defaultStyle.text_white]}> Entre </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_gray]}>
-          <Text style={[styles.btnText, defaultStyle.text_black]}
-            onPress={() => {
-              navigation.navigate('Step1Register');
-            }}
-          >
-             Registre-se 
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_gray]}
+          onPress={() => {
+            navigation.navigate('Step1Register', {});
+          }}>
+          <Text style={[styles.btnText, defaultStyle.text_black]}>
+            Registre-se
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {navigation.navigate('Main');}}>
-        <Text style={[styles.notLogin, defaultStyle.text_black]}>
-          Ver Produtos sem Entrar
-        </Text>
+        <TouchableOpacity onPress={() => { navigation.navigate('Main'); }}>
+          <Text style={[styles.notLogin, defaultStyle.text_black]}>
+            Ver Produtos sem Entrar
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

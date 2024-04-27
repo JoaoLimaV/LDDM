@@ -63,7 +63,7 @@ function Login({ navigation }: any): React.JSX.Element {
       </View>
       <Text style={[styles.new_user_text, defaultStyle.text_black]}
         onPress={() => {
-          navigation.navigate('Step1Register');
+          navigation.navigate('Step1Register', {});
         }}
       >
         É novo por aqui? Cadastre-se
