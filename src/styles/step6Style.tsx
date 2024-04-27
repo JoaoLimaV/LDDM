@@ -49,6 +49,16 @@ const step6Style: any = StyleSheet.create({
       justifyContent: "center",
       fontFamily: 'Itim-Regular',
     },
+    containerHeader: {
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+    },
+    iconHeader: {
+      width: 30,
+      height: 30
+    },
   });
 
 export default step6Style;

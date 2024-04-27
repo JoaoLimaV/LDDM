@@ -20,7 +20,8 @@ const Stack: any = createNativeStackNavigator();
 function Routes(): React.JSX.Element {
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="Home">
+      {/* initialRouteName="Home" */}
+      <Stack.Navigator >
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
         <Stack.Screen name="Main" component={Main} options={{ headerShown: false }}/>
