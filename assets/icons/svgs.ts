@@ -13,6 +13,7 @@ import iconBalance from './iconBalance';
 import iconGear from './iconGear';
 import iconCard from './iconCard';
 import iconCart from './iconCart';
+import iconClock from './iconClock';
 
 const Icons = {
     iconNotify,
@@ -30,6 +31,7 @@ const Icons = {
     iconGear,
     iconCart,
     iconCard,
+    iconClock,
 };
 
 export default Icons;

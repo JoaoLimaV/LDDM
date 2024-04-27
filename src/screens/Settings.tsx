@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';

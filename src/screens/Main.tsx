@@ -47,7 +47,7 @@ function Main({ navigation }: any): React.JSX.Element {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => { navigation.navigate('Notify');}}>
             <Icons.iconNotify width={30} height={32} color={"#282832"} />
             <View style={styles.notification_text}>
               <Text style={defaultStyle.text_black}>99</Text>

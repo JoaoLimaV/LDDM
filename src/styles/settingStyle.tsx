@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const settingStyle: any = StyleSheet.create({
 
-
     main_container: {
         flex: .95,
     },
@@ -41,7 +40,6 @@ const settingStyle: any = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-
 
     btn_bot: {
         marginLeft: 30,
