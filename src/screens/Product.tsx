@@ -69,17 +69,21 @@ function Product({ navigation }: any) {
         <View><Text style={[defaultStyle.text_black, styles.historic]}>Histórico de Lances</Text></View>
       </View>
 
-      <View style={styles.divThrow}>
+      <View style={styles.border}>
         <View>
-          <View><Text style={[defaultStyle.text_black, styles.throw]}>Lance Atual</Text></View>
-          <View><Text style={[defaultStyle.text_black, styles.valueThrow]}>R$ 150,01</Text></View>
+          <Text style={[defaultStyle.text_black, styles.throw]}>
+            Lance Atual
+          </Text>
+          <Text style={[defaultStyle.text_black, styles.value]}>R$ 150,00</Text>
         </View>
-
-        <View style={styles.divBtnThrow}>
-          <View><TouchableOpacity style={styles.divBtn}><Text style={[defaultStyle.text_white, defaultStyle.bg_blue, styles.align]}>Dar Lance</Text></TouchableOpacity></View>
-          <View><TouchableOpacity style={styles.divBtn}><Text style={[defaultStyle.text_blue, styles.borderBtn, styles.align]}>Arrematar</Text></TouchableOpacity></View>
+        <View style={styles.divBtn}>
+          <TouchableOpacity>
+            <Text style={[defaultStyle.text_white, defaultStyle.bg_blue, styles.btn]}>Dar lance</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={[defaultStyle.text_blue, styles.btn]}>Arrematar</Text>
+          </TouchableOpacity>
         </View>
-
       </View>
 
     </View>
