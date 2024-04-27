@@ -1,151 +1,123 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 const productStyle = StyleSheet.create({
-    closure: {
-        flex: 1,
-        width: "100%",
-        alignItems: 'flex-end',
-        position: 'absolute',
-        paddingLeft: 15,
-        paddingTop: 25
-    },
-    textClosure: {
-        fontSize: 16,
-    },
-    divSlide: {
-        height: '60%',
-        alignItems: 'center',
-    },
+    scroll_view: {
+        flex: .85,
+        paddingHorizontal: 10
+      },
 
-    divImgs: {
-        flexDirection: 'row',
-        height: '90%',
-        width: '100%',
-    },
+  base: {
+    flex: 1,
+    flexDirection: 'column',
+  },
 
-    divImgPrinc: {
-        flex: 2,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+  slide: {
+    gap: 20,
+    paddingTop: 30,
+  },
 
-    imgPrinc: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  imagens: {
+    flexDirection: 'row',
+  },
 
-    img: {
-        width: '90%',
-        height: '80%',
-    },
+  imgPrinc: {
+    flex: 1,
+  },
 
-    divImgSecun: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  imgSec: {
+    flexDirection: 'column',
+    gap: 10,
+    justifyContent: 'center',
+  },
 
-    imgSecun: {
-        width: '100%',
-        height: '50%',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+  image_small: {
+    width: 100,
+    height: 150,
+  },
 
-    divBtnSlide: {
-        gap: 10,
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 20,
-    },
+  divBtnSlide: {
+    gap: 10,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-    btnSlide: {
-        width: 9,
-        height: 9,
-        borderRadius: 10,
-    },
+  btnSlide: {
+    width: 9,
+    height: 9,
+    borderRadius: 10,
+  },
+  divDetails: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 30,
+  },
 
-    divDetails: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingBottom: 30,
-    },
+  title: {
+    fontSize: 26,
+  },
 
-    title: {
-        fontSize: 26,
-    },
+  divCategory: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 5,
+    padding: 10,
+  },
 
-    divCategory: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 5,
-        padding: 10,
-    },
+  category: {
+    fontSize: 13,
+  },
 
-    category: {
-        fontSize: 13,
-    },
+  separator: {
+    height: 5,
+    width: 5,
+    borderRadius: 5,
+  },
 
-    separator: {
-        height: 5,
-        width: 5,
-        borderRadius: 5,
-    },
+  details: {
+    fontSize: 17,
+    paddingHorizontal: 5,
+  },
 
-    details: {
-        fontSize: 17,
-        paddingHorizontal: 5
-    },
+  divHistoric: {
+    paddingHorizontal: 15,
+  },
 
-    divHistoric: {
-        paddingHorizontal: 15
-    },
+  historic: {
+    fontSize: 21,
+  },
 
-    historic: {
-        fontSize: 21
-    },
+  border: {
+    flex: .15,
+    justifyContent:'space-around',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 2,
+    borderColor: '#282832',
+    marginTop: 10,
+  },
 
-    border:{
-        borderColor: '#282832',
-        borderTopWidth: 1.5,
-        position: 'absolute',
-        bottom: 0,
-        width: '110%',
-        flexDirection: 'row',
-        justifyContent:'space-around',
-        alignItems: 'center',
-        height: 100
-    },
-
-    throw:{
-        fontSize: 20
-    },
-
-    value:{
-        fontSize: 26
-    },
-
-    divBtn:{
-        gap: 7
-    },
-
-    btn:{
-        paddingVertical: 7,
-        paddingHorizontal: 20,
-        borderRadius: 20,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        fontSize: 13,
-        borderColor: '#6B63FF',
-        borderWidth: 2,
-    },
-
-});
+  throw: {
+    fontSize: 20,
+  },
+  value: {
+    fontSize: 26,
+  },
+  divBtn: {
+    gap: 7,
+  },
+  btn: {
+    paddingVertical: 7,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 13,
+    borderColor: '#6B63FF',
+    borderWidth: 2,
+  },
+})
 
 export default productStyle
