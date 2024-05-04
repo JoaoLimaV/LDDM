@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
 import defaultStyle from "@components/DefaultStyle"
 import HeaderNavigation from '@components/HeaderNavigation';
+import Icons from '@icons/svgs';
 
 import styles from '@styles/loginStyle'
 
 function Login({ navigation }: any): React.JSX.Element {
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
-      <HeaderNavigation backScreen={'Home'} title='' icon={{viewBox: '', fill: '', d:''}} />
+      <HeaderNavigation backScreen={'Home'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
 
       <View style={styles.container_input}>
         <Text style={[styles.text_principal, defaultStyle.text_black]}>
@@ -36,22 +37,13 @@ function Login({ navigation }: any): React.JSX.Element {
 
         <View style={styles.div_login_with}>
           <TouchableOpacity style={styles.item_login_with}>
-            <Image
-              style={styles.image}
-              source={require('@icons/iconGoogle.png')}
-            />
+            <Icons.iconGoogle width={35} height={35} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item_login_with}>
-            <Image
-              style={{ width: 50, height: 50 }}
-              source={require("@icons/iconLinkedin.png")}
-            />
+            <Icons.iconLinkedin width={40} height={40} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.item_login_with}>
-            <Image
-              style={styles.image}
-              source={require("@icons/iconFacebook.png")}
-            />
+            <Icons.iconFacebook width={40} height={40} />
           </TouchableOpacity>
         </View>
       </View>

@@ -55,10 +55,7 @@ const step6Style: any = StyleSheet.create({
       justifyContent: 'space-between',
       flexDirection: 'row',
     },
-    iconHeader: {
-      width: 30,
-      height: 30
-    },
+
   });
 
 export default step6Style;

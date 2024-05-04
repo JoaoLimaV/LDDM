@@ -1,12 +1,6 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
-
-interface Props {
-  color: string;
-  width: any;
-  height: any;
-  isFilled?: boolean;
-}
+import { Props } from "./props";
 
 const iconStar = ({ color, width, height, isFilled }: Props) => (
   <Svg

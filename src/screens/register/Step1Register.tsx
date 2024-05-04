@@ -2,10 +2,9 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard, Alert } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import DatePicker from 'react-native-date-picker'
-import styles from '@styles/step1Style'
+import HeaderRegister from '@components/HeaderRegister';
 
-import Svg, { Path } from 'react-native-svg';
-import svg_icon from '@components/SvgIcons';
+import styles from '@styles/step1Style'
 
 function Step1Register({ navigation, route }: any): React.JSX.Element {
 
@@ -41,20 +40,7 @@ function Step1Register({ navigation, route }: any): React.JSX.Element {
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       {/* Header Personalizado */}
-      <View style={styles.containerHeader}>
-
-        <TouchableOpacity
-          style={styles.iconHeader}
-          onPress={() => {
-            // @ts-ignore
-            navigation.navigate("Home");
-          }}
-        >
-          <Svg viewBox={svg_icon.arrow_left.viewBox}>
-            <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-          </Svg>
-        </TouchableOpacity>
-      </View>
+      <HeaderRegister onNavigateBack={() => navigation.navigate("Home")} />
       {/* Header Personalizado */}
 
       <View style={styles.container_input}>

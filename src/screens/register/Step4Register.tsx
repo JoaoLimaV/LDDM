@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
-import HeaderNavigation from '@components/HeaderNavigation';
-import svg_icon from '@components/SvgIcons';
-import Svg, { Path } from 'react-native-svg';
+import HeaderRegister from '@components/HeaderRegister';
+import Icons from '@icons/svgs';
 
-import styles from '@styles/step3Style'
+import styles from '@styles/step4Style'
 
 function Step3Register({ navigation, route }: any): React.JSX.Element {
 
@@ -14,26 +13,13 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
     return (
         <View style={defaultStyle.main_container} >
             {/* Header Personalizado */}
-            <View style={styles.containerHeader}>
-
-                <TouchableOpacity
-                    style={styles.iconHeader}
-                    onPress={() => {
-                        // @ts-ignore
-                        navigation.navigate("Step3Register", {
-                            user_name: user_name,
-                            user_birthdate: user_birthdate,
-                            user_email: user_email,
-                            user_phone: user_phone,
-                            user_password: user_password,
-                        });
-                    }}
-                >
-                    <Svg viewBox={svg_icon.arrow_left.viewBox}>
-                        <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-                    </Svg>
-                </TouchableOpacity>
-            </View>
+            <HeaderRegister onNavigateBack={() => navigation.navigate("Step3Register", {
+              user_name: user_name,
+              user_birthdate: user_birthdate,
+              user_email: user_email,
+              user_phone: user_phone,
+              user_password: user_password
+            })} />
             {/* Header Personalizado */}
 
             <View style={styles.container_input}>
@@ -56,9 +42,8 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
                             });
                         }}
                     >
-                        <Svg style={styles.icon} viewBox={svg_icon.email.viewBox}>
-                            <Path fill={svg_icon.email.fill} d={svg_icon.email.d} />
-                        </Svg>
+                        <Icons.iconEmail width={40} height={40} color="#282832"/>
+
                         <Text style={[styles.text_icon, defaultStyle.text_black]}> Email </Text>
                     </TouchableOpacity>
 
@@ -66,9 +51,7 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
                         style={[styles.btn_icon, defaultStyle.disabled]}
                         disabled
                     >
-                        <Svg style={styles.icon} viewBox={svg_icon.sms.viewBox}>
-                            <Path fill={svg_icon.sms.fill} d={svg_icon.sms.d} />
-                        </Svg>
+                        <Icons.iconSms width={40} height={40} color="#282832"/>
                         <Text style={[styles.text_icon, defaultStyle.text_black]}> SMS </Text>
                     </TouchableOpacity>
 

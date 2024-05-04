@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
-import HeaderNavigation from '@components/HeaderNavigation';
 import { RadioButton } from 'react-native-paper';
-import Svg, { Path } from 'react-native-svg';
-import svg_icon from '@components/SvgIcons';
+import HeaderRegister from '@components/HeaderRegister';
 
 import styles from '@styles/step6Style'
 
@@ -17,26 +15,13 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
   return (
     <View style={defaultStyle.main_container}>
       {/* Header Personalizado */}
-      <View style={styles.containerHeader}>
-
-        <TouchableOpacity
-          style={styles.iconHeader}
-          onPress={() => {
-            // @ts-ignore
-            navigation.navigate("Step5Register", {
+      <HeaderRegister onNavigateBack={() => navigation.navigate("Step5Register", {
               user_name: user_name,
               user_birthdate: user_birthdate,
               user_email: user_email,
               user_phone: user_phone,
               user_password: user_password
-            });
-          }}
-        >
-          <Svg viewBox={svg_icon.arrow_left.viewBox}>
-            <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-          </Svg>
-        </TouchableOpacity>
-      </View>
+            })} />
       {/* Header Personalizado */}
 
       <Text style={[styles.text_principal, defaultStyle.text_black]}> Termos de Uso </Text>

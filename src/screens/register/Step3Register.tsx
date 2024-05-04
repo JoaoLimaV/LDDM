@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
-import svg_icon from '@components/SvgIcons';
+import HeaderRegister from '@components/HeaderRegister';
+import Icons from '@icons/svgs';
 
-import Svg, { Path } from 'react-native-svg';
+import styles from '@styles/step54Style'
 
-import styles from '@styles/step5Style'
-
-function Step5Register({ navigation, route }: any): React.JSX.Element {
+function Step3Register({ navigation, route }: any): React.JSX.Element {
 
   const { user_name, user_birthdate, user_email, user_phone, user_password } = route.params;
 
@@ -36,22 +35,13 @@ function Step5Register({ navigation, route }: any): React.JSX.Element {
   // Hidden 
 
   const [hidden, setHidden] = useState<boolean>(true);
-  const [viewBox, setViewBox] = useState<string>(svg_icon.normal_eye.viewBox);
-  const [d, setD] = useState<string>(svg_icon.normal_eye.d);
+
 
   const changeHiddenPassword = () => {
-    if (hidden) {
-      setHidden(false)
-      setViewBox(svg_icon.normal_eye.viewBox)
-      setD(svg_icon.normal_eye.d)
-      return
-    }
-    setHidden(true)
-    setViewBox(svg_icon.slash_eye.viewBox)
-    setD(svg_icon.slash_eye.d)
-  }
+    setHidden(!hidden);
+  };
 
-  // BarColors e Widht
+  // BarColors e Width
 
   const [percentPasswordAnimate] = useState(new Animated.Value(0));
   const [percentPassword, setPercentPassword] = useState<number>(0);
@@ -83,26 +73,13 @@ function Step5Register({ navigation, route }: any): React.JSX.Element {
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       {/* Header Personalizado */}
-      <View style={styles.containerHeader}>
-
-        <TouchableOpacity
-          style={styles.iconHeader}
-          onPress={() => {
-            // @ts-ignore
-            navigation.navigate("Step2Register", {
+      <HeaderRegister onNavigateBack={() => navigation.navigate("Step2Register", {
               user_name: user_name,
               user_birthdate: user_birthdate,
               user_email: user_email,
               user_phone: user_phone,
               user_password: user_password
-            });
-          }}
-        >
-          <Svg viewBox={svg_icon.arrow_left.viewBox}>
-            <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-          </Svg>
-        </TouchableOpacity>
-      </View>
+            })} />
       {/* Header Personalizado */}
 
       <View style={styles.container_input}>
@@ -125,9 +102,7 @@ function Step5Register({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity
               onPress={changeHiddenPassword}
             >
-              <Svg viewBox={viewBox} style={styles.icon}>
-                <Path d={d} />
-              </Svg>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hidden}/>
             </TouchableOpacity>
           </View>
 
@@ -144,9 +119,7 @@ function Step5Register({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity
               onPress={changeHiddenPassword}
             >
-              <Svg viewBox={viewBox} style={styles.icon}>
-                <Path d={d} />
-              </Svg>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hidden}/>
             </TouchableOpacity>
           </View>
 
@@ -179,6 +152,6 @@ function Step5Register({ navigation, route }: any): React.JSX.Element {
   );
 }
 
-export default Step5Register;
+export default Step3Register;
 
 

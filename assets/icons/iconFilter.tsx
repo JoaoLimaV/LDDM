@@ -1,11 +1,6 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
-
-interface Props {
-  color: string;
-  width: any;
-  height: any;
-}
+import { Props } from "./props";
 
 const iconFilter = ({ color, width, height }: Props) => (
   <Svg

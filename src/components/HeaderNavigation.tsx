@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import defaultStyle from '@components/DefaultStyle';
-import svg_icon from '@components/SvgIcons';
+import Icons from '@icons/svgs';
+
 
 interface HeaderNavigationProps {
     backScreen: string;
@@ -26,9 +26,7 @@ function HeaderNavigation({ backScreen, title, icon }: HeaderNavigationProps) {
                     navigation.navigate(backScreen);
                 }}
             >
-                <Svg viewBox={svg_icon.arrow_left.viewBox}>
-                    <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-                </Svg>
+                <Icons.iconLeftArrow width={30} height={30} color='#282832'/>
             </TouchableOpacity>
             {title || icon &&
                 title ? (
@@ -37,9 +35,6 @@ function HeaderNavigation({ backScreen, title, icon }: HeaderNavigationProps) {
                 <TouchableOpacity
                     style={styles.icon}
                 >
-                    <Svg viewBox={icon.viewBox}>
-                        <Path fill={icon.fill} d={icon.d} />
-                    </Svg>
                 </TouchableOpacity>
             )}
         </View>

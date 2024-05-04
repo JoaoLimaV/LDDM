@@ -33,16 +33,6 @@ const stepOneStyle: any = StyleSheet.create({
   title_text: {
     fontSize: 18
   },
-  containerHeader: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  iconHeader: {
-    width: 30,
-    height: 30
-  },
 });
 
 export default stepOneStyle;

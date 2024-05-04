@@ -3,8 +3,8 @@ import Svg, { Path } from "react-native-svg";
 
 interface Props {
   color: string;
-  width: any;
-  height: any;
+  width: number;
+  height: number;
 }
 
 const iconCard = ({ color, width, height }: Props) => (

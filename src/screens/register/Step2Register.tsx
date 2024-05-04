@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
-import HeaderNavigation from '@components/HeaderNavigation';
+import HeaderRegister from '@components/HeaderRegister';
 
-import Svg, { Path } from 'react-native-svg';
-import svg_icon from '@components/SvgIcons';
 import styles from '@styles/step1Style'
 
 function Step2Register({ navigation, route }: any): React.JSX.Element {
@@ -37,26 +35,13 @@ function Step2Register({ navigation, route }: any): React.JSX.Element {
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       {/* Header Personalizado */}
-      <View style={styles.containerHeader}>
-
-        <TouchableOpacity
-          style={styles.iconHeader}
-          onPress={() => {
-            // @ts-ignore
-            navigation.navigate("Step1Register", {
+      <HeaderRegister onNavigateBack={() => navigation.navigate("Step1Register", {
               user_name: user_name,
               user_birthdate: user_birthdate,
               user_email: user_email,
               user_phone: user_phone,
               user_password: user_password
-            });
-          }}
-        >
-          <Svg viewBox={svg_icon.arrow_left.viewBox}>
-            <Path fill={svg_icon.arrow_left.fill} d={svg_icon.arrow_left.d} />
-          </Svg>
-        </TouchableOpacity>
-      </View>
+            })} />
       {/* Header Personalizado */}
 
       <View style={styles.container_input}>
