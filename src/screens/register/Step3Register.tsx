@@ -4,7 +4,9 @@ import defaultStyle from '@components/DefaultStyle'
 import HeaderRegister from '@components/HeaderRegister';
 import Icons from '@icons/svgs';
 
-import styles from '@styles/step54Style'
+import { InterfaceHiddenPassword } from '@components/Interface';
+
+import styles from '@styles/step3Style'
 
 function Step3Register({ navigation, route }: any): React.JSX.Element {
 
@@ -23,45 +25,63 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
     });
   }
 
-  React.useEffect(() => {
-    let equalPassword = (inputValues.password === inputValues.rePassword) ? true : false
-
-    if (inputValues.password.length != 0 && inputValues.rePassword.length != 0 && equalPassword && percentPassword >= 80) {
-      setDisabled(false);
-      return
-    }
-    setDisabled(true);
-  }, [handleInputChange])
   // Hidden 
 
-  const [hidden, setHidden] = useState<boolean>(true);
+  const [hiddenInput, setHiddenInput] = useState<InterfaceHiddenPassword>({
+    password: { hidden: true},
+    rePassword: { hidden: true}
+  });
 
+  const [conditionalPassword, setConditionalPassword] = useState({
 
-  const changeHiddenPassword = () => {
-    setHidden(!hidden);
-  };
+  });
+
+  const changeHiddenPassword = (name: string): void => {
+    setHiddenInput({
+      ...hiddenInput,
+      [name]: {
+        hidden: hiddenInput[name].hidden ? false : true,
+      }
+    });
+  }
 
   // BarColors e Width
 
   const [percentPasswordAnimate] = useState(new Animated.Value(0));
-  const [percentPassword, setPercentPassword] = useState<number>(0);
+  const [percentPassword, setPercentPassword] = useState({
+    percent: 0,
+    hasNumbers: false,
+    hasSpecial: false,
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasEightCarac: false,
+  });
 
   const barStyles = StyleSheet.create({
     div_bar: {
       height: 20,
-      backgroundColor: percentPassword >= 80 ? '#82C165' : percentPassword >= 40 ? '#EBC911' : percentPassword <= 20 ? '#BA090B' : '#BA090B'
+      backgroundColor: percentPassword.percent >= 80 ? '#82C165' : percentPassword.percent >= 40 ? '#EBC911' : percentPassword.percent <= 20 ? '#BA090B' : '#BA090B'
     },
   });
 
-  function verifyPassword(pwd: string) {
+  function verifyPassword(pwd: string): void {
+
     const hasNumbers = /\d/.test(pwd);
     const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pwd);
     const hasUpperCase = /[A-Z]/.test(pwd);
     const hasLowerCase = /[a-z]/.test(pwd);
-    const hasEightCarac = (pwd.length >= 8 ) ? true : false; 
+    const hasEightCarac = (pwd.length >= 8) ? true : false;
 
     const percent = ((hasNumbers ? 1 : 0) + (hasSpecial ? 1 : 0) + (hasUpperCase ? 1 : 0) + (hasLowerCase ? 1 : 0) + (hasEightCarac ? 1 : 0)) * 20;
-    setPercentPassword(percent)
+    setPercentPassword({
+      ...percentPassword,
+      ['percent']: percent,
+      ['hasSpecial']: hasSpecial,
+      ['hasNumbers']: hasNumbers,
+      ['hasUpperCase']: hasUpperCase,
+      ['hasLowerCase']: hasLowerCase,
+      ['hasEightCarac']: hasEightCarac,
+    })
 
     Animated.timing(percentPasswordAnimate, {
       toValue: percent,
@@ -69,6 +89,17 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
       useNativeDriver: false,
     }).start();
   }
+
+  React.useEffect(() => {
+    let equalPassword = (inputValues.password === inputValues.rePassword) ? true : false
+
+    if (inputValues.password.length != 0 && inputValues.rePassword.length != 0 && equalPassword && percentPassword.percent >= 100) {
+      setDisabled(false);
+      return
+    }
+    setDisabled(true);
+  }, [handleInputChange])
+
 
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
@@ -93,16 +124,15 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
               placeholder="Senha"
               keyboardType="default"
               placeholderTextColor={"#282832"}
-              secureTextEntry={hidden}
+              secureTextEntry={hiddenInput.password.hidden}
               style={styles.inv_input}
               value={inputValues.password}
               onChangeText={(pwd) => { verifyPassword(pwd); handleInputChange('password', pwd); }}
-
             />
             <TouchableOpacity
-              onPress={changeHiddenPassword}
+              onPress={() => changeHiddenPassword('password')}
             >
-              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hidden}/>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.password.hidden}/>
             </TouchableOpacity>
           </View>
 
@@ -111,27 +141,44 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
               placeholder="Confirme a senha"
               keyboardType="default"
               placeholderTextColor={"#282832"}
-              secureTextEntry={hidden}
+              secureTextEntry={hiddenInput.rePassword.hidden}
               style={styles.inv_input}
               value={inputValues.rePassword}
               onChangeText={(pwd) => { handleInputChange('rePassword', pwd); }}
             />
             <TouchableOpacity
-              onPress={changeHiddenPassword}
+              onPress={() => changeHiddenPassword('rePassword')}
             >
-              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hidden}/>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.rePassword.hidden}/>
             </TouchableOpacity>
           </View>
+
+          <Text
+            style={[defaultStyle.errorTextInput,
+            inputValues.password == inputValues.rePassword && defaultStyle.display_none
+            ]}
+          > As senhas devem ser iguais </Text>
 
           <View style={styles.strong_password_div}>
             <Animated.View
               style={[barStyles.div_bar, { width: percentPasswordAnimate.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] }) }]}
             ></Animated.View>
           </View>
+        </View>
 
+        <View
+          style={[
+            styles.div_conditional_password,
+            (percentPassword.percent == 0 || percentPassword.percent == 100) && defaultStyle.display_none
+          ]}
+        >
+          <Text style={[styles.text_conditional_password, percentPassword.hasEightCarac && styles.correct_conditional]}> * Mínimo de 8 caracteres</Text>
+          <Text style={[styles.text_conditional_password, percentPassword.hasSpecial && styles.correct_conditional]}> * Pelo menos 1 caractere especial (!@#$%^&*) </Text>
+          <Text style={[styles.text_conditional_password, percentPassword.hasNumbers && styles.correct_conditional]}> * Pelo menos 1 número (0-9)</Text>
+          <Text style={[styles.text_conditional_password, percentPassword.hasUpperCase && styles.correct_conditional]}> * Pelo menos 1 letra maiúscula (A-Z)</Text>
+          <Text style={[styles.text_conditional_password, percentPassword.hasLowerCase && styles.correct_conditional]}> * Pelo menos 1 letra minúscula (a-z)</Text>
         </View>
       </View>
-
       <View style={styles.container_btn_login}>
         <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
           onPress={() => {

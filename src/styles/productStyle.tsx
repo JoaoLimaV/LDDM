@@ -118,6 +118,7 @@ const productStyle = StyleSheet.create({
     borderColor: '#6B63FF',
     borderWidth: 2,
   },
+
 })
 
 export default productStyle

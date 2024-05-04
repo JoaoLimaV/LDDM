@@ -39,6 +39,11 @@ const defaultStyle: any = StyleSheet.create({
     fontFamily: 'Itim-Regular'
   },
 
+  text_green: { 
+    color: '#82C165',
+    fontFamily: 'Itim-Regular'
+  },
+
   defaul_input: {
     width: "100%",
     height: 50,
@@ -46,8 +51,7 @@ const defaultStyle: any = StyleSheet.create({
     paddingLeft: 20,
     borderWidth: 2,
     borderColor: "#282832",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
     color: '#282832',
     fontFamily: 'Itim-Regular',
     fontSize: 16
@@ -67,6 +71,15 @@ const defaultStyle: any = StyleSheet.create({
   }, 
   disabled: {
     opacity: .5
+  },
+  errorTextInput: {
+    textAlign: 'right',
+    paddingRight: 10,
+    fontSize: 14, 
+    color: '#BA090B'
+  },
+  display_none: {
+    display: 'none'
   }
 });
 

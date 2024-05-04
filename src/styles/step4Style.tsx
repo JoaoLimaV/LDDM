@@ -28,7 +28,6 @@ const step3Style: any = StyleSheet.create({
     marginTop: 15,
     paddingLeft: 15
   },
-  
   text_icon: {
     paddingLeft: 5,
     fontSize: 20

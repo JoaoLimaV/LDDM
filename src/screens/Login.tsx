@@ -5,8 +5,40 @@ import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
 
 import styles from '@styles/loginStyle'
+import axios from 'axios';
+
 
 function Login({ navigation }: any): React.JSX.Element {
+
+  const [inputValues, setInputValues] = React.useState({
+    login: '',
+    password: ''
+  });
+
+  const handleInputChange = (name: string, value: string) => {
+    setInputValues({
+      ...inputValues,
+      [name]: value,
+    });
+  }
+
+  const loginUser = async () => {
+
+    console.log(inputValues)
+    let json = {
+      email: inputValues.login,
+      password: inputValues.password
+    }
+
+    await axios.post(`http://192.168.100.7:3000/login`, json)
+      .then(async (response) => {
+        console.log(response.data.message)
+      })
+      .catch(err => {
+        console.error(err.response.data.message)
+      });
+  }
+
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       <HeaderNavigation backScreen={'Home'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
@@ -23,13 +55,18 @@ function Login({ navigation }: any): React.JSX.Element {
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
             style={defaultStyle.defaul_input}
+            onChangeText={(value) => handleInputChange('login', value)}
+
           />
+          <Text style={defaultStyle.errorTextInput} >  </Text>
           <TextInput
             placeholder="Senha"
             keyboardType="default"
             placeholderTextColor={"#282832"}
             secureTextEntry={false}
             style={defaultStyle.defaul_input}
+            onChangeText={(value) => handleInputChange('password', value)}
+
           />
 
           <Text style={[styles.forgot_password, defaultStyle.text_blue]}> Esqueci minha senha </Text>
@@ -49,7 +86,12 @@ function Login({ navigation }: any): React.JSX.Element {
       </View>
 
       <View style={styles.container_btn_login}>
-        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue]}>
+        <TouchableOpacity
+          style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
+          onPress={() => {
+            loginUser()
+          }}
+        >
           <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Entrar </Text>
         </TouchableOpacity>
       </View>

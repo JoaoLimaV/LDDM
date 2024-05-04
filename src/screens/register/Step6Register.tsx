@@ -3,14 +3,49 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import defaultStyle from '@components/DefaultStyle'
 import { RadioButton } from 'react-native-paper';
 import HeaderRegister from '@components/HeaderRegister';
+import Toast, { BaseToast } from 'react-native-toast-message';
 
 import styles from '@styles/step6Style'
-
+import axios from 'axios';
 function Step6Register({ navigation, route }: any): React.JSX.Element {
 
   const { user_name, user_birthdate, user_email, user_phone, user_password } = route.params;
 
-  const [checked, setChecked] = React.useState('reject'); const [isDisabled, setDisabled] = React.useState<boolean>(true);
+  const [checked, setChecked] = React.useState('reject');
+  const [isDisabled, setDisabled] = React.useState<boolean>(true);
+
+  const registerUser = async () => {
+    setDisabled(true)
+
+    Toast.show({
+      type: 'success',
+      text1: 'Email enviado',
+      text2: 'Você será redirecionado em breve. Aguarde.',
+      visibilityTime: 5000,
+      onPress: () => {
+        Toast.hide();
+      }
+    });
+
+    let json = {
+      name: user_name,
+      email: user_email,
+      phone: user_phone,
+      birthdate: user_birthdate,
+      password: user_password,
+      cpf: null,
+      status: 1
+    }
+
+    await axios.post(`http://192.168.100.7:3000/register`, json)
+      .then(async (response) => {
+        navigation.navigate('Login');
+      })
+      .catch(err => {
+        console.error(err)
+        setDisabled(false)
+      });
+  }
 
   return (
     <View style={defaultStyle.main_container}>
@@ -94,13 +129,16 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
 
           <TouchableOpacity style={[styles.btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
             onPress={() => {
-              !isDisabled && navigation.navigate('Home');
+              registerUser();
             }}
+            disabled={isDisabled}
           >
             <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Aceitar </Text>
           </TouchableOpacity>
         </View>
       </View>
+
+      <Toast />
     </View>
   );
 }

@@ -21,6 +21,8 @@ import iconSearch from './iconSearch';
 import iconSms from './iconSms';
 import iconStar from './iconStar';
 import iconTrend from './iconTrend';
+import iconArrowDown from './iconArrowDown';
+import iconArrowUp from './iconArrowUp';
 
 const Icons = {
     iconBalance,
@@ -46,6 +48,8 @@ const Icons = {
     iconSms,
     iconStar,
     iconTrend,
+    iconArrowDown,
+    iconArrowUp,
 };
 
 export default Icons;
