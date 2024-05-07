@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import defaultStyle from '@components/DefaultStyle'
 import { RadioButton } from 'react-native-paper';
 import HeaderRegister from '@components/HeaderRegister';
-import Toast, { BaseToast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
+import { ToastShow, styleToast } from '@components/Toast'
 
 import styles from '@styles/step6Style'
 import axios from 'axios';
@@ -17,16 +18,6 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
   const registerUser = async () => {
     setDisabled(true)
 
-    Toast.show({
-      type: 'success',
-      text1: 'Email enviado',
-      text2: 'Você será redirecionado em breve. Aguarde.',
-      visibilityTime: 5000,
-      onPress: () => {
-        Toast.hide();
-      }
-    });
-
     let json = {
       name: user_name,
       email: user_email,
@@ -37,9 +28,12 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
       status: 1
     }
 
-    await axios.post(`http://192.168.100.7:3000/register`, json)
+    await axios.post(`${process.env.API_URL}/register`, json)
       .then(async (response) => {
-        navigation.navigate('Login');
+        ToastShow("success", "Usuario criado", 'Você será redirecionado em breve. Aguarde.')
+        setTimeout(() => {
+          navigation.navigate('Login');
+        }, 2000)
       })
       .catch(err => {
         console.error(err)
@@ -51,12 +45,12 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
     <View style={defaultStyle.main_container}>
       {/* Header Personalizado */}
       <HeaderRegister onNavigateBack={() => navigation.navigate("Step5Register", {
-              user_name: user_name,
-              user_birthdate: user_birthdate,
-              user_email: user_email,
-              user_phone: user_phone,
-              user_password: user_password
-            })} />
+        user_name: user_name,
+        user_birthdate: user_birthdate,
+        user_email: user_email,
+        user_phone: user_phone,
+        user_password: user_password
+      })} />
       {/* Header Personalizado */}
 
       <Text style={[styles.text_principal, defaultStyle.text_black]}> Termos de Uso </Text>
@@ -138,7 +132,7 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
         </View>
       </View>
 
-      <Toast />
+      <Toast config={styleToast} />
     </View>
   );
 }

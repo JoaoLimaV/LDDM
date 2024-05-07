@@ -20,6 +20,7 @@ module.exports = {
         '@screens': './src/screens',
         '@styles': './src/styles',
       }
-    }]
+    }],
+    ['module:react-native-dotenv']
   ]
 };

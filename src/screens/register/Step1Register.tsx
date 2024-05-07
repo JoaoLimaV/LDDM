@@ -73,9 +73,9 @@ function Step1Register({ navigation, route }: any): React.JSX.Element {
     }
 
     if (age == 18) {
-      if (dateUser[1] < dateNow.getMonth()) {
+      if (dateUser[1] > dateNow.getMonth()) {
         age = 0;
-      } else if (dateNow.getMonth() === dateUser[1] && dateUser[2] < dateNow.getDate()) {
+      } else if (dateNow.getMonth() === dateUser[1] && dateUser[2] > dateNow.getDate()) {
         age = 0;
       }
     }

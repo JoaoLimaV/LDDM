@@ -52,7 +52,28 @@ const loginStyle: any = StyleSheet.create({
     new_user_text: {
       fontSize: 18,
       textAlign: 'center'
-    }
+    },
+    fake_input: {
+      width: "100%",
+      height: 50,
+      borderRadius: 50,
+      paddingLeft: 20,
+      paddingRight: 20,
+      borderWidth: 2,
+      borderColor: "#282832",
+      marginTop: 10,
+      marginBottom: 10,
+      color: '#282832',
+      fontFamily: 'Itim-Regular',
+      fontSize: 16,
+  
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    inv_input: {
+      width: '90%'
+    },
   
   });
 

@@ -3,10 +3,12 @@ import { View, Text, TextInput, TouchableOpacity, Image, Pressable, Keyboard } f
 import defaultStyle from "@components/DefaultStyle"
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
-
 import styles from '@styles/loginStyle'
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
+import { ToastShow, styleToast } from '@components/Toast'
 
+import { InterfaceHiddenPassword } from '@components/Interface'
 
 function Login({ navigation }: any): React.JSX.Element {
 
@@ -14,6 +16,21 @@ function Login({ navigation }: any): React.JSX.Element {
     login: '',
     password: ''
   });
+
+  const [isDisabled, setDisabled] = React.useState<boolean>(true);
+
+  const [hiddenInput, setHiddenInput] = React.useState<InterfaceHiddenPassword>({
+    password: { hidden: true },
+  });
+
+  const changeHiddenPassword = (name: string): void => {
+    setHiddenInput({
+      ...hiddenInput,
+      [name]: {
+        hidden: hiddenInput[name].hidden ? false : true,
+      }
+    });
+  }
 
   const handleInputChange = (name: string, value: string) => {
     setInputValues({
@@ -23,21 +40,31 @@ function Login({ navigation }: any): React.JSX.Element {
   }
 
   const loginUser = async () => {
+    setDisabled(true);
 
-    console.log(inputValues)
     let json = {
       email: inputValues.login,
       password: inputValues.password
     }
 
-    await axios.post(`http://192.168.100.7:3000/login`, json)
+    await axios.post(`${process.env.API_URL}/login`, json)
       .then(async (response) => {
         console.log(response.data.message)
+        setDisabled(false);
       })
       .catch(err => {
-        console.error(err.response.data.message)
+        ToastShow("error", "Erro ao fazer login", 'Email ou senhas inválidos, tente novamente')
+        setDisabled(false);
       });
   }
+
+  React.useEffect(() => {
+    if (inputValues.login != '' && inputValues.password != '') {
+      setDisabled(false);
+      return
+    }
+    setDisabled(true);
+  }, [handleInputChange])
 
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
@@ -58,17 +85,22 @@ function Login({ navigation }: any): React.JSX.Element {
             onChangeText={(value) => handleInputChange('login', value)}
 
           />
-          <Text style={defaultStyle.errorTextInput} >  </Text>
-          <TextInput
-            placeholder="Senha"
-            keyboardType="default"
-            placeholderTextColor={"#282832"}
-            secureTextEntry={false}
-            style={defaultStyle.defaul_input}
-            onChangeText={(value) => handleInputChange('password', value)}
-
-          />
-
+          <View style={styles.fake_input}>
+            <TextInput
+              placeholder="Confirme a senha"
+              keyboardType="default"
+              placeholderTextColor={"#282832"}
+              secureTextEntry={hiddenInput.password.hidden}
+              style={styles.inv_input}
+              value={inputValues.password}
+              onChangeText={(value) => handleInputChange('password', value)}
+            />
+            <TouchableOpacity
+              onPress={() => changeHiddenPassword('password')}
+            >
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.password.hidden} />
+            </TouchableOpacity>
+          </View>
           <Text style={[styles.forgot_password, defaultStyle.text_blue]}> Esqueci minha senha </Text>
         </View>
 
@@ -87,10 +119,11 @@ function Login({ navigation }: any): React.JSX.Element {
 
       <View style={styles.container_btn_login}>
         <TouchableOpacity
-          style={[defaultStyle.default_btn, defaultStyle.bg_blue]}
+          style={[defaultStyle.default_btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
           onPress={() => {
             loginUser()
           }}
+          disabled={isDisabled}
         >
           <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Entrar </Text>
         </TouchableOpacity>
@@ -102,6 +135,8 @@ function Login({ navigation }: any): React.JSX.Element {
       >
         É novo por aqui? Cadastre-se
       </Text>
+
+      <Toast config={styleToast} />
     </Pressable>
   );
 }
