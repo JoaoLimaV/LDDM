@@ -9,7 +9,5 @@ export interface InterfaceHiddenPassword {
 }
 
 export interface InterfaceDataUser {
-    id_user : number, 
-    name_user : string, 
     tokenJWT : string,
 }

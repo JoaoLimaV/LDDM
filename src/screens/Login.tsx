@@ -7,6 +7,7 @@ import styles from '@styles/loginStyle'
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import { ToastShow, styleToast } from '@components/Toast'
+import { storeToken } from '@components/AuthStorage'
 
 import { InterfaceHiddenPassword } from '@components/Interface'
 
@@ -47,10 +48,11 @@ function Login({ navigation }: any): React.JSX.Element {
       password: inputValues.password
     }
 
+
     await axios.post(`${process.env.API_URL}/login`, json)
       .then(async (response) => {
-        console.log(response.data.message)
-        setDisabled(false);
+        ToastShow("success", "Login realizado com sucesso", 'Você será direcionado em breve. ')
+        await storeToken(response.data.token)
       })
       .catch(err => {
         ToastShow("error", "Erro ao fazer login", 'Email ou senhas inválidos, tente novamente')
