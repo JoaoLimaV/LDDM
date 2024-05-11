@@ -6,18 +6,22 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Switch,
 } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 
 import styles from '@styles/productStyle'
 import Icons from '@icons/svgs'
-import { RadioButton } from 'react-native-paper'
+import { RadioButton, ToggleButton } from 'react-native-paper'
 
 export default function () {
   const [visible, setVisible] = useState(false)
 
   const [checked, setChecked] = useState('reject')
   const [isDisabled, setDisabled] = useState<boolean>(true)
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const handleClose = () => {
     setVisible(false)
@@ -33,51 +37,37 @@ export default function () {
                 <View style={styleModal.separator}>
                   <View style={styleModal.flexRow}>
                     <View>
-                      <Text style={[styleModal.title, defaultStyle.text_black]}>
-                        Arrematar por $300
-                      </Text>
+                      <Switch
+                        trackColor={{ false: '#D9D9D9', true: '#6B63FF' }}
+                        thumbColor={isEnabled ? '#FFF' : '#FFF'}
+                        onValueChange={toggleSwitch}
+                        value={isEnabled}
+                      />
                     </View>
                     <View>
-                      <Icons.iconHammer
-                        width={25}
-                        height={25}
-                        color={'#282832'}
-                      />
+                      <Text style={[styleModal.title, defaultStyle.text_black]}>
+                        Ativar Notificações
+                      </Text>
                     </View>
                   </View>
                 </View>
 
                 <View style={styleModal.separator}>
-                  <Text style={defaultStyle.text_red}>
-                    * Arrematar resulta em uma ação de compra imediata do item.
+                  <Text style={[defaultStyle.text_black]}>
+                    Lorem Ipsum é simplesmente uma simulação de texto da
+                    indústria tipográfica e de impressos
                   </Text>
                 </View>
 
                 <View style={styleModal.separator}>
-                  <View style={styleModal.div_radio_btn}>
-                    <RadioButton
-                      value="accept"
-                      status={checked === 'accept' ? 'checked' : 'unchecked'}
-                      onPress={() => {
-                        setChecked('accept')
-                        setDisabled(false)
-                        console.log(`teste`)
-                      }}
-                      color='#282832'
-                    />
-                    <Text style={[defaultStyle.text_black]}>
-                      Confirmar arremate
-                    </Text>
-                  </View>
-                </View>
-
-                <View style={styleModal.separator}>
-                  <View style={styleModal.throw}>
+                  <View >
                     <TouchableOpacity
                       style={[styleModal.btnThrow, defaultStyle.bg_blue]}
                     >
-                      <Text style={[defaultStyle.text_white, styleModal.textBtn]}>
-                       Arrematar
+                      <Text
+                        style={[defaultStyle.text_white, styleModal.textBtn]}
+                      >
+                        Confirmar
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -93,7 +83,7 @@ export default function () {
           setVisible(true)
         }}
       >
-        <Text style={[defaultStyle.text_blue, styles.btn]}>Arrematar</Text>
+        <Icons.iconGear width={30} height={30} color={'#282832'} />
       </TouchableOpacity>
     </View>
   )
@@ -112,7 +102,9 @@ const styleModal = StyleSheet.create({
     width: '90%',
     height: '30%',
     borderRadius: 30,
-    padding: 40,
+    paddingHorizontal: 40,
+    paddingTop: 40,
+    paddingBottom: 2
   },
 
   separator: {
@@ -121,25 +113,13 @@ const styleModal = StyleSheet.create({
 
   flexRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingBottom: 10,
     alignItems: 'center',
+    gap: 10
   },
 
   title: {
     fontSize: 22,
-  },
-
-  div_radio_btn: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
-    left: -10,
-  },
-
-  throw: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   btnThrow: {
@@ -147,7 +127,7 @@ const styleModal = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
-    height: 50
+    height: 50,
   },
 
   textBtn: {

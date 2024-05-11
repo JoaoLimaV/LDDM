@@ -17,7 +17,7 @@ export const styleToast = {
     success: (props: any) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: '#82C165', width: '98%', borderLeftWidth: 10 }}
+            style={{ borderLeftColor: '#82C165', width: '98%', borderLeftWidth: 10, zIndex: 1000 }}
             text1Style={{
                 fontSize: 15,
                 fontWeight: '400',
@@ -32,7 +32,7 @@ export const styleToast = {
     error: (props: any) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: '#BA090B', width: '90%', borderLeftWidth: 10 }}
+            style={{ borderLeftColor: '#BA090B', width: '90%', borderLeftWidth: 10 , zIndex: 1000 }}
             text1Style={{
                 fontSize: 15,
                 fontWeight: '400',
@@ -47,7 +47,7 @@ export const styleToast = {
     info: (props: any) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: '#EBC911', width: '90%', borderLeftWidth: 1 }}
+            style={{ borderLeftColor: '#EBC911', width: '90%', borderLeftWidth: 1, zIndex: 1000 }}
             text1Style={{
                 fontSize: 15,
                 fontWeight: '400',

@@ -5,15 +5,16 @@ import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
 
 import styles from '@styles/notifyStyle'
+import ModalNotify from './ModalNotify';
 
 function Notify({ navigation }: any): React.JSX.Element {
     return (
         <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
             <HeaderNavigation backScreen={'Main'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
 
-            <View style={styles.absolute}>
-                <Icons.iconGear width={30} height={30} color={"#282832"} />
-            </View>
+            <TouchableOpacity style={styles.absolute}>
+                <ModalNotify />
+            </TouchableOpacity>
 
             <ScrollView style={styles.main_container}>
 

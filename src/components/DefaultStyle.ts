@@ -34,6 +34,9 @@ const defaultStyle: any = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'Itim-Regular'
   },
+  bg_white: { 
+    backgroundColor: '#FFF'
+  },
   text_red: { 
     color: '#BA090B',
     fontFamily: 'Itim-Regular'

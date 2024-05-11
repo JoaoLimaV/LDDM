@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState}from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
 import defaultStyle from "@components/DefaultStyle"
 import HeaderNavigation from '@components/HeaderNavigation';
@@ -13,14 +13,15 @@ import { InterfaceHiddenPassword } from '@components/Interface'
 
 function Login({ navigation }: any): React.JSX.Element {
 
-  const [inputValues, setInputValues] = React.useState({
+  const [inputValues, setInputValues] = useState({
     login: '',
     password: ''
   });
 
-  const [isDisabled, setDisabled] = React.useState<boolean>(true);
+  const [isDisabled, setDisabled] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [hiddenInput, setHiddenInput] = React.useState<InterfaceHiddenPassword>({
+  const [hiddenInput, setHiddenInput] = useState<InterfaceHiddenPassword>({
     password: { hidden: true },
   });
 

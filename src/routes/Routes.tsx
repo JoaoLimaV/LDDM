@@ -7,7 +7,7 @@ import Home from '@screens/Home';
 import Login from '@screens/Login';
 import Main from '@screens/Main';
 import Settings from '@screens/Settings';
-import Notify from '@screens/Notify';
+import Notify from '../screens/notify/Notify';
 import Loading from '@screens/Loading';
 
 import Step1Register from '@screens/register/Step1Register';
@@ -51,6 +51,8 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Step4Register" component={Step4Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step5Register" component={Step5Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step6Register" component={Step6Register} options={{ headerShown: false }} />
+
+          <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
 
           <Stack.Screen name="Product" component={Product} options={{ headerShown: false }} />
         </Stack.Navigator>
