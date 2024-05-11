@@ -1,24 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image, Pressable, Keyboard, ScrollView } from 'react-native';
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
+import axios from 'axios';
+
+import { ToastShow } from '@components/Toast'
 
 import styles from '@styles/mainStyle'
 
-const MAX_LENGTH = 20; // Defina o comprimento máximo do nome
+interface Produto {
+  nome: string;
+  preco: string;
+}
 
-const truncateString = (str: string, max: number) => {
+const MAX_LENGTH = 20;
+
+const truncateString = (str: string, max: number): string => {
   return str.length > max ? str.substr(0, max) + '...' : str;
 };
 
-const produtos = [
-  { nome: 'Omnath, Locus da Criação', preco: 'R$ 364,00' },
-  { nome: 'Omnath, Locus da Criação', preco: 'R$ 364,00' },
-  { nome: 'Omnath, Locus da Criação', preco: 'R$ 364,00' },
-];
+const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
 
-function Main({ navigation }: any): React.JSX.Element {
+  const getProducts = async (): Promise<void> => {
+    try {
+      const response = await axios.get(`${process.env.API_URL}/getAllProducts`);
+      
+      const produtosData: Produto[] = response.data.produtos.map((produto: any) => ({
+        nome: produto.name,
+        preco: `R$ ${produto.price.toFixed(2)}`
+      }));
+
+      setProdutos(produtosData);
+
+    } catch (error) {
+      console.error("Erro ao obter os produtos:", error);
+      ToastShow("error", "Erro ao obter os produtos", "Tente novamente mais tarde.");
+    }
+  }
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
 
@@ -108,7 +133,7 @@ function Main({ navigation }: any): React.JSX.Element {
 
         <ScrollView style={styles.scroll_product}>
           <View style={styles.body_product}>
-            {produtos.map((produto, index) => (
+            {produtos.map((produto: { nome: string; preco: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
               <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product'); }}>
                 <View style={styles.card_top}>
                   <Text style={[{ fontSize: 12 }, defaultStyle.text_black]}>1d 20h 20m 23s</Text>

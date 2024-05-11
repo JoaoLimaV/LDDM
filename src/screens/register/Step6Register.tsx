@@ -8,7 +8,7 @@ import { ToastShow, styleToast } from '@components/Toast'
 
 import styles from '@styles/step6Style'
 import axios from 'axios';
-import Loading from '@screens/Loading';
+import Loading from '@components/Loading';
 
 function Step6Register({ navigation, route }: any): React.JSX.Element {
 
