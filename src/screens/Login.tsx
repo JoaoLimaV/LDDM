@@ -1,4 +1,4 @@
-import React, {useState}from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
 import defaultStyle from "@components/DefaultStyle"
 import HeaderNavigation from '@components/HeaderNavigation';
@@ -49,13 +49,13 @@ function Login({ navigation }: any): React.JSX.Element {
       password: inputValues.password
     }
 
-
     await axios.post(`${process.env.API_URL}/login`, json)
       .then(async (response) => {
         ToastShow("success", "Login realizado com sucesso", 'Você será direcionado em breve. ')
-        return await (response.data.token)
+        return await response.data.token
       })
       .then((token) => {
+        console.log(token)
         storeToken(token)
         navigation.navigate('Main');
       })

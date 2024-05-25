@@ -18,21 +18,20 @@ import Step4Register from '@screens/register/Step4Register';
 import Step5Register from '@screens/register/Step5Register';
 import Step6Register from '@screens/register/Step6Register';
 import Product from '@screens/product/Product'
-import { getToken } from '@components/AuthStorage'
+import FormProduct from '@screens/product/FormProduct'
 
+import { getToken } from '@components/AuthStorage'
 
 const Stack: any = createNativeStackNavigator();
 
 function Routes(): React.JSX.Element {
 
   const [initialRoute, setInitialRoute] = React.useState<string>('');
-
   React.useEffect(() => {
     async function checkToken() {
       const token = await getToken();
       setInitialRoute(token ? 'Main' : 'Home');
     }
-
     checkToken();
   }, []);
 
@@ -57,6 +56,8 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
 
           <Stack.Screen name="Product" component={Product} options={{ headerShown: false }} />
+          <Stack.Screen name="FormProduct" component={FormProduct} options={{ headerShown: false }} />
+
         </Stack.Navigator>
       </NavigationContainer>
     ) : <Loading />

@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import defaultStyle from '@components/DefaultStyle';
 import Icons from '@icons/svgs';
 
-
 interface HeaderNavigationProps {
     backScreen: string;
     title: string;

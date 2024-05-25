@@ -35,10 +35,14 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   // const [numero, setNumero] = useState("")
 
   const getPerson = async (): Promise<void> => {
+    const token = await getToken();
+    
+    console.log(token)
+
     try {
       const res = await axios.get(`${process.env.API_URL}/getUser`, {
         headers: {
-          Authorization: `Bearer ${getToken}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       setName(res.data.user.name)
@@ -90,7 +94,6 @@ function UserConfig({ navigation }: any): React.JSX.Element {
 
   useEffect(() => {
     getPerson()
-    console.log(getToken())
   }, [])
 
   return (

@@ -12,6 +12,7 @@ import styles from '@styles/mainStyle'
 interface Produto {
   nome: string;
   preco: string;
+  caminho_imagem: string;
 }
 
 const MAX_LENGTH = 20;
@@ -29,7 +30,8 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
       
       const produtosData: Produto[] = response.data.produtos.map((produto: any) => ({
         nome: produto.name,
-        preco: `R$ ${produto.price.toFixed(2)}`
+        preco: `R$ ${produto.price}`,
+        caminho_imagem: produto.img_path
       }));
 
       setProdutos(produtosData);
@@ -107,7 +109,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Em Alta</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn_nav}>
+          <TouchableOpacity style={styles.btn_nav} onPress={()=>{ navigation.navigate('FormProduct');}}>
             <View style={{ marginBottom: 5 }}>
               <Icons.iconHammer width={25} height={25} color={"#6B63FF"} />
             </View>
@@ -133,14 +135,14 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
 
         <ScrollView style={styles.scroll_product}>
           <View style={styles.body_product}>
-            {produtos.map((produto: { nome: string; preco: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }, index: React.Key | null | undefined) => (
+            {produtos.map((produto: { nome: string; preco: string; caminho_imagem : string; }, index: React.Key | null | undefined) => (
               <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product'); }}>
                 <View style={styles.card_top}>
                   <Text style={[{ fontSize: 12 }, defaultStyle.text_black]}>1d 20h 20m 23s</Text>
                   <View style={styles.div_image}>
                     <Image
                       style={styles.image_product}
-                      source={require("@images/product.png")}
+                      source={{uri:produto.caminho_imagem}}
                     />
                   </View>
                 </View>
