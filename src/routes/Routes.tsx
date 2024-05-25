@@ -6,8 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '@screens/Home';
 import Login from '@screens/Login';
 import Main from '@screens/Main';
-import Settings from '@screens/Settings';
+import Settings from '@screens/settings/Settings';
 import Notify from '../screens/notify/Notify';
+import UserConfig from '../screens/settings/UserConfig';
 import Loading from '@components/Loading';
 
 import Step1Register from '@screens/register/Step1Register';
@@ -44,6 +45,7 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Main" component={Main} options={{ headerShown: false }} />
           <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
           <Stack.Screen name="Notify" component={Notify} options={{ headerShown: false }} />
+          <Stack.Screen name="UserConfig" component={UserConfig} options={{ headerShown: false }} />
 
           <Stack.Screen name="Step1Register" component={Step1Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step2Register" component={Step2Register} options={{ headerShown: false }} />

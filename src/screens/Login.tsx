@@ -53,7 +53,11 @@ function Login({ navigation }: any): React.JSX.Element {
     await axios.post(`${process.env.API_URL}/login`, json)
       .then(async (response) => {
         ToastShow("success", "Login realizado com sucesso", 'Você será direcionado em breve. ')
-        await storeToken(response.data.token)
+        return await (response.data.token)
+      })
+      .then((token) => {
+        storeToken(token)
+        navigation.navigate('Main');
       })
       .catch(err => {
         ToastShow("error", "Erro ao fazer login", 'Email ou senhas inválidos, tente novamente')

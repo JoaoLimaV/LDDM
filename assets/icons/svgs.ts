@@ -1,3 +1,5 @@
+import iconArrowDown from './iconArrowDown';
+import iconArrowUp from './iconArrowUp';
 import iconBalance from './iconBalance';
 import iconCard from './iconCard';
 import iconCart from './iconCart';
@@ -16,15 +18,17 @@ import iconLeftArrow from './iconLeftArrow';
 import iconLinkedin from './iconLinkedin';
 import iconList from './iconList';
 import iconNotify from './iconNotify';
+import iconPen from './iconPen';
 import iconQuestion from './iconQuestion';
 import iconSearch from './iconSearch';
 import iconSms from './iconSms';
 import iconStar from './iconStar';
 import iconTrend from './iconTrend';
-import iconArrowDown from './iconArrowDown';
-import iconArrowUp from './iconArrowUp';
+import iconUser from './iconUser'
 
 const Icons = {
+    iconArrowDown,
+    iconArrowUp,
     iconBalance,
     iconCard,
     iconCart,
@@ -43,13 +47,13 @@ const Icons = {
     iconLinkedin,
     iconList,
     iconNotify,
+    iconPen,
     iconQuestion,
     iconSearch,
     iconSms,
     iconStar,
     iconTrend,
-    iconArrowDown,
-    iconArrowUp,
+    iconUser,
 };
 
 export default Icons;

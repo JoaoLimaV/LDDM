@@ -21,7 +21,7 @@ function Settings({ navigation }: any): React.JSX.Element {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.div_nav}>
-                        <TouchableOpacity style={styles.btn_top}>
+                        <TouchableOpacity style={styles.btn_top} onPress={() => { navigation.navigate('UserConfig');}}>
                             <View style={{ marginBottom: 10 }}>
                                 <Icons.iconGear width={40} height={40} color={"#282832"} />
                             </View>

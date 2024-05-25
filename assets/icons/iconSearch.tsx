@@ -6,7 +6,7 @@ const iconSearch = ({ color, width, height }: Props) => (
   <Svg
     width={width}
     height={height}
-    viewBox="0 0 63 66"
+    viewBox="0 0 448 512"
     fill="none"
   >
     <Path
