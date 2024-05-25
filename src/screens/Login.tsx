@@ -55,9 +55,10 @@ function Login({ navigation }: any): React.JSX.Element {
         return await response.data.token
       })
       .then((token) => {
-        console.log(token)
         storeToken(token)
-        navigation.navigate('Main');
+        setTimeout(function () {
+          navigation.navigate('Main');
+        }, 2000);
       })
       .catch(err => {
         ToastShow("error", "Erro ao fazer login", 'Email ou senhas inválidos, tente novamente')

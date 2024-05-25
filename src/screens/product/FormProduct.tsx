@@ -135,8 +135,10 @@ function FormProduct(): React.JSX.Element {
         axios.post(`${process.env.API_URL}/createProduct`, json, config)
             .then((response) => {
                 ToastShow("success", "Login realizado com sucesso", 'Você será direcionado em breve. ')
-                // @ts-ignore
-                navigation.navigate('Main');
+                setTimeout(function () {
+                    // @ts-ignore
+                    navigation.navigate('Main');
+                }, 2000);
             })
             .catch((error) => {
                 ToastShow("error", "ERRO", 'DESCUBRA FIO')

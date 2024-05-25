@@ -4,6 +4,7 @@ import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
 import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { ToastShow } from '@components/Toast'
 
@@ -27,7 +28,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
   const getProducts = async (): Promise<void> => {
     try {
       const response = await axios.get(`${process.env.API_URL}/getAllProducts`);
-      
+
       const produtosData: Produto[] = response.data.produtos.map((produto: any) => ({
         nome: produto.name,
         preco: `R$ ${produto.price}`,
@@ -42,9 +43,15 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getProducts();
+    }, [])
+  );
 
   return (
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
@@ -53,7 +60,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
       <View style={styles.header_container}>
 
         <View style={styles.div_input}>
-          <TouchableOpacity onPress={() => { navigation.navigate('Settings');}}>
+          <TouchableOpacity onPress={() => { navigation.navigate('Settings'); }}>
             <Image
               style={{ width: 30, height: 30 }}
               source={require('@images/foto.png')}
@@ -74,7 +81,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity onPress={() => { navigation.navigate('Notify');}}>
+          <TouchableOpacity onPress={() => { navigation.navigate('Notify'); }}>
             <Icons.iconNotify width={30} height={32} color={"#282832"} />
             <View style={styles.notification_text}>
               <Text style={defaultStyle.text_black}>99</Text>
@@ -109,7 +116,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={[{ fontSize: 12 }, defaultStyle.text_blue]}>Em Alta</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.btn_nav} onPress={()=>{ navigation.navigate('FormProduct');}}>
+          <TouchableOpacity style={styles.btn_nav} onPress={() => { navigation.navigate('FormProduct'); }}>
             <View style={{ marginBottom: 5 }}>
               <Icons.iconHammer width={25} height={25} color={"#6B63FF"} />
             </View>
@@ -135,14 +142,14 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
 
         <ScrollView style={styles.scroll_product}>
           <View style={styles.body_product}>
-            {produtos.map((produto: { nome: string; preco: string; caminho_imagem : string; }, index: React.Key | null | undefined) => (
+            {produtos.map((produto: { nome: string; preco: string; caminho_imagem: string; }, index: React.Key | null | undefined) => (
               <TouchableOpacity key={index} style={styles.card_product} onPress={() => { navigation.navigate('Product'); }}>
                 <View style={styles.card_top}>
                   <Text style={[{ fontSize: 12 }, defaultStyle.text_black]}>1d 20h 20m 23s</Text>
                   <View style={styles.div_image}>
                     <Image
                       style={styles.image_product}
-                      source={{uri:produto.caminho_imagem}}
+                      source={{ uri: produto.caminho_imagem }}
                     />
                   </View>
                 </View>
