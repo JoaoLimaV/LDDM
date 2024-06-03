@@ -123,6 +123,7 @@ const mainStyle: any = StyleSheet.create({
     desc_right: {
       paddingBottom: 10,
       paddingHorizontal: 10,
+      width: 145
     }
   });
 

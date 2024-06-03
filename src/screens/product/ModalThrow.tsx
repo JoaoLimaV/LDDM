@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
-  Button,
   Modal,
   StyleSheet,
   TouchableOpacity,
@@ -11,83 +10,145 @@ import {
 import defaultStyle from '@components/DefaultStyle'
 
 import styles from '@styles/productStyle'
+import axios from 'axios'
+import { getToken } from '@components/AuthStorage'
 
-export default function () {
+export default function ({ id_product, current_price, getProduct, callbackFunction }: any) {
   const [visible, setVisible] = useState(false)
+  const [bidUser, setBidUser] = useState<number>(0)
+  const [isDisabled, setDisabled] = React.useState<boolean>(true);
 
   const handleClose = () => {
     setVisible(false)
+    setBidUser(0);
+  }
+
+  function handleBidUser(operator: string) {
+    if (operator === '+') {
+      setBidUser(bidUser + 10)
+    }
+    else {
+      if (bidUser != 0) {
+        setBidUser(bidUser - 10)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (bidUser != 0) {
+      setDisabled(false)
+      return
+    }
+    setDisabled(true)
+  }, [handleBidUser]);
+
+  const registerBid = async () => {
+    setDisabled(true)
+    const token = await getToken();
+
+    let config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    let json = {
+      id_product: id_product,
+      price: current_price + bidUser
+    }
+
+    axios.post(`${process.env.API_URL}/registerBid`, json, config)
+      .then((response) => {
+        getProduct()
+        handleClose()
+      })
+      .catch((error) => {
+        console.error(error)
+      });
   }
 
   return (
     <View>
       <Modal transparent={true} visible={visible}>
-      <TouchableWithoutFeedback onPress={handleClose}>
-        <View style={styleModal.container}>
-        <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-          <View style={styleModal.modal}>
-            <View style={styleModal.separator}>
-              <Text style={[defaultStyle.text_black, styleModal.title]}>
-                Lance atual:
-              </Text>
-              <Text style={[defaultStyle.text_black, styleModal.details]}>
-                R$ 150,00
-              </Text>
-            </View>
-
-            <View style={styleModal.separator}>
-              <View style={styleModal.value}>
-                <View>
+        <TouchableWithoutFeedback onPress={handleClose}>
+          <View style={styleModal.container}>
+            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+              <View style={styleModal.modal}>
+                <View style={styleModal.separator}>
                   <Text style={[defaultStyle.text_black, styleModal.title]}>
-                    Seu lance:
+                    Lance atual:
                   </Text>
-                  <Text style={[styleModal.details, defaultStyle.text_green]}>
-                    + R$ 30
+                  <Text style={[defaultStyle.text_black, styleModal.details]}>
+                    R$ {current_price}
                   </Text>
                 </View>
 
-                <View style={styleModal.btn}>
-                  <TouchableOpacity style={styleModal.border}>
-                    <Text style={[defaultStyle.text_black, styleModal.textBtn]}>
-                      +
+                <View style={styleModal.separator}>
+                  <View style={styleModal.value}>
+                    <View>
+                      <Text style={[defaultStyle.text_black, styleModal.title]}>
+                        Seu lance:
+                      </Text>
+                      <Text style={[styleModal.details, bidUser != 0 ? defaultStyle.text_green : [defaultStyle.text_black, { opacity: .5 }],]}>
+                        + R$ {bidUser}
+                      </Text>
+                    </View>
+
+                    <View style={styleModal.btn}>
+                      <TouchableOpacity style={styleModal.border} onPress={() => {
+                        handleBidUser('+')
+                      }}>
+                        <Text style={[defaultStyle.text_black, styleModal.textBtn]}>
+                          +
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styleModal.border}>
+                        <Text style={[defaultStyle.text_black, styleModal.textBtn]}
+                          onPress={() => {
+                            handleBidUser('-')
+                          }}>
+                          -
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+
+                <View style={styleModal.separator}>
+                  <View style={styleModal.flexRow}>
+                    <Text style={[defaultStyle.text_black, styleModal.details]}>
+                      Total:
                     </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styleModal.border}>
-                    <Text style={[defaultStyle.text_black, styleModal.textBtn]}>
-                      -
+                    <Text style={[defaultStyle.text_black, styleModal.details]}>
+                      R$ {current_price + bidUser}
                     </Text>
-                  </TouchableOpacity>
+                  </View>
+
+                  <View style={styleModal.throw}>
+                    <TouchableOpacity
+                      style={[styleModal.btnThrow, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
+                      disabled={isDisabled}
+                      onPress={() => {
+                        registerBid()
+                      }}
+                    >
+                      <Text style={[defaultStyle.text_white, styleModal.title]}>Dar Lance</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
-            </View>
-
-            <View style={styleModal.separator}>
-              <View style={styleModal.flexRow}>
-                <Text style={[defaultStyle.text_black, styleModal.details]}>
-                  Total:
-                </Text>
-                <Text style={[defaultStyle.text_black, styleModal.details]}>
-                  R$ 180
-                </Text>
-              </View>
-
-              <View style={styleModal.throw}>
-                <TouchableOpacity
-                  style={[styleModal.btnThrow, defaultStyle.bg_blue]}
-                >
-                  <Text style={[defaultStyle.text_white, styleModal.title]}>Dar Lance</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            </TouchableWithoutFeedback>
           </View>
-          </TouchableWithoutFeedback>
-        </View>
         </TouchableWithoutFeedback>
       </Modal>
 
       <TouchableOpacity
         onPress={() => {
-          setVisible(true)
+          let result = callbackFunction();
+          if (!result) {
+            setVisible(true)
+          }
         }}
       >
         <Text

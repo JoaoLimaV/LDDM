@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 
 const productStyle = StyleSheet.create({
-    scroll_view: {
-        flex: .85,
-        paddingHorizontal: 10
-      },
+  scroll_view: {
+    flex: .85,
+    paddingHorizontal: 10
+  },
 
   base: {
     flex: 1,
@@ -18,16 +18,22 @@ const productStyle = StyleSheet.create({
 
   imagens: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   imgPrinc: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxHeight: 350,
+    maxWidth: 200
   },
 
-  imgSec: {
-    flexDirection: 'column',
-    gap: 10,
-    justifyContent: 'center',
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
   },
 
   image_small: {
@@ -56,6 +62,7 @@ const productStyle = StyleSheet.create({
 
   title: {
     fontSize: 26,
+    marginTop: 20
   },
 
   divCategory: {
@@ -91,7 +98,7 @@ const productStyle = StyleSheet.create({
 
   border: {
     flex: .15,
-    justifyContent:'space-around',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 2,
@@ -118,7 +125,11 @@ const productStyle = StyleSheet.create({
     borderColor: '#6B63FF',
     borderWidth: 2,
   },
-
+  not_history_bid: {
+    fontSize: 20,
+    opacity: .5,
+    marginTop: 10
+  }
 })
 
 export default productStyle

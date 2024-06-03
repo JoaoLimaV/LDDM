@@ -10,6 +10,7 @@ import styles from '@styles/step6Style'
 import axios from 'axios';
 import Loading from '@components/Loading';
 
+
 function Step6Register({ navigation, route }: any): React.JSX.Element {
 
   const { user_name, user_birthdate, user_email, user_phone, user_password } = route.params;

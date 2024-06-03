@@ -3,10 +3,25 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, 
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
+import { deleteToken, getToken } from '@components/AuthStorage'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from '@styles/settingStyle'
 
 function Settings({ navigation }: any): React.JSX.Element {
+
+    // Modal 
+
+    const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+    const opendImgModal = async () => {
+        setOpenModal(true)
+    };
+
+    const closeImgModal = async () => {
+        setOpenModal(false)
+    };
+
     return (
         <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
             <HeaderNavigation backScreen={'Main'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
@@ -21,7 +36,7 @@ function Settings({ navigation }: any): React.JSX.Element {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.div_nav}>
-                        <TouchableOpacity style={styles.btn_top} onPress={() => { navigation.navigate('UserConfig');}}>
+                        <TouchableOpacity style={styles.btn_top} onPress={() => { navigation.navigate('UserConfig'); }}>
                             <View style={{ marginBottom: 10 }}>
                                 <Icons.iconGear width={40} height={40} color={"#282832"} />
                             </View>
@@ -82,10 +97,24 @@ function Settings({ navigation }: any): React.JSX.Element {
                 </View>
             </View>
             <View style={styles.container_btn_exit}>
-                <TouchableOpacity style={styles.btn_exit}>
+                <TouchableOpacity style={styles.btn_exit} onPress={async () => {
+                    opendImgModal()
+                    let result = await deleteToken();
+                    if (result == 'Removed') {
+                        navigation.navigate("Home")
+                    }
+                }}>
                     <Text style={[defaultStyle.btn_text, defaultStyle.text_red]}> Sair </Text>
                 </TouchableOpacity>
             </View>
+
+            {openModal &&
+                <View style={[defaultStyle.modal]} >
+                    <Spinner
+                        visible={true}
+                    />
+                </View>
+            }
         </Pressable>
     );
 }

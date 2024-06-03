@@ -12,6 +12,7 @@ import Toast from 'react-native-toast-message';
 import { ToastShow, styleToast } from '@components/Toast'
 import { useNavigation } from '@react-navigation/native';
 
+
 function FormProduct(): React.JSX.Element {
 
     const navigation = useNavigation();
@@ -22,7 +23,7 @@ function FormProduct(): React.JSX.Element {
         desc: '',
         grading: '',
         price: '',
-        winningBidPrice: ''
+        final_bid_price: ''
     });
     const [isDisabled, setDisabled] = React.useState<boolean>(true);
 
@@ -104,7 +105,7 @@ function FormProduct(): React.JSX.Element {
 
 
     React.useEffect(() => {
-        if (inputValues.nome != '' && inputValues.desc != '' && inputValues.grading != '' && inputValues.price != '' && inputValues.winningBidPrice != '' && file) {
+        if (inputValues.nome != '' && inputValues.desc != '' && inputValues.grading != '' && inputValues.price != '' && inputValues.final_bid_price != '' && file) {
             setDisabled(false);
             return
         }
@@ -125,10 +126,10 @@ function FormProduct(): React.JSX.Element {
 
         let json = {
             name: inputValues.nome,
-            price: inputValues.price,
             desc: inputValues.desc,
             grading: inputValues.grading,
-            winning_bid_price: inputValues.winningBidPrice,
+            start_price: inputValues.price,
+            final_bid_price: inputValues.final_bid_price,
             imageBase64: file.base64
         }
 
@@ -245,8 +246,8 @@ function FormProduct(): React.JSX.Element {
                         placeholderTextColor={"#282832"}
                         secureTextEntry={false}
                         style={[defaultStyle.defaul_input]}
-                        value={inputValues.winningBidPrice}
-                        onChangeText={(value) => handleInputChange('winningBidPrice', value)}
+                        value={inputValues.final_bid_price}
+                        onChangeText={(value) => handleInputChange('final_bid_price', value)}
                     />
 
                     <Text style={defaultStyle.errorTextInput}>  </Text>
@@ -263,7 +264,7 @@ function FormProduct(): React.JSX.Element {
             </ScrollView>
             {
                 file && openModal &&
-                <TouchableOpacity style={[styles.modal]} onPress={closeImgModal}>
+                <TouchableOpacity style={[defaultStyle.modal]} onPress={closeImgModal}>
                     <Image source={{ uri: file.uri }} style={{ width: 200, height: 200 }} />
                 </TouchableOpacity>
             }

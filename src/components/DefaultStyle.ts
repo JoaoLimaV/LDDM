@@ -11,38 +11,38 @@ const defaultStyle: any = StyleSheet.create({
     color: '#6B63FF',
     fontFamily: 'Itim-Regular'
   },
-  bg_blue: { 
+  bg_blue: {
     backgroundColor: '#6B63FF',
   },
 
-  text_gray: { 
+  text_gray: {
     color: '#D9D9D9',
     fontFamily: 'Itim-Regular'
   },
-  bg_gray: { 
+  bg_gray: {
     backgroundColor: '#D9D9D9'
   },
 
-  text_black: { 
+  text_black: {
     color: '#282832',
     fontFamily: 'Itim-Regular'
   },
-  bg_black: { 
+  bg_black: {
     backgroundColor: '#282832'
   },
-  text_white: { 
+  text_white: {
     color: '#FFF',
     fontFamily: 'Itim-Regular'
   },
-  bg_white: { 
+  bg_white: {
     backgroundColor: '#FFF'
   },
-  text_red: { 
+  text_red: {
     color: '#BA090B',
     fontFamily: 'Itim-Regular'
   },
 
-  text_green: { 
+  text_green: {
     color: '#82C165',
     fontFamily: 'Itim-Regular'
   },
@@ -71,18 +71,30 @@ const defaultStyle: any = StyleSheet.create({
   },
   btn_text: {
     fontSize: 20
-  }, 
+  },
   disabled: {
     opacity: .5
   },
   errorTextInput: {
     textAlign: 'right',
     paddingRight: 10,
-    fontSize: 14, 
+    fontSize: 14,
     color: '#BA090B'
   },
   display_none: {
     display: 'none'
+  },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(40, 40, 50, 0.5)',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
   }
 });
 

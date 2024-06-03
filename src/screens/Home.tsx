@@ -48,7 +48,7 @@ function Home({ navigation }: any) {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => { navigation.navigate('Main'); }}>
+        <TouchableOpacity onPress={() => { navigation.navigate('Main', { notLogin : true}) }}>
           <Text style={[styles.notLogin, defaultStyle.text_black]}>
             Ver Produtos sem Entrar
           </Text>

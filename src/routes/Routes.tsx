@@ -27,6 +27,7 @@ const Stack: any = createNativeStackNavigator();
 function Routes(): React.JSX.Element {
 
   const [initialRoute, setInitialRoute] = React.useState<string>('');
+  
   React.useEffect(() => {
     async function checkToken() {
       const token = await getToken();

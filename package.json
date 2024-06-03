@@ -22,6 +22,7 @@
     "react-native-date-picker": "^5.0.2",
     "react-native-dotenv": "^3.4.11",
     "react-native-image-picker": "^7.1.2",
+    "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^5.12.3",
     "react-native-picker-select": "^9.1.3",

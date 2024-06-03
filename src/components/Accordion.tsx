@@ -16,11 +16,13 @@ export default function Accordion({
   data,
   hora,
   price,
+  percentage
 }: {
   title: string
   data: string
   hora: string
   price: number
+  percentage: number
 }) {
   const [opened, setOpened] = useState(false)
   const [animation, setAnimation] = useState(new Animated.Value(0))
@@ -81,16 +83,16 @@ export default function Accordion({
         >
           <View style={styles.details}>
             <View>
-            <Text style={[defaultStyle.text_black, styles.textDetails]}>
-              Data: {data}
-            </Text>
-            <Text style={[defaultStyle.text_black, styles.textDetails]}>
-              Hora: {hora}
-            </Text>
+              <Text style={[defaultStyle.text_black, styles.textDetails]}>
+                Data: {data}
+              </Text>
+              <Text style={[defaultStyle.text_black, styles.textDetails]}>
+                Hora: {hora}
+              </Text>
             </View>
             <View>
               <Text style={[defaultStyle.text_green, styles.textDetails]}>
-                + R$ {price}
+                + R$ {percentage != null ? percentage : 0}
               </Text>
             </View>
           </View>
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    
+
   },
 
   title: {

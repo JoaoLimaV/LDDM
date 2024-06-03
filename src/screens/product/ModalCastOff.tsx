@@ -13,7 +13,7 @@ import styles from '@styles/productStyle'
 import Icons from '@icons/svgs'
 import { RadioButton } from 'react-native-paper'
 
-export default function () {
+export default function ({ id_product, final_bid, callbackFunction }: any) {
   const [visible, setVisible] = useState(false)
 
   const [checked, setChecked] = useState('reject')
@@ -21,6 +21,7 @@ export default function () {
 
   const handleClose = () => {
     setVisible(false)
+    setChecked('reject')
   }
 
   return (
@@ -34,7 +35,7 @@ export default function () {
                   <View style={styleModal.flexRow}>
                     <View>
                       <Text style={[styleModal.title, defaultStyle.text_black]}>
-                        Arrematar por $300
+                        Arrematar por $ {final_bid}
                       </Text>
                     </View>
                     <View>
@@ -74,10 +75,11 @@ export default function () {
                 <View style={styleModal.separator}>
                   <View style={styleModal.throw}>
                     <TouchableOpacity
-                      style={[styleModal.btnThrow, defaultStyle.bg_blue]}
+                      style={[styleModal.btnThrow, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
+                      disabled={isDisabled}
                     >
                       <Text style={[defaultStyle.text_white, styleModal.textBtn]}>
-                       Arrematar
+                        Arrematar
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -90,7 +92,10 @@ export default function () {
 
       <TouchableOpacity
         onPress={() => {
-          setVisible(true)
+          let result = callbackFunction();
+          if (!result) {
+            setVisible(true)
+          }
         }}
       >
         <Text style={[defaultStyle.text_blue, styles.btn]}>Arrematar</Text>

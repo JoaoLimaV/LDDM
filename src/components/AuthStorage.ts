@@ -15,9 +15,9 @@ export async function getToken(): Promise<null | string> {
   }
 }
 
-export async function deleteToken(key: string): Promise<string> {
+export async function deleteToken(): Promise<string> {
     try {
-        await AsyncStorage.removeItem(`@${key}`);
+        await AsyncStorage.removeItem(`AuthToken`);
     } catch (e) {
         console.error("Error deleting token: ", e);
     }
