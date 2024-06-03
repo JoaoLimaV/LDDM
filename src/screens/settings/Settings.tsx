@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
+
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Pressable, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle';
 import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
-import { deleteToken, getToken } from '@components/AuthStorage'
+import { deleteToken } from '@components/AuthStorage'
 import Spinner from 'react-native-loading-spinner-overlay';
+import axios from 'axios';
+import { getToken } from '@components/AuthStorage'
+import { useFocusEffect } from '@react-navigation/native';
 
 import styles from '@styles/settingStyle'
 
-function Settings({ navigation }: any): React.JSX.Element {
+function Settings({ navigation, route }: any): React.JSX.Element {
+
+    const[img, setImg] = useState('https://cdn3.iconfinder.com/data/icons/avatars-98/100/10-512.png')
+
+    const getPerson = async (): Promise<void> => {
+        const token = await getToken()
+
+        try {
+            const res = await axios.get(`${process.env.API_URL}/getUser`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            setImg(res.data.user.perfil_url)
+        } catch (error) {
+            console.error('Erro', error)
+        }
+    }
 
     // Modal 
 
@@ -22,6 +43,12 @@ function Settings({ navigation }: any): React.JSX.Element {
         setOpenModal(false)
     };
 
+    useFocusEffect(
+        React.useCallback(() => {
+            getPerson()
+        }, [])
+      );
+
     return (
         <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
             <HeaderNavigation backScreen={'Main'} title='' icon={{ viewBox: '', fill: '', d: '' }} />
@@ -31,7 +58,7 @@ function Settings({ navigation }: any): React.JSX.Element {
                         <TouchableOpacity>
                             <Image
                                 style={{ width: 100, height: 90 }}
-                                source={require('@images/foto.png')}
+                                source={{ uri: img }}
                             />
                         </TouchableOpacity>
                     </View>
@@ -50,11 +77,11 @@ function Settings({ navigation }: any): React.JSX.Element {
                             <Text style={[styles.text_top, defaultStyle.text_black]}>Histórico de compras</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.btn_top}>
+                        <TouchableOpacity style={styles.btn_top} onPress={() => { navigation.navigate('TermoLeilao') }}>
                             <View style={{ marginBottom: 10 }}>
                                 <Icons.iconCard width={40} height={40} color={"#282832"} />
                             </View>
-                            <Text style={[styles.text_top, defaultStyle.text_black]}>Meus cartões</Text>
+                            <Text style={[styles.text_top, defaultStyle.text_black]}>Se torna Leiloeiro</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -85,6 +112,13 @@ function Settings({ navigation }: any): React.JSX.Element {
                         <View style={styles.btn_bot}>
                             <Icons.iconQuestion width={45} height={45} color={"#282832"} />
                             <Text style={[styles.text_bot, defaultStyle.text_black]}>Dúvidas frequentes</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity>
+                        <View style={styles.btn_bot}>
+                            <Icons.iconCard width={45} height={45} color={"#282832"} />
+                            <Text style={[styles.text_bot, defaultStyle.text_black]}>Meus cartões</Text>
                         </View>
                     </TouchableOpacity>
 

@@ -5,13 +5,12 @@ import HeaderNavigation from '@components/HeaderNavigation';
 import Icons from '@icons/svgs';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-import { getToken, } from '@components/AuthStorage'
 import { ToastShow } from '@components/Toast'
 import { useAlertNotLogin } from '@components/Alert'
 
+import { getToken } from '@components/AuthStorage'
+
 import styles from '@styles/mainStyle'
-
-
 
 interface Produto {
   id: number;
@@ -53,11 +52,28 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   }
 
+  const [img, setImg] = useState('https://cdn3.iconfinder.com/data/icons/avatars-98/100/10-512.png')
 
+  const getPerson = async (): Promise<void> => {
+    const token = await getToken()
+
+    try {
+      const res = await axios.get(`${process.env.API_URL}/getUser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setImg(res.data.user.perfil_url)
+    } catch (error) {
+      console.error('Erro', error)
+    }
+  }
 
   useFocusEffect(
     React.useCallback(() => {
       getProducts();
+      getPerson();
+
       async function checkToken() {
         console.log(await getToken())
         const token = await getToken() == null ? true : false;
@@ -75,7 +91,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
         <View style={styles.div_input}>
           <TouchableOpacity onPress={() => {
             if (!notLogin) {
-              navigation.navigate('Settings');
+              navigation.navigate('Settings', {img});
             } else {
               alertNotLogin()
             }
@@ -83,7 +99,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           >
             <Image
               style={{ width: 30, height: 30 }}
-              source={require('@images/foto.png')}
+              source={{ uri: img }}
             />
           </TouchableOpacity>
 
