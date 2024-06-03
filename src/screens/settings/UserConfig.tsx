@@ -5,24 +5,22 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Image,
+  Alert 
 } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation'
 import Icons from '@icons/svgs'
-import { RadioButton } from 'react-native-paper'
 import axios from 'axios'
 import styles from '@styles/userConfig'
 import { getToken } from '@components/AuthStorage'
 import Toast from 'react-native-toast-message'
 import { ToastShow, styleToast } from '@components/Toast'
+import { TextInputMask } from 'react-native-masked-text'
+import { CameraOptions, ImageLibraryOptions, launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 function UserConfig({ navigation }: any): React.JSX.Element {
-  const [checked, setChecked] = useState('fisic')
-
-  const [textName, setTextName] = useState('Nome:')
-  const [textCPF, setTextCPF] = useState('CPF:')
-  const [placeholder, setPlaceholder] = useState('Ex: 000.000.000-00')
-
+  const [img, setImg] = useState('')
   const [name, setName] = useState('')
   const [CPF, setCPF] = useState('')
   const [email, setEmail] = useState('')
@@ -35,9 +33,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   // const [numero, setNumero] = useState("")
 
   const getPerson = async (): Promise<void> => {
-    const token = await getToken();
-    
-    console.log(token)
+    const token = await getToken()
 
     try {
       const res = await axios.get(`${process.env.API_URL}/getUser`, {
@@ -45,6 +41,8 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           Authorization: `Bearer ${token}`,
         },
       })
+      console.log(res.data.user.addresses)
+      setImg(res.data.user.perfil_url)
       setName(res.data.user.name)
       setCPF(res.data.user.cpf)
       setEmail(res.data.user.email)
@@ -54,7 +52,8 @@ function UserConfig({ navigation }: any): React.JSX.Element {
     }
   }
 
-  const postPerson = async (): Promise<void> => {
+  const putPerson = async (): Promise<void> => {
+    const token = await getToken()
     try {
       const res = await axios.put(
         `${process.env.API_URL}/updateUser`,
@@ -63,6 +62,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           cpf: CPF,
           email,
           phone,
+          perfil_url: file.base64
           // cep,
           // rua,
           // cidade,
@@ -72,7 +72,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         },
         {
           headers: {
-            Authorization: `Bearer ${getToken}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       )
@@ -92,6 +92,64 @@ function UserConfig({ navigation }: any): React.JSX.Element {
     }
   }
 
+  const [file, setFile] = React.useState<any>(null);
+
+  const chooseTypePickImage = async () => {
+    Alert.alert(
+        "Selecione",
+        "Selecione como deseja selecionar a foto",
+        [
+            {
+                text: "Galeria",
+                onPress: () => {
+                    pickImageFromGalery();
+                }
+            },
+            {
+                text: "Câmera",
+                onPress: () => {
+                    pickImageFromCamera();
+                }
+            },
+        ],
+        {
+            cancelable: true,
+            onDismiss: () => { }
+        },
+    )
+};
+
+const pickImageFromGalery = async () => {
+  const options: ImageLibraryOptions = {
+      mediaType: 'photo',
+      includeBase64: true
+  };
+
+  const result = await launchImageLibrary(options)
+
+  if (result?.assets) {
+      setImg(result.assets[0].uri!)
+      setFile(result.assets[0])
+  }
+};
+
+const pickImageFromCamera = async () => {
+  const options: CameraOptions = {
+      mediaType: 'photo',
+      includeBase64: true,
+      saveToPhotos: false,
+      cameraType: 'back',
+      quality: 1
+  };
+
+  const result = await launchCamera(options);
+
+  if (result?.assets) {
+    setImg(result.assets[0].uri!)
+    setFile(result.assets[0])
+  }
+};
+
   useEffect(() => {
     getPerson()
   }, [])
@@ -99,7 +157,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   return (
     <View style={defaultStyle.main_container}>
       <HeaderNavigation
-        backScreen={'Main'}
+        backScreen={'Settings'}
         title=""
         icon={{ viewBox: '', fill: '', d: '' }}
       />
@@ -110,62 +168,22 @@ function UserConfig({ navigation }: any): React.JSX.Element {
             Configuração de Usuario
           </Text>
           <View style={styles.icons}>
-            <Icons.iconUser width={100} height={100} color="#6B63FF" />
-            <TouchableOpacity>
+              <Image style={styles.profile} source={{ uri: img }} />
+            <TouchableOpacity onPress={chooseTypePickImage}>
               <View style={styles.pen}>
                 <Icons.iconPen width={17} height={17} color="#282832" />
               </View>
             </TouchableOpacity>
-          </View>
-          <View style={styles.type}>
-            <Text style={[defaultStyle.text_black, styles.textType]}>
-              Tipo de Pessoa:
-            </Text>
-            <View style={styles.checkBox}>
-              <View style={styles.row}>
-                <RadioButton
-                  value="fisic"
-                  status={checked === 'fisic' ? 'checked' : 'unchecked'}
-                  onPress={() => {
-                    setChecked('fisic'),
-                      setTextName('Nome:'),
-                      setTextCPF('CPF:'),
-                      setPlaceholder('Ex: 000.000.000-00')
-                  }}
-                  color="#282832"
-                />
-                <Text style={[defaultStyle.text_black, styles.textType]}>
-                  Física
-                </Text>
-              </View>
-
-              <View style={styles.row}>
-                <RadioButton
-                  value="juridic"
-                  status={checked === 'juridic' ? 'checked' : 'unchecked'}
-                  onPress={() => {
-                    setChecked('juridic'),
-                      setTextName('Razão Social:'),
-                      setTextCPF('CNPJ:'),
-                      setPlaceholder('Ex: 00.000.000/0000-00')
-                  }}
-                  color="#282832"
-                />
-                <Text style={[defaultStyle.text_black, styles.textType]}>
-                  Jurídica
-                </Text>
-              </View>
-            </View>
           </View>
         </View>
 
         <View style={styles.inputs}>
           <View>
             <Text style={[defaultStyle.text_black, styles.textInput]}>
-              {textName}
+              Nome:
             </Text>
             <TextInput
-              id="razao"
+              id="nome"
               value={name}
               onChangeText={setName}
               placeholder="Ex: Bind Tecnology LTDA."
@@ -177,13 +195,12 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           </View>
           <View>
             <Text style={[defaultStyle.text_black, styles.textInput]}>
-              {textCPF}
+              CPF:
             </Text>
             <TextInput
               id="CNPJ"
               value={CPF}
               onChangeText={setCPF}
-              placeholder={placeholder}
               keyboardType="default"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
@@ -210,25 +227,13 @@ function UserConfig({ navigation }: any): React.JSX.Element {
             <Text style={[defaultStyle.text_black, styles.textInput]}>
               Telefone 1:
             </Text>
-            <TextInput
+            <TextInputMask
               id="phone1"
               value={phone}
+              type={'cel-phone'}
               onChangeText={setPhone}
               placeholder="Ex: (11) 99999-9999"
-              keyboardType="default"
-              placeholderTextColor={'#D9D9D9'}
-              secureTextEntry={false}
-              style={[defaultStyle.defaul_input]}
-            />
-          </View>
-          <View>
-            <Text style={[defaultStyle.text_black, styles.textInput]}>
-              Telefone 2:
-            </Text>
-            <TextInput
-              id="phone2"
-              placeholder="Ex: (11) 99999-9999"
-              keyboardType="default"
+              keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
               style={[defaultStyle.defaul_input]}
@@ -341,8 +346,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       <Toast config={styleToast} />
 
       <View style={styles.finish}>
-
-        <TouchableOpacity onPress={postPerson}>
+        <TouchableOpacity onPress={putPerson}>
           <View style={[styles.btnFinish, defaultStyle.bg_blue]}>
             <Text style={[defaultStyle.text_white]}>Finalizar</Text>
           </View>

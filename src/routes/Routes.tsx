@@ -10,6 +10,7 @@ import Settings from '@screens/settings/Settings';
 import Notify from '../screens/notify/Notify';
 import UserConfig from '../screens/settings/UserConfig';
 import Loading from '@components/Loading';
+import TermoLeilao from '@screens/settings/TermoLeilao';
 
 import Step1Register from '@screens/register/Step1Register';
 import Step2Register from '@screens/register/Step2Register';
@@ -45,6 +46,7 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
           <Stack.Screen name="Notify" component={Notify} options={{ headerShown: false }} />
           <Stack.Screen name="UserConfig" component={UserConfig} options={{ headerShown: false }} />
+          <Stack.Screen name="TermoLeilao" component={TermoLeilao} options={{ headerShown: false }} />
 
           <Stack.Screen name="Step1Register" component={Step1Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step2Register" component={Step2Register} options={{ headerShown: false }} />
@@ -52,6 +54,7 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Step4Register" component={Step4Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step5Register" component={Step5Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step6Register" component={Step6Register} options={{ headerShown: false }} />
+
 
           <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
 
