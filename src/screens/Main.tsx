@@ -6,7 +6,7 @@ import Icons from '@icons/svgs';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { ToastShow } from '@components/Toast'
-import { useAlertNotLogin } from '@components/Alert'
+import { useAlertNotLogin, userNotAuth } from '@components/Alert'
 
 import { getToken } from '@components/AuthStorage'
 
@@ -28,10 +28,12 @@ const truncateString = (str: string, max: number): string => {
 const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const alertNotLogin = useAlertNotLogin();
+  const alertUserNotAuth = userNotAuth();
 
   const [notLogin, setNotLogin] = React.useState<boolean>(true);
 
   const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [statusUser, setStatusUser] = useState<number>(1);
 
   const getProducts = async (): Promise<void> => {
     try {
@@ -63,7 +65,9 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           Authorization: `Bearer ${token}`,
         },
       })
+      console.log(res.data.user)
       setImg(res.data.user.perfil_url)
+      setStatusUser(res.data.user.status)
     } catch (error) {
       console.error('Erro', error)
     }
@@ -91,7 +95,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
         <View style={styles.div_input}>
           <TouchableOpacity onPress={() => {
             if (!notLogin) {
-              navigation.navigate('Settings', {img});
+              navigation.navigate('Settings', { img });
             } else {
               alertNotLogin()
             }
@@ -160,11 +164,13 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav} onPress={() => {
-            if (!notLogin) {
+            if (!notLogin && statusUser != 1) {
               navigation.navigate('FormProduct');
+              console.log(statusUser)
             } else {
-              alertNotLogin()
+              alertUserNotAuth()
             }
+
           }}>
             <View style={{ marginBottom: 5 }}>
               <Icons.iconHammer width={25} height={25} color={"#6B63FF"} />
