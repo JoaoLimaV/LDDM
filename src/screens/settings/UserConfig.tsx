@@ -25,17 +25,22 @@ import {
 } from 'react-native-image-picker'
 
 function UserConfig({ navigation }: any): React.JSX.Element {
-  const [img, setImg] = useState('')
-  const [name, setName] = useState('')
-  const [CPF, setCPF] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [cep, setCep] = useState("")
-  const [rua, setRua] = useState("")
-  const [cidade, setCidade] = useState("")
-  const [bairro, setBairro] = useState("")
-  const [estado, setEstado] = useState("")
-  const [numero, setNumero] = useState("")
+
+  let [img, setImg] = useState('')
+  let [name, setName] = useState('')
+  let [CPF, setCPF] = useState('')
+  let [email, setEmail] = useState('')
+  let [phone, setPhone] = useState('')
+
+  let [cep, setCep] = useState("")
+
+  let [rua, setRua] = useState("")
+  let [cidade, setCidade] = useState("")
+  let [bairro, setBairro] = useState("")
+  let [estado, setEstado] = useState("")
+  let [numero, setNumero] = useState("")
+
+  const [file, setFile] = React.useState<any>(null)
 
   const getPerson = async (): Promise<void> => {
     const token = await getToken()
@@ -51,16 +56,18 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       setCPF(res.data.user.cpf)
       setEmail(res.data.user.email)
       setPhone(res.data.user.phone)
+      console.log(res.data.user)
       setCep(res.data.user.addresses[0].cep)
       setRua(res.data.user.addresses[0].complement)
-      setNumero(res.data.user.addresses[0].number)
+      setNumero(res.data.user.addresses[0].number.toString())
     } catch (error) {
       console.error('Erro', error)
     }
   }
 
   const putPerson = async (): Promise<void> => {
-    const token = await getToken()
+
+    const token = await getToken();
     try {
       const res = await axios.put(
         `${process.env.API_URL}/updateUser`,
@@ -69,7 +76,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           cpf: CPF,
           email: email,
           phone: phone,
-          perfil_url: file.base64,
+          perfil_url: (file == null) ? img : file.base64,
           cep: cep,
           complement: rua,
           number: numero,
@@ -80,6 +87,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           },
         },
       )
+      getPerson()
       ToastShow(
         'success',
         'Dados Atualizados',
@@ -94,8 +102,6 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       console.error('Erro', error)
     }
   }
-
-  const [file, setFile] = React.useState<any>(null)
 
   const chooseTypePickImage = async () => {
     Alert.alert(
@@ -117,7 +123,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       ],
       {
         cancelable: true,
-        onDismiss: () => {},
+        onDismiss: () => { },
       },
     )
   }
@@ -155,7 +161,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
 
   useEffect(() => {
     getPerson()
-  },)
+  }, [])
 
   return (
     <View style={defaultStyle.main_container}>
@@ -174,7 +180,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
             {img ? (
               <Image style={styles.profile} source={{ uri: img }} />
             ) : (
-              <Icons.iconUser width={100} height={100} color='#282832'/>
+              <Icons.iconUser width={100} height={100} color='#282832' />
             )}
             <TouchableOpacity onPress={chooseTypePickImage}>
               <View style={styles.pen}>
@@ -205,14 +211,12 @@ function UserConfig({ navigation }: any): React.JSX.Element {
               CPF:
             </Text>
             <TextInputMask
-              id="CNPJ"
               type={'cpf'}
               value={CPF}
-              onChangeText={setCPF}
-              keyboardType="default"
+              onChangeText={(text) => { setCPF(text.replace(/\D/g, '')) }}
+              keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
-              editable={false}
               style={[defaultStyle.defaul_input]}
             />
           </View>
@@ -239,7 +243,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
               id="phone"
               value={phone}
               type={'cel-phone'}
-              onChangeText={setPhone}
+              onChangeText={(text) => { setPhone(text.replace(/\D/g, '')) }}
               placeholder="Ex: (11) 99999-9999"
               keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
@@ -254,16 +258,28 @@ function UserConfig({ navigation }: any): React.JSX.Element {
             <Text style={[defaultStyle.text_black, styles.textInput]}>
               CEP:
             </Text>
-            <TextInput
+            <TextInputMask
               id="cep"
               value={cep}
-              onChangeText={(text) => {setCep(text)}}
-              placeholder="Ex: 11111-111"
+              type={'custom'}
+              options={{
+                /**
+                 * mask: (String | required | default '')
+                 * the mask pattern
+                 * 9 - accept digit.
+                 * A - accept alpha.
+                 * S - accept alphanumeric.
+                 * * - accept all, EXCEPT white space.
+                */
+                mask: '99999-999'
+              }}
+              onChangeText={setCep}
+              placeholder="11111-111"
               keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
               style={[defaultStyle.defaul_input]}
-              maxLength={8}
+              maxLength={9}
             />
           </View>
 
@@ -365,6 +381,8 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           </View>
         </TouchableOpacity>
       </View>
+
+      
     </View>
   )
 }
