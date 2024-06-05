@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -12,8 +12,10 @@ import defaultStyle from '@components/DefaultStyle'
 import styles from '@styles/productStyle'
 import Icons from '@icons/svgs'
 import { RadioButton } from 'react-native-paper'
+import axios from 'axios'
+import { getToken } from '@components/AuthStorage'
 
-export default function ({ id_product, final_bid, callbackFunction }: any) {
+export default function ({ id_product, final_bid, callbackFunction, getProduct }: any) {
   const [visible, setVisible] = useState(false)
 
   const [checked, setChecked] = useState('reject')
@@ -22,6 +24,31 @@ export default function ({ id_product, final_bid, callbackFunction }: any) {
   const handleClose = () => {
     setVisible(false)
     setChecked('reject')
+  }
+
+  const finishBid = async () => {
+    setDisabled(true)
+    const token = await getToken();
+
+    let config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    let json = {
+      id_product: id_product
+    }
+
+    axios.post(`${process.env.API_URL}/registerBid/finish`, json, config)
+      .then((response) => {
+        getProduct()
+        handleClose()
+      })
+      .catch((error) => {
+        console.error(error)
+      });
   }
 
   return (
@@ -77,6 +104,7 @@ export default function ({ id_product, final_bid, callbackFunction }: any) {
                     <TouchableOpacity
                       style={[styleModal.btnThrow, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
                       disabled={isDisabled}
+                      onPress={finishBid}
                     >
                       <Text style={[defaultStyle.text_white, styleModal.textBtn]}>
                         Arrematar

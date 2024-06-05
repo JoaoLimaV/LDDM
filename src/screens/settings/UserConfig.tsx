@@ -73,6 +73,12 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         setCep(res.data.user.addresses[0].cep)
         setRua(res.data.user.addresses[0].complement)
         setNumero(res.data.user.addresses[0].number.toString())
+      } else {
+        ToastShow(
+          'info',
+          'Dados Incompletos',
+          'Adicione CPF e Endereço para finalizar o seu cadastro e ter acesso total.',
+        )
       }
     } catch (error) {
       console.error('Erro', error)
@@ -99,7 +105,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         .put(`${process.env.API_URL}/updateUser`, updatedFields, config)
         .then((response) => {
           ToastShow('success', 'Sucesso', 'Informações alteradas')
-          setTimeout(function () {}, 2000)
+          setTimeout(function () { }, 2000)
         })
         .catch((error) => {
           ToastShow('error', 'ERRO', 'DESCUBRA FIO')
@@ -141,6 +147,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   }
 
   const chooseTypePickImage = async () => {
+    console.log(CPF)
     Alert.alert(
       'Selecione',
       'Selecione como deseja selecionar a foto',
@@ -160,7 +167,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       ],
       {
         cancelable: true,
-        onDismiss: () => {},
+        onDismiss: () => { },
       },
     )
   }
@@ -256,7 +263,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
               keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
-              style={[defaultStyle.defaul_input]}
+              style={[defaultStyle.defaul_input, CPF == null && { borderColor: 'rgba(235, 201, 17, 0.8)' }]}
             />
           </View>
           <View>
@@ -312,7 +319,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
                 keyboardType="numeric"
                 placeholderTextColor={'#D9D9D9'}
                 secureTextEntry={false}
-                style={[defaultStyle.defaul_input]}
+                style={[defaultStyle.defaul_input, cep == '' && { borderColor: 'rgba(235, 201, 17, 0.8)' }]}
                 maxLength={9}
               />
               <View style={styles.border}>

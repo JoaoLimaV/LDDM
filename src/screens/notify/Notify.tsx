@@ -26,7 +26,15 @@ function Notify({ navigation }: any): React.JSX.Element {
                 return <Icons.iconHammer width={45} height={45} color={"#282832"} />;
             case 6:
                 return <Icons.iconClock width={45} height={45} color={"#282832"} />;
+
+            case 7:
+                return <Icons.iconBag width={45} height={45} color={"#282832"} />;
+            case 8:
+                return <Icons.iconCart width={45} height={45} color={"#282832"} />;
+            case 9:
+                return <Icons.iconBrokenHearth width={45} height={45} color={"#282832"} />;
             default:
+
                 return null;
         }
     }
@@ -52,13 +60,13 @@ function Notify({ navigation }: any): React.JSX.Element {
     };
 
     const handlePress = (notify: any) => {
-        if (notify.type === 4 || notify.type === 5 || notify.type === 6) {
+        if (notify.type >= 4) {
             let addonsJson = JSON.parse(notify.addons);
             navigation.navigate('Product', {
                 idProduct: addonsJson.id_product
             });
         } else if (notify.type == 2) {
-            navigation.navigate('UserConfig'); 
+            navigation.navigate('UserConfig');
         }
     };
 

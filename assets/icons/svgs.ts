@@ -33,7 +33,7 @@ import iconWelcome from './iconWelcome'
 import iconBag from './iconWelcome'
 import iconEdit from './iconEdit'
 import iconPlus from './iconPlus';
-
+import iconBrokenHearth from './iconBrokenHearth'
 const Icons = {
     iconArrowDown,
     iconArrowUp,
@@ -69,7 +69,8 @@ const Icons = {
     iconClose,
     iconWelcome,
     iconBag,
-    iconEdit
+    iconEdit,
+    iconBrokenHearth
 };
 
 export default Icons;

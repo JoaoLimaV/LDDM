@@ -11,14 +11,15 @@ import ModalCastOff from './ModalCastOff'
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
-import { useAlertNotLogin } from '@components/Alert'
+import { useAlertNotLogin, userCompleteCad } from '@components/Alert'
 
 function Product({ navigation, route }: any): React.JSX.Element {
 
   const alertNotLogin = useAlertNotLogin();
+  const alertCompleteCad = userCompleteCad();
 
 
-  let { idProduct, notLogin } = route.params;
+  let { idProduct, notLogin, statusUser } = route.params;
   let [product, setProduct] = React.useState<any>({});
 
   const getProduct = async () => {
@@ -69,6 +70,9 @@ function Product({ navigation, route }: any): React.JSX.Element {
 
       <ScrollView style={styles.scroll_view}>
         <View style={styles.base}>
+          <Text style={[defaultStyle.text_black, { fontSize: 30, textAlign: 'center', marginTop: 30 }]}>
+            {product.status_name}
+          </Text>
           <View style={styles.slide}>
             <View style={styles.imagens}>
               <View style={styles.imgPrinc}>
@@ -167,28 +171,39 @@ function Product({ navigation, route }: any): React.JSX.Element {
         </View>
         <View style={styles.divBtn}>
 
-          <ModalThrow
-            id_product={product.id}
-            current_price={product.current_price}
-            getProduct={getProduct}
-            callbackFunction={() => {
-              if (notLogin) {
-                alertNotLogin()
-                return true
-              }
-            }}
-          />
-          <ModalCastOff
-            id_product={product.id}
-            final_bid={product.final_bid_price}
-            callbackFunction={() => {
-              if (notLogin) {
-                alertNotLogin()
-                return true
-              }
-            }}
-          />
-
+          {product.status_name !== "Finalizado" && (
+            <>
+              <ModalThrow
+                id_product={product.id}
+                current_price={product.current_price}
+                getProduct={getProduct}
+                callbackFunction={() => {
+                  if (notLogin) {
+                    alertNotLogin();
+                    return true;
+                  } else if (statusUser === 0) {
+                    alertCompleteCad();
+                    return true;
+                  }
+                }}
+                final_bid_price={product.final_bid_price}
+              />
+              <ModalCastOff
+                id_product={product.id}
+                final_bid={product.final_bid_price}
+                getProduct={getProduct}
+                callbackFunction={() => {
+                  if (notLogin) {
+                    alertNotLogin();
+                    return true;
+                  } else if (statusUser === 0) {
+                    alertCompleteCad();
+                    return true;
+                  }
+                }}
+              />
+            </>
+          )}
         </View>
       </View>
 

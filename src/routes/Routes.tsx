@@ -20,6 +20,7 @@ import Step5Register from '@screens/register/Step5Register';
 import Step6Register from '@screens/register/Step6Register';
 import Product from '@screens/product/Product'
 import FormProduct from '@screens/product/FormProduct'
+import MeusLances from '@screens/settings/MeusLances'
 
 import { getToken } from '@components/AuthStorage'
 
@@ -48,6 +49,7 @@ function Routes(): React.JSX.Element {
           <Stack.Screen name="Notify" component={Notify} options={{ headerShown: false }} />
           <Stack.Screen name="UserConfig" component={UserConfig} options={{ headerShown: false }} />
           <Stack.Screen name="TermoLeilao" component={TermoLeilao} options={{ headerShown: false }} />
+          <Stack.Screen name="MeusLances" component={MeusLances} options={{ headerShown: false }} />
 
           <Stack.Screen name="Step1Register" component={Step1Register} options={{ headerShown: false }} />
           <Stack.Screen name="Step2Register" component={Step2Register} options={{ headerShown: false }} />

@@ -13,7 +13,7 @@ import styles from '@styles/productStyle'
 import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
 
-export default function ({ id_product, current_price, getProduct, callbackFunction }: any) {
+export default function ({ id_product, current_price, getProduct, callbackFunction, final_bid_price }: any) {
   const [visible, setVisible] = useState(false)
   const [bidUser, setBidUser] = useState<number>(0)
   const [isDisabled, setDisabled] = React.useState<boolean>(true);
@@ -24,14 +24,14 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
   }
 
   function handleBidUser(operator: string) {
-    if (operator === '+') {
+    console.log(final_bid_price)
+    if (operator === '+' && (bidUser + current_price) < final_bid_price) {
       setBidUser(bidUser + 10)
     }
-    else {
-      if (bidUser != 0) {
-        setBidUser(bidUser - 10)
-      }
+    if (operator === '-' && bidUser != 0) {
+      setBidUser(bidUser - 10)
     }
+
   }
 
   useEffect(() => {

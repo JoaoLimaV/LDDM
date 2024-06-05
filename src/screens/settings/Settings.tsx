@@ -18,11 +18,16 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
 import { useFocusEffect } from '@react-navigation/native'
+import { userCompleteCad, userNotAuth } from '@components/Alert'
 
 import styles from '@styles/settingStyle'
 
 function Settings({ navigation, route }: any): React.JSX.Element {
   const [img, setImg] = useState()
+  const [status, setStatus] = useState()
+
+  const alerUserCompleteCad = userCompleteCad();
+  const alerUserNotAuth = userNotAuth();
 
   const getPerson = async (): Promise<void> => {
     const token = await getToken()
@@ -34,6 +39,7 @@ function Settings({ navigation, route }: any): React.JSX.Element {
         },
       })
       setImg(res.data.user.perfil_url)
+      setStatus(res.data.user.status)
     } catch (error) {
       console.error('Erro', error)
     }
@@ -70,7 +76,7 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity>
               {img ? (
                 <Image
-                  style={{ width: 70, height: 80 }}
+                  style={{ width: 90, height: 90, borderRadius: 50 }}
                   source={{ uri: img }}
                 />
               ) : (
@@ -105,7 +111,11 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity
               style={styles.btn_top}
               onPress={() => {
-                navigation.navigate('TermoLeilao')
+                if (status == 0) {
+                  alerUserCompleteCad()
+                } else {
+                  navigation.navigate('TermoLeilao')
+                }
               }}
             >
               <View style={{ marginBottom: 10 }}>
@@ -128,7 +138,11 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('MeusLances')
+            }}
+          >
             <View style={styles.btn_bot}>
               <Icons.iconHammer width={45} height={45} color={'#282832'} />
               <Text style={[styles.text_bot, defaultStyle.text_black]}>
@@ -137,7 +151,12 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              if (status != 2) {
+                alerUserNotAuth()
+              }
+            }}>
             <View style={styles.btn_bot}>
               <Icons.iconCash width={45} height={45} color={'#282832'} />
               <Text style={[styles.text_bot, defaultStyle.text_black]}>
@@ -155,14 +174,14 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <View style={styles.btn_bot}>
               <Icons.iconCard width={45} height={45} color={'#282832'} />
               <Text style={[styles.text_bot, defaultStyle.text_black]}>
                 Meus cartões
               </Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity>
             <View style={styles.btn_bot}>

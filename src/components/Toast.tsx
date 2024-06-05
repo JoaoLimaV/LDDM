@@ -47,7 +47,7 @@ export const styleToast = {
     info: (props: any) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: '#EBC911', width: '90%', borderLeftWidth: 1, zIndex: 1000 }}
+            style={{ borderLeftColor: '#EBC911', width: '90%', borderLeftWidth: 10 , zIndex: 1000 }}
             text1Style={{
                 fontSize: 15,
                 fontWeight: '400',
@@ -56,7 +56,7 @@ export const styleToast = {
             text2Style={{
                 fontSize: 13,
                 color: defaultStyle.text_black
-            }}
+            }}EBC911
         />
     ),
 }

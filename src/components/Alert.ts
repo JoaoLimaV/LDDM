@@ -27,7 +27,7 @@ export function userNotAuth() {
     const navigation = useNavigation();
 
     const alertNotLogin = () => {
-        Alert.alert("Ação não permitida", "Para cadastrar um produto é necessário se tornar um leiloeiro.", [
+        Alert.alert("Ação não permitida", "Para acessar essa função é necessário se tornar um leiloeiro.", [
             {
                 text: "Ler Termos",
                 onPress: () => {
@@ -42,4 +42,25 @@ export function userNotAuth() {
     };
 
     return alertNotLogin;
+}
+
+export function userCompleteCad() {
+    const navigation = useNavigation();
+
+    const alertCompleteCad = () => {
+        Alert.alert("Ação não permitida", "Para acessar essa função é necessário cadastrar CPF e Endereço.", [
+            {
+                text: "Finalizar cadastro",
+                onPress: () => {
+                    // @ts-ignore
+                    navigation.navigate('UserConfig');
+                }
+            },
+            {
+                text: "Fechar",
+            },
+        ]);
+    };
+
+    return alertCompleteCad;
 }

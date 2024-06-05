@@ -80,7 +80,6 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(res.data.user)
       setImg(res.data.user.perfil_url)
       setStatusUser(res.data.user.status)
     } catch (error) {
@@ -115,7 +114,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           }}
           >
             {img ? (
-              <Image style={{ width: 30, height: 30 }} source={{ uri: img }} />
+              <Image style={{ width: 30, height: 30, borderRadius: 20 }} source={{ uri: img }} />
             ) : (
               <Icons.iconUser width={30} height={30} />
             )}
@@ -180,7 +179,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn_nav} onPress={() => {
-            if (!notLogin && statusUser != 1) {
+            if (!notLogin && statusUser == 2) {
               navigation.navigate('FormProduct');
               console.log(statusUser)
             } else {
@@ -233,6 +232,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
                     navigation.navigate('Product', {
                       idProduct: produto.id,
                       notLogin: notLogin,
+                      statusUser: statusUser
                     })
                   }}
                 >

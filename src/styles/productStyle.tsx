@@ -7,13 +7,10 @@ const productStyle = StyleSheet.create({
   },
 
   base: {
-    flex: 1,
-    flexDirection: 'column',
   },
 
   slide: {
-    gap: 20,
-    paddingTop: 30,
+    padding: 0
   },
 
   imagens: {
