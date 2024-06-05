@@ -29,6 +29,9 @@ import iconUser from './iconUser'
 import iconUploadCloud from './iconUploadCloud'
 import iconUploadImage from './iconUploadImage'
 import iconClose from './iconClose'
+import iconWelcome from './iconWelcome'
+import iconBag from './iconWelcome'
+import iconEdit from './iconEdit'
 
 const Icons = {
     iconArrowDown,
@@ -61,7 +64,10 @@ const Icons = {
     iconUser,
     iconUploadCloud,
     iconUploadImage,
-    iconClose
+    iconClose,
+    iconWelcome,
+    iconBag,
+    iconEdit
 };
 
 export default Icons;

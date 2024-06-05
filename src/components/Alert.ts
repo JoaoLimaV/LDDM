@@ -22,3 +22,24 @@ export function useAlertNotLogin() {
 
     return alertNotLogin;
 }
+
+export function userNotAuth() {
+    const navigation = useNavigation();
+
+    const alertNotLogin = () => {
+        Alert.alert("Ação não permitida", "Para cadastrar um produto é necessário se tornar um leiloeiro.", [
+            {
+                text: "Ler Termos",
+                onPress: () => {
+                    // @ts-ignore
+                    navigation.navigate('TermoLeilao');
+                }
+            },
+            {
+                text: "Fechar",
+            },
+        ]);
+    };
+
+    return alertNotLogin;
+}

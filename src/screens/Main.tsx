@@ -16,7 +16,7 @@ import Icons from '@icons/svgs'
 import axios from 'axios'
 import { useFocusEffect } from '@react-navigation/native'
 import { ToastShow } from '@components/Toast'
-import { useAlertNotLogin } from '@components/Alert'
+import { useAlertNotLogin, userNotAuth } from '@components/Alert'
 
 import { getToken } from '@components/AuthStorage'
 
@@ -38,9 +38,12 @@ const truncateString = (str: string, max: number): string => {
 const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
   const alertNotLogin = useAlertNotLogin()
 
-  const [notLogin, setNotLogin] = React.useState<boolean>(true)
+  const alertUserNotAuth = userNotAuth();
 
-  const [produtos, setProdutos] = useState<Produto[]>([])
+  const [notLogin, setNotLogin] = React.useState<boolean>(true);
+
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [statusUser, setStatusUser] = useState<number>(1);
 
   const getProducts = async (): Promise<void> => {
     try {
@@ -77,7 +80,9 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
           Authorization: `Bearer ${token}`,
         },
       })
+      console.log(res.data.user)
       setImg(res.data.user.perfil_url)
+      setStatusUser(res.data.user.status)
     } catch (error) {
       console.error('Erro', error)
     }
@@ -101,14 +106,13 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
     <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
       <View style={styles.header_container}>
         <View style={styles.div_input}>
-          <TouchableOpacity
-            onPress={() => {
-              if (!notLogin) {
-                navigation.navigate('Settings')
-              } else {
-                alertNotLogin()
-              }
-            }}
+          <TouchableOpacity onPress={() => {
+            if (!notLogin) {
+              navigation.navigate('Settings', { img });
+            } else {
+              alertNotLogin()
+            }
+          }}
           >
             {img ? (
               <Image style={{ width: 30, height: 30 }} source={{ uri: img }} />
@@ -175,16 +179,15 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btn_nav}
-            onPress={() => {
-              if (!notLogin) {
-                navigation.navigate('FormProduct')
-              } else {
-                alertNotLogin()
-              }
-            }}
-          >
+          <TouchableOpacity style={styles.btn_nav} onPress={() => {
+            if (!notLogin && statusUser != 1) {
+              navigation.navigate('FormProduct');
+              console.log(statusUser)
+            } else {
+              alertUserNotAuth()
+            }
+
+          }}>
             <View style={{ marginBottom: 5 }}>
               <Icons.iconHammer width={25} height={25} color={'#6B63FF'} />
             </View>
