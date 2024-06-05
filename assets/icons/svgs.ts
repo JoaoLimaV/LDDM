@@ -17,6 +17,7 @@ import iconHammer from './iconHammer';
 import iconLeftArrow from './iconLeftArrow';
 import iconLinkedin from './iconLinkedin';
 import iconList from './iconList';
+import iconMoney from './iconMoney';
 import iconNotify from './iconNotify';
 import iconPen from './iconPen';
 import iconQuestion from './iconQuestion';
@@ -49,6 +50,7 @@ const Icons = {
     iconLeftArrow,
     iconLinkedin,
     iconList,
+    iconMoney,
     iconNotify,
     iconPen,
     iconQuestion,

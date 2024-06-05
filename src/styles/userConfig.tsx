@@ -109,7 +109,6 @@ const userConfig: any = StyleSheet.create({
     profile:{
         width: 100,
         height: 100,
-        color: "#6B63FF"
     }
 })
 
