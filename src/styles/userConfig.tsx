@@ -73,10 +73,25 @@ const userConfig: any = StyleSheet.create({
     },
 
     cep:{
-        paddingTop: 20,
         width: '50%',
         justifyContent: 'center',
         alignSelf: 'center',
+    },
+
+    flex:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10
+    },
+
+    border:{
+        borderWidth: 2,
+        borderColor: "#282832",
+        borderRadius: 50,
+        height: 50,
+        width: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
     flexEndereco:{
@@ -109,6 +124,12 @@ const userConfig: any = StyleSheet.create({
     profile:{
         width: 100,
         height: 100,
+    },
+
+    plus:{
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        padding: 10
     }
 })
 

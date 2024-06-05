@@ -32,6 +32,7 @@ import iconClose from './iconClose'
 import iconWelcome from './iconWelcome'
 import iconBag from './iconWelcome'
 import iconEdit from './iconEdit'
+import iconPlus from './iconPlus';
 
 const Icons = {
     iconArrowDown,
@@ -56,6 +57,7 @@ const Icons = {
     iconMoney,
     iconNotify,
     iconPen,
+    iconPlus,
     iconQuestion,
     iconSearch,
     iconSms,
