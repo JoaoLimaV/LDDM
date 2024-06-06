@@ -155,6 +155,8 @@ function Settings({ navigation, route }: any): React.JSX.Element {
             onPress={() => {
               if (status != 2) {
                 alerUserNotAuth()
+              } else {
+                navigation.navigate('MeusItensLeilao')
               }
             }}>
             <View style={styles.btn_bot}>

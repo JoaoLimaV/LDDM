@@ -69,7 +69,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   }
 
-  const [img, setImg] = useState()
+  const [img, setImg] = useState('https://cdn.icon-icons.com/icons2/788/PNG/512/user-1_icon-icons.com_65106.png')
 
   const getPerson = async (): Promise<void> => {
     const token = await getToken()
@@ -89,15 +89,18 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      getProducts()
-      getPerson()
 
       async function checkToken() {
-        console.log(await getToken())
         const token = (await getToken()) == null ? true : false
         setNotLogin(token)
+
+        if (token != true) {
+          getPerson()
+        }
       }
+      getProducts()
       checkToken()
+
     }, []),
   )
 
@@ -182,8 +185,10 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
             if (!notLogin && statusUser == 2) {
               navigation.navigate('FormProduct');
               console.log(statusUser)
+            } else if (notLogin) {
+              alertNotLogin();
             } else {
-              alertUserNotAuth()
+              alertUserNotAuth();
             }
 
           }}>

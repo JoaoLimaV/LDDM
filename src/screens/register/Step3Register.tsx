@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Pressable, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, KeyboardAvoidingView, Keyboard } from 'react-native';
 import defaultStyle from '@components/DefaultStyle'
 import HeaderRegister from '@components/HeaderRegister';
 import Icons from '@icons/svgs';
@@ -28,8 +28,8 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
   // Hidden 
 
   const [hiddenInput, setHiddenInput] = useState<InterfaceHiddenPassword>({
-    password: { hidden: true},
-    rePassword: { hidden: true}
+    password: { hidden: true },
+    rePassword: { hidden: true }
   });
 
   const [conditionalPassword, setConditionalPassword] = useState({
@@ -101,16 +101,36 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
   }, [handleInputChange])
 
 
+  const [hiddenButton, setHiddenButton] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setHiddenButton(true)
+  };
+
+  const _keyboardDidHide = () => {
+    setHiddenButton(false)
+  };
+
   return (
-    <Pressable style={defaultStyle.main_container} onPress={Keyboard.dismiss}>
+    <KeyboardAvoidingView style={defaultStyle.main_container}>
       {/* Header Personalizado */}
       <HeaderRegister onNavigateBack={() => navigation.navigate("Step2Register", {
-              user_name: user_name,
-              user_birthdate: user_birthdate,
-              user_email: user_email,
-              user_phone: user_phone,
-              user_password: user_password
-            })} />
+        user_name: user_name,
+        user_birthdate: user_birthdate,
+        user_email: user_email,
+        user_phone: user_phone,
+        user_password: user_password
+      })} />
       {/* Header Personalizado */}
 
       <View style={styles.container_input}>
@@ -132,7 +152,7 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity
               onPress={() => changeHiddenPassword('password')}
             >
-              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.password.hidden}/>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.password.hidden} />
             </TouchableOpacity>
           </View>
 
@@ -149,7 +169,7 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
             <TouchableOpacity
               onPress={() => changeHiddenPassword('rePassword')}
             >
-              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.rePassword.hidden}/>
+              <Icons.iconEye width={30} height={30} color='#282832' isSlashed={hiddenInput.rePassword.hidden} />
             </TouchableOpacity>
           </View>
 
@@ -180,7 +200,7 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
         </View>
       </View>
       <View style={styles.container_btn_login}>
-        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
+        <TouchableOpacity style={[defaultStyle.default_btn, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled, hiddenButton && defaultStyle.hidden]}
           onPress={() => {
             navigation.navigate('Step4Register', {
               user_name: user_name,
@@ -195,7 +215,7 @@ function Step3Register({ navigation, route }: any): React.JSX.Element {
           <Text style={[defaultStyle.btn_text, defaultStyle.text_white]}> Avançar </Text>
         </TouchableOpacity>
       </View>
-    </Pressable>
+    </KeyboardAvoidingView>
   );
 }
 

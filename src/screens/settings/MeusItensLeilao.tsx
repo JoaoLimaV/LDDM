@@ -11,9 +11,9 @@ import axios from 'axios';
 import Loading from '@components/Loading';
 import { getToken } from '@components/AuthStorage'
 import Spinner from 'react-native-loading-spinner-overlay';
-import Accordion from '@components/Accordion';
+import AccordionProduct from '@components/AccordionProduct';
 
-function MeusLances({ navigation, route }: any): React.JSX.Element {
+function MeusItensLeilao({ navigation, route }: any): React.JSX.Element {
 
     const [openModal, setOpenModal] = React.useState<boolean>(true);
     const [products, setProducts] = React.useState<any>([]);
@@ -37,7 +37,7 @@ function MeusLances({ navigation, route }: any): React.JSX.Element {
             }
         };
 
-        axios.get(`${process.env.API_URL}/getProductsByCustomer`, config)
+        axios.get(`${process.env.API_URL}/getProductsByVendor`, config)
             .then((response) => {
                 setProducts(response.data.produtos)
                 closeImgModal()
@@ -62,37 +62,29 @@ function MeusLances({ navigation, route }: any): React.JSX.Element {
                 icon={{ viewBox: '', fill: '', d: '' }}
             />
 
-            <Text style={[styles.text_principal, defaultStyle.text_black]}> Meus lances </Text>
-            <ScrollView style={[styles.scroll_view]}>
+            <Text style={[styles.text_principal, defaultStyle.text_black]}> Meus Itens em Leilão </Text>
+            <ScrollView style={[styles.scroll_view, {width: '100%'}]}>
 
                 {products.length == 0 ? (
                     <Text style={[defaultStyle.text_black, { fontSize: 18 }]}> Você ainda não realizou nenhum lance </Text>
                 ) : (
                     products.map((product: any, index: any) => (
-                        <View style={styles.div_lance} key={index}>
-                            <Text style={[defaultStyle.text_black, { fontSize: 20 }]}> {product.name} </Text>
-
-                            <View style={styles.imgPrinc}>
-                                <Image source={{ uri: product.images[0] }} style={styles.image} />
-                            </View>
-
-                            <View style={{ width: '100%' }}>
-                                {product.history_bid.map((bid: any, key: any) => (
-                                    <Accordion
-                                        key={key}
-                                        title={`Lance: R$ ${bid.price.toFixed(2)}`}
-                                        data={new Date(bid.bid_created_at).toLocaleDateString('pt-BR')}
-                                        hora={new Date(bid.bid_created_at).toLocaleTimeString('pt-BR')}
-                                        price={bid.price}
-                                        percentage={bid.percentage}
-                                    />
-                                ))}
-                            </View>
+                            <View style={{ width: '100%' }} key={index}>
+                                <AccordionProduct
+                                    id={product.id}
+                                    nome={product.name}
+                                    data={new Date(product.created_at).toLocaleDateString('pt-BR')}
+                                    hora={new Date(product.created_at).toLocaleTimeString('pt-BR')}
+                                    desc={product.desc}
+                                    preco_inicial={product.start_price}
+                                    preco_arremate={product.final_bid_price}
+                                    preco_atual={product.current_price}
+                                    img={product.images[0]}
+                                    status={product.status_name}
+                                />
                         </View>
                     ))
                 )}
-
-
 
             </ScrollView>
 
@@ -109,6 +101,6 @@ function MeusLances({ navigation, route }: any): React.JSX.Element {
     );
 }
 
-export default MeusLances;
+export default MeusItensLeilao;
 
 

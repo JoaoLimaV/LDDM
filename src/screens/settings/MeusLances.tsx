@@ -44,7 +44,7 @@ function MeusLances({ navigation, route }: any): React.JSX.Element {
                 console.log(response.data.produtos.history_bid)
             })
             .catch((error) => {
-                console.error(error)
+                closeImgModal()
             });
     }
 

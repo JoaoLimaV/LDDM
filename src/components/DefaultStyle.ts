@@ -95,6 +95,9 @@ const defaultStyle: any = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
+  },
+  hidden: {
+    display: 'none'
   }
 });
 
