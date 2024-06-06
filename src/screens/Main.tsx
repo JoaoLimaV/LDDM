@@ -69,7 +69,7 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
     }
   }
 
-  const [img, setImg] = useState('https://cdn.icon-icons.com/icons2/788/PNG/512/user-1_icon-icons.com_65106.png')
+  const [img, setImg] = useState('https://cdn-icons-png.flaticon.com/512/6681/6681204.png')
 
   const getPerson = async (): Promise<void> => {
     const token = await getToken()

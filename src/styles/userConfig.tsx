@@ -19,11 +19,10 @@ const userConfig: any = StyleSheet.create({
 
     icons:{
         flexDirection: 'row',
-        borderWidth: 2,
-        borderColor: '#D9D9D9',
-        borderRadius: 40,
-        padding: 20,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 170,
+        height: 170,
     },
 
     pen:{
@@ -124,8 +123,10 @@ const userConfig: any = StyleSheet.create({
     },
 
     profile:{
-        width: 100,
-        height: 100,
+        width: "100%",
+        height: "100%",
+        resizeMode: "contain",
+        borderRadius: 200,
     },
 
     plus:{

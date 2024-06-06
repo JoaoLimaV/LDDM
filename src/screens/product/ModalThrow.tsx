@@ -25,9 +25,8 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
   }
 
   function handleBidUser(operator: string) {
-    console.log(final_bid_price)
     if (operator === '+') {
-      if ((bidUser + current_price) < final_bid_price) {
+      if (( (bidUser + 10) + current_price) != final_bid_price) {
         setBidUser(bidUser + 10)
       }
       else {

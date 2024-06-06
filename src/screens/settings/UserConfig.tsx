@@ -107,7 +107,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         .put(`${process.env.API_URL}/updateUser`, updatedFields, config)
         .then((response) => {
           ToastShow('success', 'Sucesso', 'Informações alteradas')
-          setTimeout(function () {}, 2000)
+          setTimeout(function () { }, 2000)
         })
         .catch((error) => {
           ToastShow('error', 'ERRO', 'DESCUBRA FIO')
@@ -138,7 +138,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       ],
       {
         cancelable: true,
-        onDismiss: () => {},
+        onDismiss: () => { },
       },
     )
   }
@@ -208,18 +208,9 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           <Text style={[styles.title, defaultStyle.text_black]}>
             Configuração de Usuario
           </Text>
-          <View style={styles.icons}>
-            {img ? (
-              <Image style={styles.profile} source={{ uri: img }} />
-            ) : (
-              <Icons.iconUser width={100} height={100} color="#282832" />
-            )}
-            <TouchableOpacity onPress={chooseTypePickImage}>
-              <View style={styles.pen}>
-                <Icons.iconPen width={17} height={17} color="#282832" />
-              </View>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.icons} onPress={chooseTypePickImage}>
+            <Image style={styles.profile} source={{ uri: img ? img : 'https://cdn-icons-png.flaticon.com/512/6681/6681204.png' }} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.inputs}>
@@ -253,7 +244,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
               secureTextEntry={false}
               style={[
                 defaultStyle.defaul_input,
-                CPF == null && { borderColor: 'rgba(235, 201, 17, 0.8)' },
+                CPF == null,
               ]}
             />
           </View>
@@ -301,8 +292,10 @@ function UserConfig({ navigation }: any): React.JSX.Element {
                   value: 0,
                 }}
                 onValueChange={(value) => {
-                  setGrading(value)
-                  viaCep(enderecos[value].cep)
+                  if (enderecos[0]) {
+                    setGrading(value)
+                    viaCep(enderecos[value].cep)
+                  }
                 }}
                 items={enderecos.map((end: any, index: number) => ({
                   label: end.cep.replace(/^(\d{5})(\d{3})$/, '$1-$2'), // Formatar o CEP

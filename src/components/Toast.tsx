@@ -17,7 +17,7 @@ export const styleToast = {
     success: (props: any) => (
         <BaseToast
             {...props}
-            style={{ borderLeftColor: '#82C165', width: '98%', borderLeftWidth: 10, zIndex: 1000 }}
+            style={{ borderLeftColor: '#82C165', width: '90%', borderLeftWidth: 10, zIndex: 1000 }}
             text1Style={{
                 fontSize: 15,
                 fontWeight: '400',

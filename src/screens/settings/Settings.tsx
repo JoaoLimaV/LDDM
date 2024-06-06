@@ -23,7 +23,7 @@ import { userCompleteCad, userNotAuth } from '@components/Alert'
 import styles from '@styles/settingStyle'
 
 function Settings({ navigation, route }: any): React.JSX.Element {
-  const [img, setImg] = useState()
+  const [img, setImg] = useState('https://cdn-icons-png.flaticon.com/512/6681/6681204.png')
   const [status, setStatus] = useState()
 
   const alerUserCompleteCad = userCompleteCad();

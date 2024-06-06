@@ -29,7 +29,7 @@ function Notify({ navigation }: any): React.JSX.Element {
             case 6:
                 return <Icons.iconClock width={45} height={45} color={"#282832"} />;
             case 7:
-                return <Icons.iconBag width={45} height={45} color={"#282832"} />;
+                return <Icons.iconCart width={45} height={45} color={"#282832"} />;
             case 8:
                 return <Icons.iconCart width={45} height={45} color={"#282832"} />;
             case 9:

@@ -230,24 +230,24 @@ function FormProduct(): React.JSX.Element {
 
                     <TextInput
                         placeholder="Preço Inicial"
-                        keyboardType="default"
+                        keyboardType="numeric"
                         placeholderTextColor={"#282832"}
                         secureTextEntry={false}
                         style={[defaultStyle.defaul_input]}
                         value={inputValues.price}
-                        onChangeText={(value) => handleInputChange('price', value)}
+                        onChangeText={(value) => handleInputChange('price', value.replace(/\D/g, ''))}
                     />
 
                     <Text style={defaultStyle.errorTextInput}>  </Text>
 
                     <TextInput
                         placeholder="Preço de Arremate"
-                        keyboardType="default"
+                        keyboardType="numeric"
                         placeholderTextColor={"#282832"}
                         secureTextEntry={false}
                         style={[defaultStyle.defaul_input]}
                         value={inputValues.final_bid_price}
-                        onChangeText={(value) => handleInputChange('final_bid_price', value)}
+                        onChangeText={(value) => handleInputChange('final_bid_price', value.replace(/\D/g, ''))}
                     />
 
                     <Text style={defaultStyle.errorTextInput}>  </Text>
@@ -265,7 +265,9 @@ function FormProduct(): React.JSX.Element {
             {
                 file && openModal &&
                 <TouchableOpacity style={[defaultStyle.modal]} onPress={closeImgModal}>
-                    <Image source={{ uri: file.uri }} style={{ width: 200, height: 200 }} />
+                    <View style={{width: 400, height: 400, alignItems: 'center', justifyContent: 'center'}}>
+                        <Image source={{ uri: file.uri }} style={{ width: "90%", height: "90%", resizeMode: "contain" }} />
+                    </View>
                 </TouchableOpacity>
             }
 

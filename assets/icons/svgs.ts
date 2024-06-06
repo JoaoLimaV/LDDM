@@ -30,7 +30,7 @@ import iconUploadCloud from './iconUploadCloud'
 import iconUploadImage from './iconUploadImage'
 import iconClose from './iconClose'
 import iconWelcome from './iconWelcome'
-import iconBag from './iconWelcome'
+import iconBag from './iconBag'
 import iconEdit from './iconEdit'
 import iconPlus from './iconPlus';
 import iconBrokenHearth from './iconBrokenHearth'
