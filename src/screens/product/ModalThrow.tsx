@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Alert
 } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 
@@ -25,8 +26,44 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
 
   function handleBidUser(operator: string) {
     console.log(final_bid_price)
-    if (operator === '+' && (bidUser + current_price) < final_bid_price) {
-      setBidUser(bidUser + 10)
+    if (operator === '+') {
+      if ((bidUser + current_price) < final_bid_price) {
+        setBidUser(bidUser + 10)
+      }
+      else {
+        Alert.alert("Alerta", "Você chegou no valor de arremate, deseja arrematar o produto?", [
+          {
+            text: "Arrematar",
+            onPress: async () => {
+              setDisabled(true)
+              const token = await getToken();
+
+              let config = {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                }
+              };
+
+              let json = {
+                id_product: id_product
+              }
+
+              axios.post(`${process.env.API_URL}/registerBid/finish`, json, config)
+                .then((response) => {
+                  getProduct()
+                  handleClose()
+                })
+                .catch((error) => {
+                  console.error(error)
+                });
+            }
+          },
+          {
+            text: "Fechar",
+          },
+        ]);
+      }
     }
     if (operator === '-' && bidUser != 0) {
       setBidUser(bidUser - 10)
