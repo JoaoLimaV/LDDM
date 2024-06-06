@@ -73,15 +73,16 @@ const userConfig: any = StyleSheet.create({
     },
 
     cep:{
-        width: '50%',
-        justifyContent: 'center',
-        alignSelf: 'center',
+        width: '100%',
+        justifyContent: 'center'
     },
 
     flex:{
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10
+        gap: 10,
+        marginTop: 20,
+
     },
 
     border:{
@@ -89,9 +90,10 @@ const userConfig: any = StyleSheet.create({
         borderColor: "#282832",
         borderRadius: 50,
         height: 50,
-        width: 40,
+        width: 60,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center'
     },
 
     flexEndereco:{
@@ -130,7 +132,20 @@ const userConfig: any = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         padding: 10
-    }
+    },
+
+    div_radio_btn: {
+        width: '80%',
+        height: 50,
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "#282832",
+        fontSize: 16,
+        fontFamily: 'Itim-Regular',
+        justifyContent: 'center',
+    },
+
+ 
 })
 
 

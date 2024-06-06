@@ -24,6 +24,9 @@ import {
   launchImageLibrary,
 } from 'react-native-image-picker'
 import ModalAddress from './ModalAddress'
+import RNPickerSelect from 'react-native-picker-select'
+import { selectCss } from '@styles/formProductStyle'
+import Accordion from '@components/Accordion'
 
 function UserConfig({ navigation }: any): React.JSX.Element {
   let [img, setImg] = useState('')
@@ -33,6 +36,9 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   let [phone, setPhone] = useState('')
 
   let [cep, setCep] = useState('')
+
+  let [enderecos, setEnderecos] = useState<any[]>([])
+  const [grading, setGrading] = useState(Number)
 
   let [rua, setRua] = useState('')
   let [cidade, setCidade] = useState('')
@@ -48,10 +54,9 @@ function UserConfig({ navigation }: any): React.JSX.Element {
     phone: null,
   })
 
-  // Objeto para armazenar os campos modificados
   const updatedFields: any = {}
 
-  const [file, setFile] = React.useState<any>(null)
+  const [file, setFile] = useState<any>(null)
 
   const getPerson = async (): Promise<void> => {
     const token = await getToken()
@@ -70,9 +75,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       setEmail(res.data.user.email)
       setPhone(res.data.user.phone)
       if (res.data.user.addresses[0]) {
-        setCep(res.data.user.addresses[0].cep)
-        setRua(res.data.user.addresses[0].complement)
-        setNumero(res.data.user.addresses[0].number.toString())
+        setEnderecos(res.data.user.addresses)
       } else {
         ToastShow(
           'info',
@@ -86,7 +89,6 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   }
 
   const putPerson = async (): Promise<void> => {
-    // Comparar e adicionar os campos modificados ao objeto updatedFields
     if (name !== originalData.name) updatedFields.name = name
     if (CPF !== originalData.cpf) updatedFields.cpf = CPF
     if (email !== originalData.email) updatedFields.email = email
@@ -105,7 +107,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         .put(`${process.env.API_URL}/updateUser`, updatedFields, config)
         .then((response) => {
           ToastShow('success', 'Sucesso', 'Informações alteradas')
-          setTimeout(function () { }, 2000)
+          setTimeout(function () {}, 2000)
         })
         .catch((error) => {
           ToastShow('error', 'ERRO', 'DESCUBRA FIO')
@@ -115,39 +117,8 @@ function UserConfig({ navigation }: any): React.JSX.Element {
     }
   }
 
-  const postAddress = async (): Promise<void> => {
-    const token = await getToken()
-    try {
-      const res = await axios.post(
-        `${process.env.API_URL}/postAddress`,
-        {
-          cep: cep,
-          complement: rua,
-          number: numero,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      ToastShow(
-        'success',
-        'Dados Atualizados',
-        'Seus dados foram atualizados com sucesso. ',
-      )
-    } catch (error) {
-      ToastShow(
-        'error',
-        'Erro ao Atualizados dados',
-        'Seus dados não foram atualizados',
-      )
-      console.error('Erro', error)
-    }
-  }
-
   const chooseTypePickImage = async () => {
-    console.log(CPF)
+    console.log(enderecos)
     Alert.alert(
       'Selecione',
       'Selecione como deseja selecionar a foto',
@@ -167,7 +138,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
       ],
       {
         cancelable: true,
-        onDismiss: () => { },
+        onDismiss: () => {},
       },
     )
   }
@@ -200,6 +171,23 @@ function UserConfig({ navigation }: any): React.JSX.Element {
     if (result?.assets) {
       setImg(result.assets[0].uri!)
       setFile(result.assets[0])
+    }
+  }
+
+  const viaCep = async (cep: string) => {
+    try {
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+      const data = response.data
+      if (!data.erro) {
+        setRua(data.logradouro)
+        setCidade(data.localidade)
+        setBairro(data.bairro)
+        setEstado(data.uf)
+      } else {
+        ToastShow('error', 'CEP Inválido', 'O CEP informado não foi encontrado')
+      }
+    } catch (error) {
+      console.error('Erro ao buscar o endereço:', error)
     }
   }
 
@@ -263,7 +251,10 @@ function UserConfig({ navigation }: any): React.JSX.Element {
               keyboardType="numeric"
               placeholderTextColor={'#D9D9D9'}
               secureTextEntry={false}
-              style={[defaultStyle.defaul_input, CPF == null && { borderColor: 'rgba(235, 201, 17, 0.8)' }]}
+              style={[
+                defaultStyle.defaul_input,
+                CPF == null && { borderColor: 'rgba(235, 201, 17, 0.8)' },
+              ]}
             />
           </View>
           <View>
@@ -302,121 +293,123 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         </View>
 
         <View style={styles.endereco}>
-          <View style={styles.cep}>
-            <Text style={[defaultStyle.text_black, styles.textInput]}>
-              CEP:
-            </Text>
-            <View style={styles.flex}>
-              <TextInputMask
-                id="cep"
-                value={cep}
-                type={'custom'}
-                options={{
-                  mask: '99999-999',
+          <View style={styles.flex}>
+            <View style={styles.div_radio_btn}>
+              <RNPickerSelect
+                placeholder={{
+                  label: 'Selecione o CEP',
+                  value: 0,
                 }}
-                onChangeText={setCep}
-                placeholder="11111-111"
-                keyboardType="numeric"
-                placeholderTextColor={'#D9D9D9'}
-                secureTextEntry={false}
-                style={[defaultStyle.defaul_input, cep == '' && { borderColor: 'rgba(235, 201, 17, 0.8)' }]}
-                maxLength={9}
+                onValueChange={(value) => {
+                  setGrading(value)
+                  viaCep(enderecos[value].cep)
+                }}
+                items={enderecos.map((end: any, index: number) => ({
+                  label: end.cep.replace(/^(\d{5})(\d{3})$/, '$1-$2'), // Formatar o CEP
+                  value: index,
+                }))}
+                style={selectCss}
               />
-              <View style={styles.border}>
-                <TouchableOpacity>
-                  <ModalAddress />
-                </TouchableOpacity>
-              </View>
+            </View>
+
+            <View style={styles.border}>
+              <TouchableOpacity>
+                <ModalAddress getPerson={getPerson} />
+              </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.rua}>
-            <Text style={[defaultStyle.text_black, styles.textInput]}>
-              Rua:
+          {enderecos.length > 0 ? (
+            <>
+              <View style={styles.rua}>
+                <Text style={[defaultStyle.text_black, styles.textInput]}>
+                  Rua:
+                </Text>
+                <TextInput
+                  value={rua}
+                  onChangeText={setRua}
+                  placeholder="Ex: Rua Brasil"
+                  keyboardType="default"
+                  placeholderTextColor={'#D9D9D9'}
+                  secureTextEntry={false}
+                  style={[defaultStyle.defaul_input]}
+                  editable={false}
+                />
+              </View>
+
+              <View style={styles.flexEndereco}>
+                <View style={styles.collunm1}>
+                  <View>
+                    <Text style={[defaultStyle.text_black, styles.textInput]}>
+                      Cidade:
+                    </Text>
+                    <TextInput
+                      value={cidade}
+                      onChangeText={setCidade}
+                      placeholder="Ex: Osasco"
+                      keyboardType="default"
+                      placeholderTextColor={'#D9D9D9'}
+                      secureTextEntry={false}
+                      style={[defaultStyle.defaul_input]}
+                      editable={false}
+                    />
+                  </View>
+                  <View>
+                    <Text style={[defaultStyle.text_black, styles.textInput]}>
+                      Bairro:
+                    </Text>
+                    <TextInput
+                      value={bairro}
+                      onChangeText={setBairro}
+                      placeholder="Ex: Jd.Aeroporto"
+                      keyboardType="default"
+                      placeholderTextColor={'#D9D9D9'}
+                      secureTextEntry={false}
+                      style={[defaultStyle.defaul_input]}
+                      editable={false}
+                    />
+                  </View>
+                </View>
+                <View style={styles.collunm2}>
+                  <View>
+                    <Text style={[defaultStyle.text_black, styles.textInput]}>
+                      Estado:
+                    </Text>
+                    <TextInput
+                      value={estado}
+                      onChangeText={setEstado}
+                      placeholder="Ex: SP"
+                      keyboardType="default"
+                      placeholderTextColor={'#D9D9D9'}
+                      secureTextEntry={false}
+                      style={[defaultStyle.defaul_input]}
+                      editable={false}
+                    />
+                  </View>
+
+                  <View>
+                    <Text style={[defaultStyle.text_black, styles.textInput]}>
+                      Número:
+                    </Text>
+                    <TextInput
+                      value={enderecos[grading].number.toString()}
+                      onChangeText={setNumero}
+                      placeholder="Ex: 11"
+                      keyboardType="default"
+                      placeholderTextColor={'#D9D9D9'}
+                      secureTextEntry={false}
+                      style={[defaultStyle.defaul_input]}
+                      editable={false}
+                    />
+                  </View>
+                </View>
+              </View>
+            </>
+          ) : (
+            <Text style={[styles.not_history_bid, defaultStyle.text_black]}>
+              Não há lances para este produto ainda. Seja o primeiro!
             </Text>
-            <TextInput
-              id="rua"
-              value={rua}
-              onChangeText={setRua}
-              placeholder="Ex: Rua Brasil"
-              keyboardType="default"
-              placeholderTextColor={'#D9D9D9'}
-              secureTextEntry={false}
-              style={[defaultStyle.defaul_input]}
-              editable={false}
-            />
-          </View>
-
-          <View style={styles.flexEndereco}>
-            <View style={styles.collunm1}>
-              <View>
-                <Text style={[defaultStyle.text_black, styles.textInput]}>
-                  Cidade:
-                </Text>
-                <TextInput
-                  id="city"
-                  value={cidade}
-                  onChangeText={setCidade}
-                  placeholder="Ex: Osasco"
-                  keyboardType="default"
-                  placeholderTextColor={'#D9D9D9'}
-                  secureTextEntry={false}
-                  style={[defaultStyle.defaul_input]}
-                  editable={false}
-                />
-              </View>
-              <View>
-                <Text style={[defaultStyle.text_black, styles.textInput]}>
-                  Bairro:
-                </Text>
-                <TextInput
-                  id="bairro"
-                  value={bairro}
-                  onChangeText={setBairro}
-                  placeholder="Ex: Jd.Aeroporto"
-                  keyboardType="default"
-                  placeholderTextColor={'#D9D9D9'}
-                  secureTextEntry={false}
-                  style={[defaultStyle.defaul_input]}
-                  editable={false}
-                />
-              </View>
-            </View>
-            <View style={styles.collunm2}>
-              <View>
-                <Text style={[defaultStyle.text_black, styles.textInput]}>
-                  Estado:
-                </Text>
-                <TextInput
-                  id="stade"
-                  value={estado}
-                  onChangeText={setEstado}
-                  placeholder="Ex: SP"
-                  keyboardType="default"
-                  placeholderTextColor={'#D9D9D9'}
-                  secureTextEntry={false}
-                  style={[defaultStyle.defaul_input]}
-                  editable={false}
-                />
-              </View>
-
-              <View>
-                <Text style={[defaultStyle.text_black, styles.textInput]}>
-                  Número:
-                </Text>
-                <TextInput
-                  id="number"
-                  value={numero}
-                  onChangeText={setNumero}
-                  placeholder="Ex: 11"
-                  keyboardType="default"
-                  placeholderTextColor={'#D9D9D9'}
-                  secureTextEntry={false}
-                  style={[defaultStyle.defaul_input]}
-                />
-              </View>
-            </View>
-          </View>
+          )}
         </View>
       </ScrollView>
       <Toast config={styleToast} />
