@@ -14,6 +14,8 @@ function Notify({ navigation }: any): React.JSX.Element {
 
     function iconNotify(type: number) {
         switch (type) {
+            case 0:
+                return <Icons.iconWelcome width={45} height={45} color={"#282832"} />;
             case 1:
                 return <Icons.iconWelcome width={45} height={45} color={"#282832"} />;
             case 2:
