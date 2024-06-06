@@ -400,7 +400,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
             </>
           ) : (
             <Text style={[styles.not_history_bid, defaultStyle.text_black]}>
-              Não há lances para este produto ainda. Seja o primeiro!
+              Não há CEP cadastrado
             </Text>
           )}
         </View>
