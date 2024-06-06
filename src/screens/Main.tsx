@@ -16,7 +16,7 @@ import Icons from '@icons/svgs'
 import axios from 'axios'
 import { useFocusEffect } from '@react-navigation/native'
 import { ToastShow } from '@components/Toast'
-import { useAlertNotLogin, userNotAuth } from '@components/Alert'
+import { useAlertNotLogin, userNotAuth, userCompleteCad } from '@components/Alert'
 
 import { getToken } from '@components/AuthStorage'
 
@@ -37,7 +37,7 @@ const truncateString = (str: string, max: number): string => {
 
 const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
   const alertNotLogin = useAlertNotLogin()
-
+  const alertUserCompleteCad = userCompleteCad()
   const alertUserNotAuth = userNotAuth();
 
   const [notLogin, setNotLogin] = React.useState<boolean>(true);
@@ -187,10 +187,12 @@ const Main: React.FC<{ navigation: any }> = ({ navigation }) => {
               console.log(statusUser)
             } else if (notLogin) {
               alertNotLogin();
-            } else {
+            } else if ( statusUser == 0){
+              alertUserCompleteCad();
+            }
+            else {
               alertUserNotAuth();
             }
-
           }}>
             <View style={{ marginBottom: 5 }}>
               <Icons.iconHammer width={25} height={25} color={'#6B63FF'} />

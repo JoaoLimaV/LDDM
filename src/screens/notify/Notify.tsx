@@ -15,7 +15,7 @@ function Notify({ navigation }: any): React.JSX.Element {
     function iconNotify(type: number) {
         switch (type) {
             case 0:
-                return <Icons.iconWelcome width={45} height={45} color={"#282832"} />;
+                return <Icons.iconParty width={45} height={45} color={"#282832"} />;
             case 1:
                 return <Icons.iconWelcome width={45} height={45} color={"#282832"} />;
             case 2:
@@ -28,13 +28,14 @@ function Notify({ navigation }: any): React.JSX.Element {
                 return <Icons.iconHammer width={45} height={45} color={"#282832"} />;
             case 6:
                 return <Icons.iconClock width={45} height={45} color={"#282832"} />;
-
             case 7:
                 return <Icons.iconBag width={45} height={45} color={"#282832"} />;
             case 8:
                 return <Icons.iconCart width={45} height={45} color={"#282832"} />;
             case 9:
                 return <Icons.iconBrokenHearth width={45} height={45} color={"#282832"} />;
+            case 10:
+                return <Icons.iconBag width={45} height={45} color={"#282832"} />;
             default:
 
                 return null;
