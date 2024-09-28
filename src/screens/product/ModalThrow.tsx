@@ -48,7 +48,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
                 id_product: id_product
               }
 
-              axios.post(`${process.env.API_URL}/registerBid/finish`, json, config)
+              axios.post(`${process.env.API_URL}/product/registerbid/finish`, json, config)
                 .then((response) => {
                   getProduct()
                   handleClose()
@@ -94,7 +94,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
       price: current_price + bidUser
     }
 
-    axios.post(`${process.env.API_URL}/registerBid`, json, config)
+    axios.post(`${process.env.API_URL}/product/registerbid`, json, config)
       .then((response) => {
         getProduct()
         handleClose()

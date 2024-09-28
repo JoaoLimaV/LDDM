@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation'
@@ -12,6 +12,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAlertNotLogin, userCompleteCad } from '@components/Alert'
+import contarRegressivamente from '../../../assets/functions/contarRegressivamente'
 
 function Product({ navigation, route }: any): React.JSX.Element {
 
@@ -21,14 +22,17 @@ function Product({ navigation, route }: any): React.JSX.Element {
 
   let { idProduct, notLogin, statusUser } = route.params;
   let [product, setProduct] = React.useState<any>({});
+  let [textEnd, setTextEnd] = React.useState<string>('');
+  let [dateNow, setDateNow] = React.useState<any>({});
 
   const getProduct = async () => {
 
     opendImgModal();
 
-    axios.get(`${process.env.API_URL}/getProduct/${idProduct}`)
+    axios.get(`${process.env.API_URL}/product/${idProduct}`)
       .then((response) => {
         setProduct(response.data.produto)
+        setDateNow(response.data.now)
         closeImgModal()
       })
       .catch((error) => {
@@ -52,6 +56,11 @@ function Product({ navigation, route }: any): React.JSX.Element {
     setOpenModal(false)
   };
 
+  useEffect(() => {
+    const limparIntervalo = contarRegressivamente(dateNow, product.end_at, setTextEnd);
+    return limparIntervalo;
+  }, [dateNow, product.end_at]);
+
   useFocusEffect(
     React.useCallback(() => {
       getProduct();
@@ -63,7 +72,7 @@ function Product({ navigation, route }: any): React.JSX.Element {
       <View style={{ paddingLeft: 15, paddingRight: 15 }}>
         <HeaderNavigation
           backScreen={'Main'}
-          title="Encerramento em: 1d 20h 20m 23s"
+          title={textEnd}
           icon={{ viewBox: '', fill: '', d: '' }}
         />
       </View>

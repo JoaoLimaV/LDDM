@@ -26,7 +26,7 @@ function TermoLeilao({ navigation, route }: any): React.JSX.Element {
       }
     };
 
-    axios.post(`${process.env.API_URL}/userToVendor`, {}, config)
+    axios.post(`${process.env.API_URL}/user/tovendor`, {}, config)
 
       .then((response) => {
         closeImgModal();

@@ -58,7 +58,7 @@ function Step2Register({ navigation, route }: any): React.JSX.Element {
       return
     }
 
-    axios.get(`${process.env.API_URL}/checkEmail/${inputValues.email}`)
+    axios.get(`${process.env.API_URL}/user/checkemail/${inputValues.email}`)
       .then((response) => {
         setWrongInput({
           ...wrongInput,
@@ -92,7 +92,7 @@ function Step2Register({ navigation, route }: any): React.JSX.Element {
     }
 
 
-    axios.get(`${process.env.API_URL}/checkPhone/${inputValues.phone.toString()}`)
+    axios.get(`${process.env.API_URL}/user/checkPhone/${inputValues.phone.toString()}`)
       .then(() => {
         setWrongInput({
           ...wrongInput,

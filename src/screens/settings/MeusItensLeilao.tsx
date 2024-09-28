@@ -37,7 +37,7 @@ function MeusItensLeilao({ navigation, route }: any): React.JSX.Element {
             }
         };
 
-        axios.get(`${process.env.API_URL}/getProductsByVendor`, config)
+        axios.get(`${process.env.API_URL}/product/byvendor`, config)
             .then((response) => {
                 setProducts(response.data.produtos)
                 closeImgModal()

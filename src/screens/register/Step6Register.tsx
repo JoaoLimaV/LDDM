@@ -36,7 +36,7 @@ function Step6Register({ navigation, route }: any): React.JSX.Element {
     }
       
 
-    await axios.post(`${process.env.API_URL}/register`, json)
+    await axios.post(`${process.env.API_URL}/user`, json)
       .then(async (response) => {
         ToastShow("success", "Usuario criado", 'Você será redirecionado em breve. Aguarde.') 
         setTimeout(() => {

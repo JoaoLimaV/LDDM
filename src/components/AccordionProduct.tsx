@@ -15,7 +15,7 @@ import Icons from '@icons/svgs'
 import defaultStyle from './DefaultStyle'
 import { useNavigation } from '@react-navigation/native';
 
-export default function AccordionProduct({
+export default function AccordionProduct ( {
   id,
   nome,
   data,

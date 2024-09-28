@@ -66,7 +66,7 @@ export default function ({getPerson}: any) {
     }
 
     try {
-      const response = await axios.post(`${process.env.API_URL}/createAddress`, json, config);
+      const response = await axios.post(`${process.env.API_URL}/user/createAddress`, json, config);
       getPerson()
       handleClose();
       ToastShow("success", "Dados Atualizados", 'Seu endereço foi atualizado');

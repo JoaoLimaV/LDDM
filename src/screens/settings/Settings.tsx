@@ -33,7 +33,7 @@ function Settings({ navigation, route }: any): React.JSX.Element {
     const token = await getToken()
 
     try {
-      const res = await axios.get(`${process.env.API_URL}/getUser`, {
+      const res = await axios.get(`${process.env.API_URL}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

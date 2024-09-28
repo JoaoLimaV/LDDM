@@ -49,7 +49,7 @@ function Login({ navigation }: any): React.JSX.Element {
       password: inputValues.password
     }
 
-    await axios.post(`${process.env.API_URL}/login`, json)
+    await axios.post(`${process.env.API_URL}/user/login`, json)
       .then(async (response) => {
         ToastShow("success", "Login realizado com sucesso", 'Você será direcionado em breve. ')
         return await response.data.token

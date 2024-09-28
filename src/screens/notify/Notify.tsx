@@ -53,7 +53,7 @@ function Notify({ navigation }: any): React.JSX.Element {
             }
         };
 
-        axios.get(`${process.env.API_URL}/getNotification`, config)
+        axios.get(`${process.env.API_URL}/user/notification`, config)
             .then((response) => {
                 setNotifys(response.data.notifications);
             })

@@ -61,7 +61,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
   const getPerson = async (): Promise<void> => {
     const token = await getToken()
     try {
-      const res = await axios.get(`${process.env.API_URL}/getUser`, {
+      const res = await axios.get(`${process.env.API_URL}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +104,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
         },
       }
       axios
-        .put(`${process.env.API_URL}/updateUser`, updatedFields, config)
+        .put(`${process.env.API_URL}/user`, updatedFields, config)
         .then((response) => {
           ToastShow('success', 'Sucesso', 'Informações alteradas')
           setTimeout(function () { }, 2000)

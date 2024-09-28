@@ -37,7 +37,7 @@ function MeusLances({ navigation, route }: any): React.JSX.Element {
             }
         };
 
-        axios.get(`${process.env.API_URL}/getProductsByCustomer`, config)
+        axios.get(`${process.env.API_URL}/product/byCustomer`, config)
             .then((response) => {
                 setProducts(response.data.produtos)
                 closeImgModal()
