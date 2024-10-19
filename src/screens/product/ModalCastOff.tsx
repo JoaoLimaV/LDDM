@@ -14,8 +14,15 @@ import Icons from '@icons/svgs'
 import { RadioButton } from 'react-native-paper'
 import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
+import { ToastShow, styleToast } from '@components/Toast'
+import Toast from 'react-native-toast-message'
 
-export default function ({ id_product, final_bid, callbackFunction, getProduct }: any) {
+export default function ({
+  id_product,
+  final_bid,
+  callbackFunction,
+  getProduct,
+}: any) {
   const [visible, setVisible] = useState(false)
 
   const [checked, setChecked] = useState('reject')
@@ -28,27 +35,28 @@ export default function ({ id_product, final_bid, callbackFunction, getProduct }
 
   const finishBid = async () => {
     setDisabled(true)
-    const token = await getToken();
+    const token = await getToken()
 
     let config = {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    };
-
-    let json = {
-      id_product: id_product
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     }
 
-    axios.post(`${process.env.API_URL}/product/registerbid/finish`, json, config)
+    let json = {
+      id_product: id_product,
+    }
+
+    axios
+      .post(`${process.env.API_URL}/product/registerbid/finish`, json, config)
       .then((response) => {
         getProduct()
         handleClose()
       })
       .catch((error) => {
-        console.error(error)
-      });
+        ToastShow('error', 'Erro', 'Você é o dono do leilão')
+      })
   }
 
   return (
@@ -56,6 +64,7 @@ export default function ({ id_product, final_bid, callbackFunction, getProduct }
       <Modal transparent={true} visible={visible}>
         <TouchableWithoutFeedback onPress={handleClose}>
           <View style={styleModal.container}>
+            <Toast config={styleToast} />
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
               <View style={styleModal.modal}>
                 <View style={styleModal.separator}>
@@ -89,9 +98,8 @@ export default function ({ id_product, final_bid, callbackFunction, getProduct }
                       onPress={() => {
                         setChecked('accept')
                         setDisabled(false)
-                        console.log(`teste`)
                       }}
-                      color='#282832'
+                      color="#282832"
                     />
                     <Text style={[defaultStyle.text_black]}>
                       Confirmar arremate
@@ -102,11 +110,17 @@ export default function ({ id_product, final_bid, callbackFunction, getProduct }
                 <View style={styleModal.separator}>
                   <View style={styleModal.throw}>
                     <TouchableOpacity
-                      style={[styleModal.btnThrow, defaultStyle.bg_blue, isDisabled && defaultStyle.disabled]}
+                      style={[
+                        styleModal.btnThrow,
+                        defaultStyle.bg_blue,
+                        isDisabled && defaultStyle.disabled,
+                      ]}
                       disabled={isDisabled}
                       onPress={finishBid}
                     >
-                      <Text style={[defaultStyle.text_white, styleModal.textBtn]}>
+                      <Text
+                        style={[defaultStyle.text_white, styleModal.textBtn]}
+                      >
                         Arrematar
                       </Text>
                     </TouchableOpacity>
@@ -120,7 +134,7 @@ export default function ({ id_product, final_bid, callbackFunction, getProduct }
 
       <TouchableOpacity
         onPress={() => {
-          let result = callbackFunction();
+          let result = callbackFunction()
           if (!result) {
             setVisible(true)
           }
@@ -180,7 +194,7 @@ const styleModal = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
-    height: 50
+    height: 50,
   },
 
   textBtn: {

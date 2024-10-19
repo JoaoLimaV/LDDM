@@ -19,6 +19,8 @@ import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
 import { useFocusEffect } from '@react-navigation/native'
 import { userCompleteCad, userNotAuth } from '@components/Alert'
+import { ToastShow, styleToast } from '@components/Toast'
+import Toast from 'react-native-toast-message'
 
 import styles from '@styles/settingStyle'
 
@@ -113,8 +115,10 @@ function Settings({ navigation, route }: any): React.JSX.Element {
               onPress={() => {
                 if (status == 0) {
                   alerUserCompleteCad()
-                } else {
+                } else if (status == 1){
                   navigation.navigate('TermoLeilao')
+                }else{
+                  ToastShow('error', 'Erro', 'Você já é um leiloeiro')
                 }
               }}
             >
@@ -218,6 +222,7 @@ function Settings({ navigation, route }: any): React.JSX.Element {
           <Spinner visible={true} />
         </View>
       )}
+      <Toast config={styleToast} />
     </Pressable>
   )
 }

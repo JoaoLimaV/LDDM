@@ -13,6 +13,8 @@ import defaultStyle from '@components/DefaultStyle'
 import styles from '@styles/productStyle'
 import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
+import { ToastShow, styleToast } from '@components/Toast'
+import Toast from 'react-native-toast-message'
 
 export default function ({ id_product, current_price, getProduct, callbackFunction, final_bid_price }: any) {
   const [visible, setVisible] = useState(false)
@@ -100,7 +102,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
         handleClose()
       })
       .catch((error) => {
-        console.error(error)
+        ToastShow('error', 'Erro', 'Você é o dono do leilão')
       });
   }
 
@@ -109,6 +111,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
       <Modal transparent={true} visible={visible}>
         <TouchableWithoutFeedback onPress={handleClose}>
           <View style={styleModal.container}>
+            <Toast config={styleToast} />
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
               <View style={styleModal.modal}>
                 <View style={styleModal.separator}>
@@ -182,9 +185,9 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
       <TouchableOpacity
         onPress={() => {
           let result = callbackFunction();
-          if (!result) {
+            if(!result) {
             setVisible(true)
-          }
+            }
         }}
       >
         <Text
@@ -194,6 +197,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
         </Text>
       </TouchableOpacity>
     </View>
+    
   )
 }
 
