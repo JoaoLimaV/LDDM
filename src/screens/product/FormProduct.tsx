@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation'
-import { formProductStyle as styles, selectCss } from '@styles/formProductStyle'
+import { formProductStyle as styles, selectCss, formProductStyle } from '@styles/formProductStyle'
 import Icons from '@icons/svgs'
 import {
   CameraOptions,
@@ -285,7 +285,13 @@ function FormProduct(): React.JSX.Element {
             }
           />
 
-          <Text style={defaultStyle.errorTextInput}> </Text>
+
+          {inputValues.price ? (
+            <Text style={formProductStyle.textPorcent}>
+              10% de {inputValues.price} ={' '}
+              {parseInt(inputValues.price) / 10}
+            </Text>
+          ) : <Text style={defaultStyle.errorTextInput}> </Text>}
 
           <TextInput
             placeholder="Preço de Arremate"
@@ -299,7 +305,16 @@ function FormProduct(): React.JSX.Element {
             }
           />
 
-          <Text style={defaultStyle.errorTextInput}> </Text>
+          
+
+          {inputValues.final_bid_price ? (
+            <>
+            <Text style={formProductStyle.textPorcent}>
+              10% de {inputValues.final_bid_price} ={' '}
+              {parseInt(inputValues.final_bid_price) / 10}
+            </Text>
+            </>
+          ) : <Text style={defaultStyle.errorTextInput}> </Text>}
 
           <TextInput
             placeholder="Duração do Leilão em Dias (No maximo 30)"
@@ -311,9 +326,9 @@ function FormProduct(): React.JSX.Element {
             onChangeText={(value) => {
               if (parseInt(value) >= 31) {
                 ToastShow('error', 'Erro', 'No maximo 30 dias')
-              }else if(parseInt(value) == 0){
+              } else if (parseInt(value) == 0) {
                 ToastShow('error', 'Erro', 'No minino 1 dia')
-              }else{
+              } else {
                 handleInputChange('duration', value.replace(/\D/g, ''))
               }
             }}

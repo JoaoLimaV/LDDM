@@ -98,7 +98,15 @@ export const formProductStyle = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 1,
-    }
+    },
+
+    textPorcent: {
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        textAlign: 'right',
+        paddingVertical: 5
+    },
+
 })
 
 
