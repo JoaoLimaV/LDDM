@@ -25,7 +25,7 @@ import {
 import { getToken } from '@components/AuthStorage'
 
 import styles from '@styles/mainStyle'
-import contarRegressivamente from '../../assets/functions/contarRegressivamente'
+import contarRegressivamente from '../../assets/functions/contarRegressivamente.js'
 import Card from '@components/Card'
 
 interface Produto {

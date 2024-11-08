@@ -12,7 +12,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAlertNotLogin, userCompleteCad } from '@components/Alert'
-import contarRegressivamente from '../../../assets/functions/contarRegressivamente'
+import contarRegressivamente from '../../../assets/functions/contarRegressivamente.js'
 
 function Product({ navigation, route }: any): React.JSX.Element {
 

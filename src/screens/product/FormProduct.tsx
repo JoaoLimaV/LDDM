@@ -144,10 +144,10 @@ function FormProduct(): React.JSX.Element {
       name: inputValues.nome,
       desc: inputValues.desc,
       grading: inputValues.grading,
-      start_price: inputValues.price,
-      final_bid_price: inputValues.final_bid_price,
-      duration: inputValues.duration,
+      start_price: parseInt(inputValues.price),
+      final_bid_price: parseInt(inputValues.final_bid_price),
       imageBase64: file.base64,
+      daysToEnd: parseInt(inputValues.duration),
     }
 
     axios
@@ -164,7 +164,9 @@ function FormProduct(): React.JSX.Element {
         }, 2000)
       })
       .catch((error) => {
-        ToastShow('error', 'ERRO', 'DESCUBRA FIO')
+        ToastShow('error', 'ERRO', error)
+        console.log(error.response.data)
+        console.log(error.request)
       })
   }
 
@@ -285,7 +287,6 @@ function FormProduct(): React.JSX.Element {
             }
           />
 
-
           {inputValues.price ? (
             <Text style={formProductStyle.textPorcent}>
               10% de {inputValues.price} ={' '}
@@ -304,8 +305,6 @@ function FormProduct(): React.JSX.Element {
               handleInputChange('final_bid_price', value.replace(/\D/g, ''))
             }
           />
-
-          
 
           {inputValues.final_bid_price ? (
             <>

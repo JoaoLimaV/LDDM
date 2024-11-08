@@ -1,3 +1,5 @@
+// utils/contagemRegressiva.js
+
 function contarRegressivamente(criadoEm, finalEm, setTextEnd) {
   const criadoDate = new Date(criadoEm);
   const finalDate = new Date(finalEm);
@@ -18,13 +20,16 @@ function contarRegressivamente(criadoEm, finalEm, setTextEnd) {
       return;
     }
 
-    const horas = Math.floor(tempoRestante / 3600);
+    const dias = Math.floor(tempoRestante / (3600 * 24));
+    const horas = Math.floor((tempoRestante % (3600 * 24)) / 3600);
     const minutos = Math.floor((tempoRestante % 3600) / 60);
     const segundos = tempoRestante % 60;
 
     const formatarTempo = (valor) => String(valor).padStart(2, '0');
 
-    setTextEnd(`${formatarTempo(horas)}h ${formatarTempo(minutos)}m ${formatarTempo(segundos)}s`);
+    setTextEnd(
+      `${formatarTempo(dias)}d ${formatarTempo(horas)}h ${formatarTempo(minutos)}m ${formatarTempo(segundos)}s`
+    );
 
     tempoRestante--;
   }, 1000);
@@ -32,4 +37,4 @@ function contarRegressivamente(criadoEm, finalEm, setTextEnd) {
   return () => clearInterval(interval); // Limpar o intervalo ao desmontar
 }
 
-export default contarRegressivamente
+export default contarRegressivamente;

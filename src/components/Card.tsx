@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import styles from '@styles/mainStyle'
 import defaultStyle from '@components/DefaultStyle'
 import Icons from '@icons/svgs'
-import contarRegressivamente from '../../assets/functions/contarRegressivamente'
+import contarRegressivamente from '../../assets/functions/contarRegressivamente.js'
 
 const MAX_LENGTH = 20
 
