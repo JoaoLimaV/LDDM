@@ -19,7 +19,6 @@ function Login({ navigation }: any): React.JSX.Element {
   });
 
   const [isDisabled, setDisabled] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [hiddenInput, setHiddenInput] = useState<InterfaceHiddenPassword>({
     password: { hidden: true },

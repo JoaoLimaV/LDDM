@@ -110,7 +110,7 @@ function UserConfig({ navigation }: any): React.JSX.Element {
           setTimeout(function () { }, 2000)
         })
         .catch((error) => {
-          ToastShow('error', 'ERRO', 'DESCUBRA FIO')
+          ToastShow('error', 'ERRO', 'Erro ao Enviar Dados')
         })
     } else {
       ToastShow('error', 'ERRO', 'Voce não alterou nenhum campo')

@@ -76,6 +76,7 @@ function FormProduct(): React.JSX.Element {
   const pickImageFromGalery = async () => {
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
+      selectionLimit: 3,
       includeBase64: true,
     }
 
@@ -164,9 +165,7 @@ function FormProduct(): React.JSX.Element {
         }, 2000)
       })
       .catch((error) => {
-        ToastShow('error', 'ERRO', error)
-        console.log(error.response.data)
-        console.log(error.request)
+        ToastShow('error', 'ERRO', 'Erro ao Enviar Produto')
       })
   }
 

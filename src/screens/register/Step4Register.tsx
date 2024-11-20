@@ -17,7 +17,6 @@ function Step4Register({ navigation, route }: any): React.JSX.Element {
 
     const sendVerifyCode = async () => {
         setIsLoading(true)
-
         await axios.get(`${process.env.API_URL}/sendCode/email/${user_email}`)
             .then(async (response) => {
                 ToastShow('success', 'Email enviado', 'Você será redirecionado em breve. Aguarde')

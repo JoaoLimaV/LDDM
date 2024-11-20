@@ -57,7 +57,7 @@ const loginStyle: any = StyleSheet.create({
       width: "100%",
       height: 50,
       borderRadius: 50,
-      paddingLeft: 20,
+      paddingLeft: 13,
       paddingRight: 20,
       borderWidth: 2,
       borderColor: "#282832",
@@ -66,13 +66,19 @@ const loginStyle: any = StyleSheet.create({
       color: '#282832',
       fontFamily: 'Itim-Regular',
       fontSize: 16,
-  
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center'
     },
+
     inv_input: {
-      width: '90%'
+      width: '90%',
+      height: 50,
+      borderRadius: 50,
+      marginTop: 5,
+      color: '#282832',
+      fontFamily: 'Itim-Regular',
+      fontSize: 16
     },
   
   });
