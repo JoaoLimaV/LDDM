@@ -38,11 +38,12 @@ export const formProductStyle = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: 10,
         paddingRight: 10,
+        marginBottom: 5,
     },
     file_info_div: {
         width: '70%',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     file_text_div: {
         paddingLeft: 5

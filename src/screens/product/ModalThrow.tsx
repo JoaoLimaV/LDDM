@@ -135,19 +135,19 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
                     </View>
 
                     <View style={styleModal.btn}>
-                      <TouchableOpacity style={styleModal.border} onPress={() => {
-                        handleBidUser('+')
-                      }}>
-                        <Text style={[defaultStyle.text_black, styleModal.textBtn]}>
-                          +
-                        </Text>
-                      </TouchableOpacity>
                       <TouchableOpacity style={styleModal.border}>
                         <Text style={[defaultStyle.text_black, styleModal.textBtn]}
                           onPress={() => {
                             handleBidUser('-')
                           }}>
                           -
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styleModal.border} onPress={() => {
+                        handleBidUser('+')
+                      }}>
+                        <Text style={[defaultStyle.text_black, styleModal.textBtn]}>
+                          +
                         </Text>
                       </TouchableOpacity>
                     </View>

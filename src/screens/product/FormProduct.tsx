@@ -10,7 +10,11 @@ import {
 } from 'react-native'
 import defaultStyle from '@components/DefaultStyle'
 import HeaderNavigation from '@components/HeaderNavigation'
-import { formProductStyle as styles, selectCss, formProductStyle } from '@styles/formProductStyle'
+import {
+  formProductStyle as styles,
+  selectCss,
+  formProductStyle,
+} from '@styles/formProductStyle'
 import Icons from '@icons/svgs'
 import {
   CameraOptions,
@@ -24,6 +28,7 @@ import { getToken } from '@components/AuthStorage'
 import Toast from 'react-native-toast-message'
 import { ToastShow, styleToast } from '@components/Toast'
 import { useNavigation } from '@react-navigation/native'
+import ImageModal from '@components/ImageModal'
 
 function FormProduct(): React.JSX.Element {
   const navigation = useNavigation()
@@ -45,10 +50,17 @@ function FormProduct(): React.JSX.Element {
     })
   }
 
-  const [file, setFile] = React.useState<any>(null)
+  const [imgViewModal, setImgViewModal] = React.useState<any>({})
+  const [file, setFile] = React.useState<any[]>([])
   const [openModal, setOpenModal] = React.useState<boolean>(false)
 
   const chooseTypePickImage = async () => {
+
+    if (file.length >= 3) {
+      ToastShow('error', 'Limite de Imagens', 'Você já selecionou o limite de 3 imagens.');
+      return; 
+    }
+
     Alert.alert(
       'Selecione',
       'Selecione como deseja selecionar a foto',
@@ -76,14 +88,14 @@ function FormProduct(): React.JSX.Element {
   const pickImageFromGalery = async () => {
     const options: ImageLibraryOptions = {
       mediaType: 'photo',
-      selectionLimit: 3,
+      selectionLimit: 1,
       includeBase64: true,
     }
 
     const result = await launchImageLibrary(options)
 
     if (result?.assets) {
-      setFile(result.assets[0])
+      setFile([...file, result.assets[0]])
     }
   }
 
@@ -99,13 +111,14 @@ function FormProduct(): React.JSX.Element {
     const result = await launchCamera(options)
 
     if (result?.assets) {
-      setFile(result.assets[0])
+      setFile([...file, result.assets[0]])
     }
   }
 
-  const clearFile = async () => {
-    setFile(null)
-  }
+  const clearFile = async (index: number) => {
+    setFile((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+  
 
   const opendImgModal = async () => {
     setOpenModal(true)
@@ -132,6 +145,12 @@ function FormProduct(): React.JSX.Element {
   }, [chooseTypePickImage, handleInputChange])
 
   const saveProduct = async () => {
+    
+    if (file.length < 3) {
+      ToastShow('error', 'Selecione mais Imagem', 'Você precisa selecionar 3 imagens.');
+      return; 
+    }
+
     const token = await getToken()
 
     let config = {
@@ -147,9 +166,11 @@ function FormProduct(): React.JSX.Element {
       grading: inputValues.grading,
       start_price: parseInt(inputValues.price),
       final_bid_price: parseInt(inputValues.final_bid_price),
-      imageBase64: file.base64,
+      imageBase64: [file[0].base64, file[1].base64, file[2].base64],
       daysToEnd: parseInt(inputValues.duration),
     }
+
+    
 
     axios
       .post(`${process.env.API_URL}/product`, json, config)
@@ -192,8 +213,8 @@ function FormProduct(): React.JSX.Element {
             <Icons.iconUploadCloud width={80} height={80} color="#6B63FF" />
           </TouchableOpacity>
 
-          {file && (
-            <View style={styles.div_files_uploaded}>
+          {file.map((item, index) => (
+            <View key={index} style={styles.div_files_uploaded}>
               <View style={styles.file_info_div}>
                 <Icons.iconUploadImage width={33} height={33} color="#6B63FF" />
                 <View style={styles.file_text_div}>
@@ -202,29 +223,30 @@ function FormProduct(): React.JSX.Element {
                     ellipsizeMode="tail"
                     style={[styles.text_file, defaultStyle.text_black]}
                   >
-                    {' '}
-                    {file.fileName}{' '}
+                    {item.fileName}
                   </Text>
                   <Text style={[styles.text_file, defaultStyle.text_blue]}>
-                    {' '}
-                    {file.fileSize} KB{' '}
+                    {item.fileSize} KB
                   </Text>
                 </View>
               </View>
               <View style={styles.file_btn_div}>
                 <TouchableOpacity
                   style={[styles.btn_file]}
-                  onPress={opendImgModal}
+                  onPress={() => {opendImgModal(); setImgViewModal(item)} }
                 >
                   <Icons.iconEye width={18} height={18} color="#282832" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.btn_file]} onPress={clearFile}>
+                <TouchableOpacity
+                  style={[styles.btn_file]}
+                  onPress={() => clearFile(index)}
+                >
                   <Icons.iconClose width={14} height={14} color="#BA090B" />
                 </TouchableOpacity>
               </View>
             </View>
-          )}
+          ))}
         </View>
 
         <View style={styles.div_input}>
@@ -288,10 +310,11 @@ function FormProduct(): React.JSX.Element {
 
           {inputValues.price ? (
             <Text style={formProductStyle.textPorcent}>
-              10% de {inputValues.price} ={' '}
-              {parseInt(inputValues.price) / 10}
+              10% de {inputValues.price} = {parseInt(inputValues.price) / 10}
             </Text>
-          ) : <Text style={defaultStyle.errorTextInput}> </Text>}
+          ) : (
+            <Text style={defaultStyle.errorTextInput}> </Text>
+          )}
 
           <TextInput
             placeholder="Preço de Arremate"
@@ -307,12 +330,14 @@ function FormProduct(): React.JSX.Element {
 
           {inputValues.final_bid_price ? (
             <>
-            <Text style={formProductStyle.textPorcent}>
-              10% de {inputValues.final_bid_price} ={' '}
-              {parseInt(inputValues.final_bid_price) / 10}
-            </Text>
+              <Text style={formProductStyle.textPorcent}>
+                10% de {inputValues.final_bid_price} ={' '}
+                {parseInt(inputValues.final_bid_price) / 10}
+              </Text>
             </>
-          ) : <Text style={defaultStyle.errorTextInput}> </Text>}
+          ) : (
+            <Text style={defaultStyle.errorTextInput}> </Text>
+          )}
 
           <TextInput
             placeholder="Duração do Leilão em Dias (No maximo 30)"
@@ -353,23 +378,8 @@ function FormProduct(): React.JSX.Element {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-      {file && openModal && (
-        <TouchableOpacity style={[defaultStyle.modal]} onPress={closeImgModal}>
-          <View
-            style={{
-              width: 400,
-              height: 400,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Image
-              source={{ uri: file.uri }}
-              style={{ width: '90%', height: '90%', resizeMode: 'contain' }}
-            />
-          </View>
-        </TouchableOpacity>
-      )}
+
+      <ImageModal file={imgViewModal} openModal={openModal} closeImgModal={closeImgModal} />
 
       <Toast config={styleToast} />
     </View>

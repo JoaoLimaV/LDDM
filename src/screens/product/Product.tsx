@@ -87,30 +87,7 @@ function Product({ navigation, route }: any): React.JSX.Element {
               <View style={styles.imgPrinc}>
                 <Image source={{ uri: imageUrl }} style={styles.image} />
               </View>
-
-              {/* <View style={styles.imgSec}>
-                <Image
-                  style={styles.image_small}
-                  source={require('@images/carta.jpg')}
-                />
-                <Image
-                  style={styles.image_small}
-                  source={require('@images/carta.jpg')}
-                />
-              </View> */}
             </View>
-
-            {/* <View style={styles.divBtnSlide}>
-              <TouchableOpacity
-                style={[styles.btnSlide, defaultStyle.bg_black]}
-              ></TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.btnSlide, defaultStyle.bg_black]}
-              ></TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.btnSlide, defaultStyle.bg_black]}
-              ></TouchableOpacity>
-            </View> */}
           </View>
 
           <View style={styles.divDetails}>
