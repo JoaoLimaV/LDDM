@@ -6,31 +6,25 @@ const productStyle = StyleSheet.create({
     paddingHorizontal: 10
   },
 
-  base: {
-  },
-
-  slide: {
-    padding: 0
-  },
-
   imagens: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%',
   },
 
   imgPrinc: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    maxHeight: 350,
-    maxWidth: 200
+    width: 300, // Increased size for centralizing the image
+    height: 350,
+    overflow: 'hidden',
   },
 
   image: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
 
   image_small: {
@@ -47,10 +41,10 @@ const productStyle = StyleSheet.create({
   },
 
   btnSlide: {
-    width: 9,
-    height: 9,
-    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
   divDetails: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -126,6 +120,19 @@ const productStyle = StyleSheet.create({
     fontSize: 20,
     opacity: .5,
     marginTop: 10
+  },
+
+  slide: {
+    marginTop: 20,
+  },
+
+  imageSlider: {
+    width: '100%',
+    height: 350,
+  },
+
+  tamanhoSeta:{
+    fontSize: 40
   }
 })
 

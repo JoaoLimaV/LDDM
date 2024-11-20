@@ -8,28 +8,27 @@ import Accordion from '@components/Accordion'
 import ModalThrow from '@screens/product/ModalThrow'
 import ModalCastOff from './ModalCastOff'
 
-import Spinner from 'react-native-loading-spinner-overlay';
-import axios from 'axios';
-import { useFocusEffect } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay'
+import axios from 'axios'
+import { useFocusEffect } from '@react-navigation/native'
 import { useAlertNotLogin, userCompleteCad } from '@components/Alert'
 import contarRegressivamente from '../../../assets/functions/contarRegressivamente.js'
 
 function Product({ navigation, route }: any): React.JSX.Element {
+  const alertNotLogin = useAlertNotLogin()
+  const alertCompleteCad = userCompleteCad()
 
-  const alertNotLogin = useAlertNotLogin();
-  const alertCompleteCad = userCompleteCad();
-
-
-  let { idProduct, notLogin, statusUser } = route.params;
-  let [product, setProduct] = React.useState<any>({});
-  let [textEnd, setTextEnd] = React.useState<string>('');
-  let [dateNow, setDateNow] = React.useState<any>({});
+  let { idProduct, notLogin, statusUser } = route.params
+  let [product, setProduct] = React.useState<any>({})
+  let [textEnd, setTextEnd] = React.useState<string>('')
+  let [dateNow, setDateNow] = React.useState<any>({})
+  const [currentImageIndex, setCurrentImageIndex] = React.useState<number>(0)
 
   const getProduct = async () => {
+    opendImgModal()
 
-    opendImgModal();
-
-    axios.get(`${process.env.API_URL}/product/${idProduct}`)
+    axios
+      .get(`${process.env.API_URL}/product/${idProduct}`)
       .then((response) => {
         setProduct(response.data.produto)
         setDateNow(response.data.now)
@@ -37,38 +36,71 @@ function Product({ navigation, route }: any): React.JSX.Element {
       })
       .catch((error) => {
         console.error(error)
-      });
+      })
   }
 
-  const imageUrl = product && product.images && product.images.length > 0
-    ? product.images[0]
-    : 'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png';
+  const imageUrl = [
+    'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png',
+    'https://images.tcdn.com.br/img/img_prod/606732/produto_teste_3919_1_85010fa0e84b19ffcfe78386f6f702cd_20240903120335.jpg',
+    'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png',
+  ]
 
-  // Modal 
-
-  const [openModal, setOpenModal] = React.useState<boolean>(true);
+  const [openModal, setOpenModal] = React.useState<boolean>(true)
 
   const opendImgModal = async () => {
     setOpenModal(true)
-  };
+  }
 
   const closeImgModal = async () => {
     setOpenModal(false)
-  };
+  }
+
+  const handleNextImage = () => {
+    if (currentImageIndex < imageUrl.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1)
+    }
+  }
+
+  const handlePrevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1)
+    }
+  }
 
   useEffect(() => {
-    const limparIntervalo = contarRegressivamente(dateNow, product.end_at, setTextEnd);
-    return limparIntervalo;
-  }, [dateNow, product.end_at]);
+    if (product.status_name == "Em lance") {
+    const limparIntervalo = contarRegressivamente(
+      dateNow,
+      product.end_at,
+      setTextEnd,
+    )
+    return limparIntervalo
+  }
+    else{
+      setTextEnd("Encerrado")
+    }
+  }, [dateNow, product.end_at])
 
   useFocusEffect(
     React.useCallback(() => {
-      getProduct();
-    }, [])
-  );
+      getProduct()
+      console.log(product)
+    }, []),
+  )
 
   return (
-    <View style={[defaultStyle.main_container, { padding: 0, paddingTop: 15, paddingBottom: 15, paddingLeft: 0, paddingRight: 0 }]}>
+    <View
+      style={[
+        defaultStyle.main_container,
+        {
+          padding: 0,
+          paddingTop: 15,
+          paddingBottom: 15,
+          paddingLeft: 0,
+          paddingRight: 0,
+        },
+      ]}
+    >
       <View style={{ paddingLeft: 15, paddingRight: 15 }}>
         <HeaderNavigation
           backScreen={'Main'}
@@ -78,15 +110,32 @@ function Product({ navigation, route }: any): React.JSX.Element {
       </View>
 
       <ScrollView style={styles.scroll_view}>
-        <View style={styles.base}>
-          <Text style={[defaultStyle.text_black, { fontSize: 30, textAlign: 'center', marginTop: 30 }]}>
+        <View>
+          <Text
+            style={[
+              defaultStyle.text_black,
+              { fontSize: 30, textAlign: 'center', marginTop: 30 },
+            ]}
+          >
             {product.status_name}
           </Text>
+
           <View style={styles.slide}>
             <View style={styles.imagens}>
+              <TouchableOpacity onPress={handlePrevImage} style={styles.btnSlide}>
+                <Text style={styles.tamanhoSeta}>{'<'}</Text>
+              </TouchableOpacity>
+
               <View style={styles.imgPrinc}>
-                <Image source={{ uri: imageUrl }} style={styles.image} />
+                <Image
+                  source={{ uri: imageUrl[currentImageIndex] }}
+                  style={styles.image}
+                />
               </View>
+
+              <TouchableOpacity onPress={handleNextImage} style={styles.btnSlide}>
+                <Text style={styles.tamanhoSeta}>{'>'}</Text>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -133,8 +182,12 @@ function Product({ navigation, route }: any): React.JSX.Element {
                 <Accordion
                   key={index}
                   title={`Lance: R$ ${bid.price.toFixed(2)}`}
-                  data={new Date(bid.bid_created_at).toLocaleDateString('pt-BR')}
-                  hora={new Date(bid.bid_created_at).toLocaleTimeString('pt-BR')}
+                  data={new Date(bid.bid_created_at).toLocaleDateString(
+                    'pt-BR',
+                  )}
+                  hora={new Date(bid.bid_created_at).toLocaleTimeString(
+                    'pt-BR',
+                  )}
                   price={bid.price}
                   percentage={bid.percentage}
                 />
@@ -153,11 +206,12 @@ function Product({ navigation, route }: any): React.JSX.Element {
           <Text style={[defaultStyle.text_black, styles.throw]}>
             Lance Atual
           </Text>
-          <Text style={[defaultStyle.text_black, styles.value]}>R$ {product.current_price}</Text>
+          <Text style={[defaultStyle.text_black, styles.value]}>
+            R$ {product.current_price}
+          </Text>
         </View>
         <View style={styles.divBtn}>
-
-          {product.status_name !== "Finalizado" && (
+          {product.status_name !== 'Finalizado' && (
             <>
               <ModalThrow
                 id_product={product.id}
@@ -165,11 +219,11 @@ function Product({ navigation, route }: any): React.JSX.Element {
                 getProduct={getProduct}
                 callbackFunction={() => {
                   if (notLogin) {
-                    alertNotLogin();
-                    return true;
+                    alertNotLogin()
+                    return true
                   } else if (statusUser === 0) {
-                    alertCompleteCad();
-                    return true;
+                    alertCompleteCad()
+                    return true
                   }
                 }}
                 final_bid_price={product.final_bid_price}
@@ -180,11 +234,11 @@ function Product({ navigation, route }: any): React.JSX.Element {
                 getProduct={getProduct}
                 callbackFunction={() => {
                   if (notLogin) {
-                    alertNotLogin();
-                    return true;
+                    alertNotLogin()
+                    return true
                   } else if (statusUser === 0) {
-                    alertCompleteCad();
-                    return true;
+                    alertCompleteCad()
+                    return true
                   }
                 }}
               />
@@ -193,13 +247,11 @@ function Product({ navigation, route }: any): React.JSX.Element {
         </View>
       </View>
 
-      {openModal &&
-        <View style={[defaultStyle.modal]} >
-          <Spinner
-            visible={true}
-          />
+      {openModal && (
+        <View style={[defaultStyle.modal]}>
+          <Spinner visible={true} />
         </View>
-      }
+      )}
     </View>
   )
 }

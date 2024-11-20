@@ -16,6 +16,7 @@ import axios from 'axios'
 import { getToken } from '@components/AuthStorage'
 import { ToastShow, styleToast } from '@components/Toast'
 import Toast from 'react-native-toast-message'
+import { err } from 'react-native-svg'
 
 export default function ({
   id_product,
@@ -55,7 +56,8 @@ export default function ({
         handleClose()
       })
       .catch((error) => {
-        ToastShow('error', 'Erro', 'Você é o dono do leilão')
+        ToastShow('error', 'Erro', 'Erro')
+        console.log(error)
       })
   }
 

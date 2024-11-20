@@ -102,7 +102,7 @@ export default function ({ id_product, current_price, getProduct, callbackFuncti
         handleClose()
       })
       .catch((error) => {
-        ToastShow('error', 'Erro', 'Você é o dono do leilão')
+        ToastShow('error', 'Erro', error.response.data.message)
       });
   }
 
