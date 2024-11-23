@@ -32,18 +32,18 @@ function Product({ navigation, route }: any): React.JSX.Element {
       .then((response) => {
         setProduct(response.data.produto)
         setDateNow(response.data.now)
+        console.log(response.data)
         closeImgModal()
       })
       .catch((error) => {
         console.error(error)
+        
       })
   }
 
-  const imageUrl = [
-    'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png',
-    'https://images.tcdn.com.br/img/img_prod/606732/produto_teste_3919_1_85010fa0e84b19ffcfe78386f6f702cd_20240903120335.jpg',
-    'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png',
-  ]
+  const imageUrl = product.images || [
+    'https://www.tiffincurry.ca/wp-content/uploads/2021/02/default-product.png'
+  ];
 
   const [openModal, setOpenModal] = React.useState<boolean>(true)
 

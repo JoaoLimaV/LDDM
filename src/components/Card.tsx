@@ -7,6 +7,9 @@ import styles from '@styles/mainStyle'
 import defaultStyle from '@components/DefaultStyle'
 import Icons from '@icons/svgs'
 import contarRegressivamente from '../../assets/functions/contarRegressivamente.js'
+import axios from 'axios'
+import { ToastShow } from '@components/Toast';
+import { getToken } from '@components/AuthStorage';
 
 const MAX_LENGTH = 20
 
@@ -27,6 +30,33 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ notLogin, statusUser, id, name, images, currentPrice, dateNow, endAt }) => {
   const [sTextEnd, setsTextEnd] = useState<string>('')
+  const [fav, setFav] = useState<boolean>(false)
+
+const Favoritar = async () => {
+
+  const token = await getToken();
+
+  let config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }
+
+  let json = {
+    idProduct : id
+  }
+      try {
+        const res = await axios.post(`${process.env.API_URL}/product/favorites`, json, config);
+        ToastShow(
+          'success',
+          'Produto Favoritado',
+          'Esse produto foi favoritado.',
+        )
+      } catch (error) {
+        console.log('Erro', error);
+      }
+}
 
   useEffect(() => {
     const limparIntervalo = contarRegressivamente(dateNow, endAt, setsTextEnd)
@@ -68,12 +98,24 @@ const Card: React.FC<CardProps> = ({ notLogin, statusUser, id, name, images, cur
             {currentPrice}
           </Text>
         </View>
-        <Icons.iconStar
-          width={30}
-          height={25}
-          color={'#6B63FF'}
-          isFilled={false}
-        />
+        <TouchableOpacity 
+          onPress={ async () => {
+            const token = await getToken();
+
+           if(fav == true && token){
+              Favoritar()
+            }else{
+             setFav(true)
+           }
+          }}
+        >
+          <Icons.iconStar
+            width={30}
+            height={25}
+            color={'#6B63FF'}
+            isFilled={fav}
+          />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   )
